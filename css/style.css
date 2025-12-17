@@ -1,0 +1,673 @@
+@import url("https://fonts.googleapis.com/css2?family=Prompt:wght@300&display=swap");
+
+@keyframes loadInAnimation {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 100;
+	}
+}
+
+:root {
+	--inputbg: #3c096c;
+	--inputborder: #5a189a;
+	--uibg: #240046;
+	--textcolor: #fff;
+	--bg: #10002b;
+	--margin: 4rem;
+}
+.hiddenUpload {
+	display: none;
+	visibility: hidden;
+}
+* {
+	transition-duration: 0.5s;
+	outline: none;
+	border: none;
+	box-sizing: border-box;
+	align-content: center;
+	text-align: center;
+	font-family: "Prompt", sans-serif;
+	color: var(--textcolor);
+}
+body {
+	margin: 0;
+	padding: 0;
+	background: var(--bg);
+	color: var(--textcolor);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+header,
+footer {
+    background-color: var(--uibg);
+    display: flex;
+	border-bottom: none;
+	font-weight:700;
+    padding: 0.7rem;
+    width: 100%;
+    z-index: 1;
+    justify-content: center;
+    text-align: center; 
+    text-decoration: none;
+}
+
+#time {
+font-weight:100;
+}
+header {
+    top: 0;
+    border-radius: 0 0 20px 20px;
+    position: fixed;
+    box-shadow: 0 5px 10px var(--uibg);
+}
+
+footer.noscroll {
+    position: fixed;
+    overflow: hidden;
+}
+
+footer {
+    bottom: 0;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -5px 10px var(--uibg);
+}
+
+footer a,
+footer a:visited,
+header a,
+header a:visited {
+    margin-right: 1.5rem;
+    margin-left: 1.5rem;
+	text-decoration: none;
+}
+
+footer a:hover,
+header a:hover {
+    text-shadow: 2px 2px 6px var(--textcolor);
+}
+
+
+@media only screen and (max-width: 768px) {
+    header,
+    footer {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header {
+        border-radius: 0;
+    }
+
+    footer {
+        border-radius: 0;
+    }
+	* {
+		--margin: 12rem;
+	}
+}
+
+main {
+	animation: 1.25s ease-in-out 0s 1 loadInAnimation;
+	align-items: center;
+	flex-direction: column;
+	display: flex;
+	min-height: calc(100vh - (2 * 0.7rem));
+	gap: 0;
+	flex-wrap: wrap;
+	margin: auto;
+	margin-top: var(--margin);
+	width: 90%;
+	height:auto;
+}
+main#main.noscroll {
+	justify-content: center;
+}
+h1,
+h2,
+h3,
+p,
+a,
+label {
+	margin: 0;
+	padding: 0;
+	text-shadow: var(--shadow);
+}
+.samerow {
+	display: flex;
+	justify-content: center;
+	gap: 0;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center
+}
+h1 {
+	font-size: 60px;
+}
+
+h2 {
+	font-size: 40px;
+}
+h3 {
+	font-size: 20px;
+}
+p,
+a {
+	font-size: 16px;
+}
+
+button,
+input#websubmit.submit,
+input[type="submit"] {
+	cursor: pointer;
+	background-color: var(--inputbg);
+	border-color: var(--inputborder);
+	border-width: 2px;
+	border-radius: 10px;
+	border-style: solid;
+	padding: 7px;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin: 10px;
+}
+
+button:hover,
+input#websubmit.submit:hover,
+input[type="submit"]:hover {
+	filter: brightness(80%);
+	transform: scale(1.07);
+}
+
+img {
+	width: 100%;
+	aspect-ratio: auto;
+	user-select: none;
+	filter: drop-shadow(var(--shadow));
+	image-rendering: pixelated;
+}
+
+.img-container a {
+	width: 100%;
+}
+
+.img-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+	gap: 0;
+	flex-wrap: wrap;
+	width: 6%;
+	aspect-ratio: 1 / 1;
+	margin: 2%;
+}
+
+.game,
+.suggest {
+	width: 15%;
+	border-radius: 20px;
+	display: inline-block;
+	background-color: var(--uibg);
+	margin: 15px;
+	cursor: pointer;
+	box-shadow: 0px 0px 5px 5px var(--uibg);
+}
+
+.game:hover,
+.suggest:hover {
+	transform: scale(1.1);
+	filter: brightness(85%);
+	box-shadow: 0px 0px 5px 5px var(--uibg);
+}
+
+.game h1,
+.suggest h1 {
+	font-size: 12px;
+	float: right;
+	margin-right: 10px;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+.game img,
+.suggest img {
+	width: 100%;
+	border-radius: 20px;
+	aspect-ratio: 1 / 1;
+}
+
+img.star {
+	float: left;
+	width: 10%;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	margin-left: 10px;
+}
+
+#noscroll {
+	overflow-y: hidden;
+	justify-content: center;
+}
+
+#games,
+#pinned {
+	width: 100%;
+	justify-content: center;
+}
+
+input[type="text"],
+input[type="password"] {
+	width: 50%;
+	background-color: var(--inputbg);
+	box-sizing: border-box;
+	font-size: 20px;
+	padding: 0.8% 0.8%;
+	text-align: center;
+	border-radius: 5px;
+	outline: none;
+	margin: 10px;
+	border: 2px solid var(--inputborder);
+	border-radius: 5px;
+	transition: opacity 0.25s ease-in-out;
+	opacity: 100%;
+}
+input[type="text"]:hover,
+input[type="password"]:hover {
+	opacity: 80%;
+}
+::placeholder {
+	color: var(--textcolor);
+	opacity: 0.4; /* Firefox */
+}
+
+.bookmarkletdiv {
+	width: 30%;
+	background-color: var(--uibg);
+	box-shadow: 0px 0px 5px 5px var(--uibg);
+	padding: 5px;
+	margin: 15px;
+	border-radius: 10px;
+	display: inline-block;
+}
+
+.bookmarkletdiv a {
+	font-size: 30px;
+}
+
+form {
+	width: 100%;
+}
+.samerow.themebtns {
+	width: 70%;
+}
+
+select {
+	border-radius: 5px;
+	background-color: var(--inputbg);
+	border-color: var(--inputborder);
+	border-width: 5px;
+	border-radius: 10px;
+	border-style: solid;
+	padding: 0.5% 0.5%;
+	margin: 0.25%;
+}
+
+thumb.png .img-credits {
+	height: 40vh;
+	width: auto;
+	box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.555);
+}
+
+label {
+	font-size: 20px;
+	padding-left: 5px;
+}
+.avatar {
+	margin: 5px;
+}
+#bgimg {
+	width: 30vw;
+	font-size: 16px;
+}
+.usericon {
+	width: 24px;
+	height: 24px;
+	align-self: right;
+	/* display: none; */
+}
+#toast {
+	position: fixed;
+	top: 0;
+	right: 0;
+	margin: 10px;
+	padding: 10px;
+	background-color: var(--inputbg);
+	border-radius: 10px;
+	border-width: 10px;
+	border-color: var(--inputborder);
+	border-style: solid;
+	z-index: 10000;
+	text-align: center;
+	opacity: 0;
+	transition-duration: 1s;
+	max-width: 30%;
+}
+#toast h1 {
+	font-size: 20px;
+	text-align: center;
+}
+#toast p {
+	font-size: 16px;
+	text-align: center;
+}
+#discord {
+	position: fixed;
+	bottom: 10px;
+	right: 10px;
+	width: 56px;
+	height: 56px;
+	z-index: 199975;
+	border-radius: 100%;
+	background-image: url("/img/discord.svg");
+	background-size: 60%;
+	background-position: center;
+	background-repeat: no-repeat;
+	border-width: 0;
+}
+
+div.profile.top {
+	width: 90%;
+	height: 20vh;
+	background-color: var(--uibg);
+	border-radius: 10px;
+	display: flex;
+	justify-content: left;
+	align-items: center;
+	box-shadow: 0px 0px 5px 5px var(--uibg);
+}
+div.profile.top.text {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: auto;
+	justify-self: center;
+	height: auto;
+	margin: 30px;
+	max-width: 40%;
+}
+
+div.profile.top.text.right {
+	margin-left: auto;
+	margin-right: 80px;
+}
+
+div.profile.top.text h1 {
+	font-size: 2vw;
+}
+div.profile.top.text h2 {
+	font-size: 1.25vw;
+}
+div.profile.top.text a {
+	font-size: 1.25vw;
+}
+
+img.pfp {
+    height: 80%;
+	object-fit: contain;
+	width: auto;
+	margin: 30px;
+	border-radius: 20px;
+	aspect-ratio: 1 / 1;
+}
+div.profile.top.text .about {
+	height: auto;
+	max-width: 100%;
+}
+
+#edit {
+	cursor: pointer;
+	position: relative;
+	height: 2vw;
+	margin-left: 5px;
+	width: auto;
+}
+#counter {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+#popup {
+	width: 50%;
+	height: 40%;
+	z-index: 99999999;
+	position: absolute;
+	position: absolute;
+	top: 50%;
+	left: 50vw;
+	transform: translate(-50%, -50%);
+	display: flex;
+	flex-direction: column;
+	background-color: var(--inputbg);
+	border-color: var(--inputborder);
+	border-width: 5px;
+	border-radius: 10px;
+	border-style: solid;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 0px 0px 5px 5px var(--uibg);
+}
+#popup input {
+	width: 90%;
+	height: 30%;
+}
+#popup input[type=file] {
+	height: auto;
+	text-align-last: center;
+	display: block;
+	margin: 30px;
+}
+#popup h1 {
+	font-size: 32px;
+}
+
+#popup #close {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	
+}
+img.badges {
+	position: relative;
+	height: 2vw;
+	margin-left: 5px;
+	width: auto;
+}
+
+p#counter {
+	bottom: 38%;
+	right: 7%;
+}
+
+
+.users {
+	text-decoration: none;
+	width: 30%;
+	height: 10vh;
+	background-color: var(--uibg);
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-shadow: 0px 0px 5px 5px var(--uibg);
+	margin: 1.5%;
+}
+.users h1, .users p {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	justify-self: center;
+	height: auto;
+	max-width: 100%;
+	margin: auto;
+}
+.user_info {
+	width: 100%;
+}
+
+.users h1 {
+	font-size: 1vw;
+}
+.users p {
+	font-size: 0.75vw;
+}
+.users a {
+	font-size: 0.75vw;
+	text-decoration: underline;
+}
+
+.users p {
+	height: auto;
+	max-width: 100%;
+}
+#users {
+	width: 95%;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	flex-direction: row;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.pages-btn {
+	margin: 10px;
+}
+#ai {
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+}
+
+div.profile.played {
+	margin: 40px;
+	width: 90%;
+	height: auto;
+	padding: 30px;
+	background-color: var(--uibg);
+	border-radius: 10px;
+	display: flex;
+	justify-content: left;
+	align-items: center;
+	box-shadow: 0px 0px 5px 5px var(--uibg);
+	justify-content: center;
+    flex-wrap: wrap;
+	
+}
+#played-games {
+	width: 100%;
+	display: flex;
+    flex-wrap: wrap;
+	justify-content: center;
+}
+div.played-game {
+	width: 13%;
+	height: auto;
+	margin: 2%;
+	padding: 0;
+}
+div.played-game img {
+	aspect-ratio: 1 / 1;
+	border-radius: 20px;
+}
+.friend-icon {
+	width: 5%;
+	position: absolute;
+	left: 2%;
+}
+#chat {
+	width: 90%;
+	background-color: var(--uibg);
+	height: calc(100vh - (var(--margin) * 2) - 60px - 24px - 12px - 30px - 80px);
+}
+#messages {
+	align-items: end;
+	flex-direction: column;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	height: 88%;
+	display: flex;
+}
+message {
+	width: calc(100% - 20px);
+	padding: 20px;
+	margin: 10px;
+	background-color: var(--inputbg);
+	border-radius: 10px;
+}
+message h1 {
+	font-size: 40px;
+}
+message h2 {
+	font-size: 32px;
+}
+message.user {
+	background-color: var(--inputborder);
+}
+message.bot {
+	justify-self: right;
+}
+#chatbox {
+	width: calc(100% - 20px);
+}
+.messagebox {
+	width: 100%;
+	height: 12%;
+}
+.evensmaller {
+	font-size: 12px;
+}
+#gamecontainer {
+	width: 80vw;
+	height: calc(100vh - (var(--margin) * 2));
+	padding: 10px;
+	border-radius: 10px;
+	background-color: var(--uibg);
+}
+#gameFrame {
+	width: 100%;
+	height: 90%;
+	border-radius: 10px;
+	margin: 0;
+	padding: 0;
+}
+#infobox {
+	width: 100%;
+	height: 10%;
+	display: flex;
+}
+#infobox img {
+	height: 90%;
+	width: auto;
+	margin-right: 20px;
+	border-radius: 10px;
+}
+@keyframes toastFade {
+	0% {
+		opacity: 0;
+	}
+	15% {
+		opacity: 1;
+	}
+	85% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}

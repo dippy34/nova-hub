@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html class="sl-theme-dark" lang="en">
+	<head>
+		<!-- initialize theme vars
+    https://coolors.co/10002b-240046-3c096c-5a189a-7b2cbf-9d4edd-c77dff-e0aaff -->
+
+		<!-- initialize externals -->
+		<meta content="Selenite" property="og:title" />
+		<meta content="Selenite is the best unblocked games site. With over 400 games, an account system, and a free AI chat bot, no other websites come close to Selenite." property="og:description" />
+		<meta content="/favicon.png" property="og:image" />
+		<meta content="#c77dff" data-react-helmet="true" name="theme-color" />
+		<script src=" https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js "></script>
+
+		<!-- initialize my stuff -->
+		<script src="/js/all.min.js"></script>
+		<script src="/js/main.js"></script>
+		<script>
+			document.addEventListener("DOMContentLoaded", () => {
+				if (document.location.hash) {
+					let game = JSON.parse(decodeURIComponent(atob(document.location.hash.substring(1))));
+					document.getElementById("gameFrame").setAttribute("src", `/semag/${game[0]}/index.html`);
+					document.getElementById("gameImage").setAttribute("src", `/semag/${game[0]}/${decodeURIComponent(game[1])}`);
+					document.getElementById("gameName").innerText = game[2];
+					localStorage.setItem("selenite.lastGame", document.location.hash.substring(1))
+					document.location.hash = '';
+				} else if(localStorage.getItem("selenite.lastGame")) {
+					let game = JSON.parse(decodeURIComponent(atob(localStorage.getItem("selenite.lastGame"))));
+					document.getElementById("gameFrame").setAttribute("src", `/semag/${game[0]}/index.html`);
+					document.getElementById("gameImage").setAttribute("src", `/semag/${game[0]}/${decodeURIComponent(game[1])}`);
+					document.getElementById("gameName").innerText = game[2];
+				}
+				document.getElementById("fullscreen").addEventListener("click", () => {
+					
+				})
+			});
+		</script>
+
+		<link rel="stylesheet" href="/style.css" />
+		<link rel="manifest" href="/manifest.json" />
+
+		<!-- seo + other things -->
+		<title>Selenite</title>
+		<link rel="icon" href="/favicon.ico" />
+	</head>
+	<alerts> </alerts>
+	<body>
+		<header>
+			<a href="/index.html">Home</a>
+			<a href="/bookmarklets.html">Bookmarklets</a>
+			<a href="/projects.html">Games</a>
+			<a href="/apps.html">Apps</a>
+			<a href="/settings.html">Settings</a>
+			<a id="blank" href="#">Open Blank</a>
+			<a href="/u/" class="usericon"><img src="/img/user.svg" /></a>
+		</header>
+		<main>
+			<div id="gamecontainer">
+				<iframe id="gameFrame" allow="fullscreen" sandbox="allow-downloads allow-forms allow-modals allow-pointer-lock allow-scripts allow-same-origin"></iframe>
+				<div id="infobox">
+					<img id="gameImage" src="favicon.png" />
+					<h2 id="gameName">Selenite</h2>
+					<div class="opposite">
+						<img class="button" id="fullscreen" src="/img/fullscreen.svg">
+					</div>
+				</div>
+			</div>
+		</main>
+		<footer class="noscroll">
+			<a href="gitlab.com/skysthelimit.dev/selenite">Source</a>
+			<a href="https://discord.gg/7jyufnwJNf">Discord</a>
+			<a href="/suggest.html">Suggestions & Bugs</a>
+			<a href="/contact.html">Contact</a>
+			<a href="/support.html">Donate</a>
+			<a href="/about.html">About</a>
+		</footer>
+	</body>
+</html>

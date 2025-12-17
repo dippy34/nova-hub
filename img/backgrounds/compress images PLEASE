@@ -1,0 +1,7 @@
+convert image_unoptimized.jpg \
+-sampling-factor 4:2:0 \
+-strip \
+-quality 70 \
+-interlace JPEG \
+-colorspace RGB \
+image_optimized.jpg 

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html class="sl-theme-dark" lang="en">
+	<head>
+		<!-- initialize theme vars
+    https://coolors.co/10002b-240046-3c096c-5a189a-7b2cbf-9d4edd-c77dff-e0aaff -->
+
+		<!-- initialize externals -->
+		<meta property="og:title" content="Selenite" />
+		<meta property="description" content="Selenite is the best unblocked games site. With over 400 games and an account system, no other websites come close to Selenite." />
+		<meta name="keywords" content="proxy, web proxy, unblock websites, unblock chromebook, free web proxy, proxy list, proxy sites, un block chromebook, online proxy, proxy server, proxysite, proxy youtube, bypass securly, bypass iboss, bypass lightspeed filter, chromebooks, unblock youtube, youtube proxy, unblocked youtube, youtube unblocked, unblock games, selenite, unblocked games, free games">
+		<meta content="/favicon.png" property="og:image" />
+		<meta content="#c77dff" data-react-helmet="true" name="theme-color" />
+		<meta name="googlebot" content="index, follow, snippet" />
+		<link rel="canonical" href="https://selenite.cc/" />
+		<meta property="og:description" content="Selenite is the best unblocked games site. With over 400 games and an account system, no other websites come close to Selenite." />
+	<meta property="og:title" content="Selenite">
+	<meta property="og:type" content="website">
+		
+	<script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Selenite",
+            "alternateName": "selenite.cc",
+            "url": "https://selenite.cc",
+            "logo": "https://selenite.cc/favicon.png",
+            "sameAs": [
+                "https://github.com/selenite-cc",
+                "https://youtube.com/@selenitecc",
+                "https://tiktok.com/@selenitecc",
+                "https://selenite.cc",
+            ]
+        }
+    </script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+		<script src=" https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js "></script>
+
+		<!-- initialize my stuff -->
+		<script src="/js/all.min.js"></script>
+		<script src="/js/main.js"></script>
+		<script src="/js/widget.js"></script>
+		<script>
+			document.addEventListener("DOMContentLoaded", () => {
+				fetch("/data/quotes.json")
+					.then((response) => response.json())
+					.then((data) => {
+						const randomQuote = data[Math.floor(Math.random() * data.length)];
+
+						if (randomQuote.includes("OGNUM1") && randomQuote.includes("SQRTNUM1")) {
+							const ognum = Math.floor(Math.random() * 3000);
+							randomQuote = `the square root of ${ognum} is ${Math.sqrt(ognum)}`;
+						} else if (randomQuote.includes("CURRENTURL")) {
+							randomQuote = window.location.hostname;
+						}
+
+						document.getElementById("randomquote").innerHTML = randomQuote;
+					})
+					.catch((error) => console.error("Error loading quotes:", error));
+			});
+		</script>
+
+		<link rel="stylesheet" href="/style.css" />
+		<link rel="manifest" href="/manifest.json" />
+
+		<!-- seo + other things -->
+		<title>Selenite</title>
+		<link rel="icon" href="/favicon.ico" />
+		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3415518411898563" crossorigin="anonymous"></script>
+	</head>
+	<alerts> </alerts>
+	<body id="noscroll">
+		<header>
+			<a href="/index.html">Home</a>
+			<a href="/bookmarklets.html">Bookmarklets</a>
+			<a href="/projects.html" title="Games (Unblocked)">Games</a>
+			<a href="/apps.html">Apps</a>
+			<a href="/settings.html">Settings</a>
+			<a id="blank" href="#">Open Blank</a>
+			<a href="/u/" class="usericon"><img src="/img/user.svg" /></a>
+		</header>
+		<main id="main" class="noscroll">
+			<b style="font-weight: 1000px"><h1 class="chan">selenite.</h1></b>
+			<noscript>enable javascript if you want the games to actually load</noscript>
+			<p id="randomquote">better thank me for this unblocked website</p>
+			<div class="samerow">
+				<div class="img-container">
+					<a href="/users"><img src="img/user_index.svg" /></a>
+				</div>
+				<div class="img-container">
+					<a href="projects.html"><img src="img/games.svg" /></a>
+				</div>
+				<div class="img-container">
+					<a href="https://discord.gg/7jyufnwJNf"><img src="img/discord.svg" /></a>
+				</div>
+			</div>
+		</main>
+		<footer class="noscroll">
+			<a href="gitlab.com/skysthelimit.dev/selenite">Source</a>
+			<a href="https://discord.gg/7jyufnwJNf">Discord</a>
+			<a href="/suggest.html">Suggestions & Bugs</a>
+			<a href="/contact.html">Contact</a>
+			<a href="/support.html">Donate</a>
+			<a href="/about.html">About</a>
+		</footer>
+	</body>
+</html>

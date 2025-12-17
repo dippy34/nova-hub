@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html class="sl-theme-dark" lang="en">
+	<head>
+		<!-- initialize theme vars
+    https://coolors.co/10002b-240046-3c096c-5a189a-7b2cbf-9d4edd-c77dff-e0aaff -->
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+		<script src=" https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js "></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+		<!-- initialize my stuff -->
+		<script src="/js/all.min.js"></script>
+		<script src="/js/games.js"></script>
+		<script src="/js/search.js"></script>
+		<script src="/js/main.js"></script>
+		<script src="/js/widget.js"></script>
+		<script src="/js/themes.js"></script>
+		<script src="/js/cookie.js"></script>
+
+		
+		<link rel="stylesheet" href="/style.css" />
+		
+
+		<!-- seo + other things -->
+		<title>Projects | Selenite</title>
+		<link rel="icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+
+		<!-- toastify -->
+		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3415518411898563"
+		crossorigin="anonymous"></script>
+		<script></script>
+	</head>
+	<alerts>
+		<div id="toast"></div>
+		<script>
+			$.getJSON("data/changelog.json", (data) => {
+				if (localStorage.getItem("selenite.version") != data.version) {
+					toast({ title: "New Update!", message: data.desc, time: data.timestamp });
+					localStorage.setItem("selenite.version", data.version);
+				}
+			});
+		</script>
+	</alerts>
+	<body>
+		<header>
+			<a href="/index.html">Home</a>
+			<a href="/bookmarklets.html">Bookmarklets</a>
+			<a href="/projects.html">Games</a>
+			<a href="/apps.html">Apps</a>
+			<a href="/settings.html">Settings</a>
+			<a id="blank" href="#">Open Blank</a>
+      <a href="/u/" class="usericon"><img src="/img/user.svg"></a>
+
+		</header>
+		<main>
+			<h3 id="popunder" style="display: none;">You may be redirected upon clicking on the screen. This is an ad. <a style="font-size: inherit;" href="ad.html">Learn more.</a></h3>
+			<input class="hiddenUpload" type="file" accept=".save" hidden />
+
+			<input type="text" class="searchbar" id="gamesearch" placeholder="Type here to search.." />
+			<div class="samerow">
+				<sl-tooltip content="Remember to download your save, so you don't lose your progress." trigger="manual" class="manual-tooltip">
+					<button onclick="downloadMainSave()">Download Save</button>
+				</sl-tooltip>
+				<button id="upload" onclick="uploadMainSave()">Upload Save</button>
+			</div>
+			<div class="samerow">
+				<button id="random" onclick="selectRandomGame()">Play a random game!</button>
+				<button id="category" onclick="categoryChanger()">Game Categories</button>
+			</div>
+
+			<h2>Starred Games</h2>
+			<p id="pinnedmessage">Star some games for things to show up here!</p>
+			<div id="pinned"></div>
+
+			<h2>All Games</h2>
+			<div id="games">
+				<a href="/suggest.html"
+					><div class="suggest">
+						<img src="img/addlink.svg" alt="Add Game logo" style="filter: invert(1) !important" />
+						<h1>Suggest a game!</h1>
+					</div></a
+				>
+				<p id="message">games loading..</p>
+				<p id="message">games not loading? click ctrl + shift + r</p>
+				<button id="message" onclick='$.getJSON("/data/games.json", function (data) {loadGames(data)})'>Games not loading? Click here.</button>
+			</div>
+			<br />
+		</main>
+
+		<footer>
+			<a href="https://gitlab.com/skysthelimit.dev/selenite">Source</a>
+			<a href="https://discord.gg/7jyufnwJNf">Discord</a>
+			<a href="/suggest.html">Suggestions & Bugs</a>
+			<a href="/contact.html">Contact</a>
+			<a href="/support.html">Donate</a>
+			<a href="/about.html">About</a>
+		</footer>
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+				const adContainers = document.querySelectorAll("[id=adcontainer]");
+				if (adContainers.length > 0) {
+					for (let i = 0; i < adContainers.length; i++) {
+						if (Math.random() < 0.5 && localStorage.getItem("selenite.adblock") != "true") {
+							adContainers[i].innerHTML = "";
+						}
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

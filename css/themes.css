@@ -1,0 +1,295 @@
+:root {
+     --inputbg: #3c096c;
+    --inputborder: #5a189a;
+    --uibg: #240046;
+    --textcolor: #fff;
+    --bg: #10002b;
+}
+body {
+ --inputbg: #3c096c;
+    --inputborder: #5a189a;
+    --uibg: #240046;
+    --textcolor: #fff;
+    --bg: #10002b;
+}
+body[theme=threekho] {
+ --inputbg: #28A018;
+    --inputborder: #0A8F00;
+    --uibg: #111111;
+    --textcolor: #fff;
+    --bg: #000000;
+}
+body[theme=art] {
+    --inputbg: #0284d4;
+    --inputborder: #0284d4;
+    --uibg: #0e1213;
+    --textcolor: #fffff;
+    --bg: #1a2023;
+}
+body[theme=dogcat] {
+    --inputbg: #537294;
+    --inputborder: #30719c;
+    --uibg: #2a7491;
+    --textcolor: #fff;
+    --bg: url("/img/backgrounds/dogcat.svg"), rgb(26, 127, 158);
+  /* https://wallpaperaccess.com/full/115544.jpg */
+}
+body[theme=custom] {
+    --inputbg: #3c096c;
+    --inputborder: #5a189a;
+    --uibg: #240046;
+    --textcolor: #fff;
+    --bg: #10002b;
+}
+body[theme=mainnew] {
+    --inputbg: #3c096c;
+    --inputborder: #5a189a;
+    --uibg: #240046bb;
+    --textcolor: #fff;
+    --bg: linear-gradient(0deg, rgba(36,0,70,1) 0%, rgba(60,9,108,1) 50%, rgba(36,0,70,1) 100%);
+}
+body[theme=main] {
+    --inputbg: #3c096c;
+    --inputborder: #5a189a;
+    --uibg: #240046bb;
+    --textcolor: #fff;
+    --bg: #10002b;
+}
+body[theme=light] {
+    --inputbg: #bbbbbb;
+    --inputborder: #e6e6e6;
+    --uibg: #b3b3b3;
+    --textcolor: #1a1a1a;
+    --bg: #c5c5c5;
+}
+body[theme=dark] {
+    --inputbg: #333333;
+    --inputborder: #444444;
+    --uibg: #242424;
+    --textcolor: #fff;
+    --bg: #0c0c0c;
+}
+body[theme=egamepass] {
+    --inputbg: #4f6ed1;
+    --inputborder: #5586e0;
+    --uibg: #185494;
+    --textcolor: #a7d3ff;
+    --bg: #16416f;
+}
+body[theme=cools1te] {
+    --inputbg: #a134dc;
+    --inputborder: #b153e3;
+    --uibg: #ab28cf;
+    --textcolor: #d3a4fa;
+    --bg: #8e14af;
+}
+
+
+body[theme=lattefalse] {
+    --inputbg: #9ca0b0;
+    /* overlay 0 */
+    --inputborder: #8c8fa1;
+    /* overlay 1 */
+    --uibg: #ccd0da;
+    /* surface  0 */
+    --textcolor: #4c4f69;
+    /* text */
+    --bg: #eff1f5;
+    /* base */
+    --shadow: 0px 0px 4px #ccd0da;
+    /* surface 0 */
+}
+body[theme=frappefalse] {    
+    --inputbg: #737994;
+    /* overlay 0 */
+    --inputborder: #838ba7;
+    /* overlay 1 */
+    --uibg: #414559;
+    /* surface  0 */
+    --textcolor: #cad3f5;
+    /* text */
+    --bg: #303446;
+    /* base */
+    --shadow: 0px 0px 4px #414559;
+    /* surface 0 */
+}
+body[theme=macchiatofalse] {
+    --inputbg: #6e738d;
+    /* overlay 0 */
+    --inputborder: #8087a2;
+    /* overlay 1 */
+    --uibg: #363a4f;
+    /* surface  0 */
+    --textcolor: #cad3f5;
+    /* text */
+    --bg: #24273a;
+    /* base */
+    --shadow: 0px 0px 4px #363a4f;
+    /* surface 0 */
+}
+body[theme=mochafalse] {
+    --inputbg: #6c7086;
+    /* overlay 0 */
+    --inputborder: #7f849c;
+    /* overlay 1 */
+    --uibg: #313244;
+    /* surface  0 */
+    --textcolor: #cdd6f4;
+    /* text */
+    --bg: #1e1e2e;
+    /* base */
+    --shadow: 0px 0px 4px #313244;
+    /* surface 0 */
+}
+
+body[theme=sunsetfalse] {
+    --inputbg: #537294;
+    --inputborder: #30719c;
+    --uibg: #2a7491;
+    --textcolor: #fff;
+    --bg: rgb(59, 67, 78);
+    /* https://wallhaven.cc/w/jxl3qp */
+    --shadow: 0px 0px 2px #a5dcf5;
+}
+body[theme=mountainsfalse] {
+    --inputbg: #d37f7f;
+    --inputborder: #e28a8a;
+    --uibg: #d38493;
+    --textcolor: #fff;
+    --bg: #bf7483;
+    /* https://wallhaven.cc/w/l82kpr */
+    --shadow: 0px 0px 4px #bba29b;
+}
+body[theme=vaporwavefalse] {
+    --inputbg: #4b2d64;
+    --inputborder: #74568d;
+    --uibg: #51166d;
+    --textcolor: #fff;
+    --bg: #61437a;
+    /* https://wallhaven.cc/w/l82kpr */
+    --shadow: 0px 0px 4px #000000;
+}
+body[theme=seraphfalse] {
+    --inputbg: #000;
+    --inputborder: #fff;
+    --uibg: #000;
+    --textcolor: #fff;
+    --bg: #222222;
+    /* seraph */
+    --shadow: 0px 0px 4px #fff;
+}
+body[theme=nighttimefalse] {
+    --inputbg: #29374d;
+    --inputborder: #fff;
+    --uibg: #29374d;
+    --textcolor: #fff;
+    --bg: #323853;
+    /* https://wallhaven.cc/w/l882py */
+    --shadow: 0px 0px 4px #fff;
+}
+
+
+
+body[theme=latte] {
+    --inputbg: #9ca0b0;
+    /* overlay 0 */
+    --inputborder: #8c8fa1;
+    /* overlay 1 */
+    --uibg: #ccd0da;
+    /* surface  0 */
+    --textcolor: #4c4f69;
+    /* text */
+    --bg: #eff1f5;
+    /* base */
+    --shadow: 0px 0px 4px #ccd0da;
+    /* surface 0 */
+}
+body[theme=frappe] {
+    --inputbg: #737994;
+    /* overlay 0 */
+    --inputborder: #838ba7;
+    /* overlay 1 */
+    --uibg: #414559;
+    /* surface  0 */
+    --textcolor: #cad3f5;
+    /* text */
+    --bg: #303446;
+    /* base */
+    --shadow: 0px 0px 4px #414559;
+    /* surface 0 */
+}
+body[theme=macchiato] {
+    --inputbg: #6e738d;
+    /* overlay 0 */
+    --inputborder: #8087a2;
+    /* overlay 1 */
+    --uibg: #363a4f;
+    /* surface  0 */
+    --textcolor: #cad3f5;
+    /* text */
+    --bg: #24273a;
+    /* base */
+    --shadow: 0px 0px 4px #363a4f;
+    /* surface 0 */
+}
+body[theme=mocha] {
+    --inputbg: #6c7086;
+    /* overlay 0 */
+    --inputborder: #7f849c;
+    /* overlay 1 */
+    --uibg: #313244;
+    /* surface  0 */
+    --textcolor: #cdd6f4;
+    /* text */
+    --bg: #1e1e2e;
+    /* base */
+    --shadow: 0px 0px 4px #313244;
+    /* surface 0 */
+}
+
+body[theme=sunset] {
+    --inputbg: #537294;
+    --inputborder: #30719c;
+    --uibg: #2a7491;
+    --textcolor: #fff;
+    --bg: url("/img/backgrounds/sunset_theme.jpg"), rgb(59, 67, 78);
+    /* https://wallhaven.cc/w/jxl3qp */
+    --shadow: 0px 0px 2px #a5dcf5;
+}
+body[theme=mountains] {
+    --inputbg: #d37f7f;
+    --inputborder: #e28a8a;
+    --uibg: #d38493;
+    --textcolor: #fff;
+    --bg: url("/img/backgrounds/mountains_theme.jpg"), #bf7483;
+    /* https://wallhaven.cc/w/l82kpr */
+    --shadow: 0px 0px 4px #bba29b;
+}
+body[theme=vaporwave] {
+    --inputbg: #4b2d64;
+    --inputborder: #74568d;
+    --uibg: #51166d;
+    --textcolor: #fff;
+    --bg: url("/img/backgrounds/vaporwave_theme.jpg"), #61437a;
+    /* https://wallhaven.cc/w/l82kpr */
+    --shadow: 0px 0px 4px #000000;
+}
+body[theme=seraph] {
+    --inputbg: #000;
+    --inputborder: #fff;
+    --uibg: #000;
+    --textcolor: #fff;
+    --bg: url("/img/backgrounds/seraph_theme.png"), #1c1a1e;
+    /* seraph */
+    --shadow: 0px 0px 4px #fff;
+}
+body[theme=nighttime] {
+    --inputbg: #29374d;
+    --inputborder: #fff;
+    --uibg: #29374d;
+    --textcolor: #fff;
+    --bg: url("/img/backgrounds/nighttime_theme.png"), #28272a;
+    /* https://wallhaven.cc/w/l882py */
+    --shadow: 0px 0px 4px #fff;
+}
+
