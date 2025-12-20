@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html class="sl-theme-dark" lang="en">
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+		<script src=" https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js "></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+		
+		<script src="/js/all.min.js"></script>
+		<script src="/js/games.js"></script>
+		<script src="/js/search.js"></script>
+		<script src="/js/main.js"></script>
+		<script src="/js/widget.js"></script>
+		<script src="/js/cookie.js"></script>
+		<script src="/js/gaming-navbar.js"></script>
+		
+		<link rel="stylesheet" href="/style.css" />
+		<link rel="stylesheet" href="/css/gaming-theme.css" />
+		
+		<script>
+			const GAMES_BASE_URL = "https://nova-labs.pages.dev";
+		</script>
+		
+		<title>Starred Games | Nova Hub</title>
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+	</head>
+	<body class="gaming-theme">
+		<main>
+			<h1 class="gaming-page-title">STARRED GAMES</h1>
+			
+			<input type="text" class="searchbar" id="starredsearch" placeholder="Search your starred games.." style="max-width: 600px; margin: 2rem auto;" />
+			
+			<p id="pinnedmessage" style="text-align: center; color: var(--gaming-text-dim); font-size: 1.2rem; margin: 2rem 0;">Star some games for things to show up here!</p>
+			<div id="pinned"></div>
+		</main>
+
+		<script>
+			// Load starred games
+			$.getJSON("/data/games.json", function (data) {
+				starredgames = getCookie("starred");
+				if (!starredgames) {
+					starredgames = [];
+				} else {
+					starredgames = JSON.parse(decodeURIComponent(getCookie("starred")));
+				}
+				
+				if (starredgames.length === 0) {
+					document.getElementById("pinnedmessage").style.display = "block";
+					return;
+				}
+				
+				document.getElementById("pinnedmessage").style.display = "none";
+				
+				data.sort(dynamicSort("name"));
+				const starredData = data.filter(game => starredgames.includes(game.directory));
+				
+				if (starredData.length === 0) {
+					document.getElementById("pinnedmessage").style.display = "block";
+					document.getElementById("pinnedmessage").textContent = "No starred games found. Star some games first!";
+					return;
+				}
+				
+				// Load starred games into pinned div
+				gamelist = starredData;
+				for (let i = 0; i < starredData.length; i++) {
+					let $element = $("<a>")
+						.attr({
+							class: "game",
+							id: starredData[i].directory,
+							href: GAMES_BASE_URL + "/semag/" + starredData[i].directory + "/index.html",
+						})
+						.append(
+							$("<img>").prop({
+								src: GAMES_BASE_URL + "/semag/" + starredData[i].directory + "/" + starredData[i].image,
+								alt: starredData[i].name + " logo",
+								loading: "lazy"
+							})
+						)
+						.append($("<h1>").text(starredData[i].name))
+						.append(
+							$("<img>").prop({
+								src: "img/star-fill.svg",
+								alt: "star",
+								class: "star",
+							})
+						);
+					
+					$("#pinned").append($element);
+					
+					$element.find(".star").on("click", function (e) {
+						e.preventDefault();
+						e.stopPropagation();
+						starredgames = starredgames.filter((item) => item !== starredData[i].directory);
+						setCookie("starred", encodeURIComponent(JSON.stringify(starredgames)), 365);
+						$element.fadeOut(300, function() {
+							$element.remove();
+							if ($("#pinned").children().length === 0) {
+								document.getElementById("pinnedmessage").style.display = "block";
+								document.getElementById("pinnedmessage").textContent = "No starred games. Star some games first!";
+							}
+						});
+					});
+				}
+				
+				// Search functionality
+				$("#starredsearch").on("input", function() {
+					const searchTerm = $(this).val().toLowerCase();
+					$("#pinned .game").each(function() {
+						const gameName = $(this).find("h1").text().toLowerCase();
+						if (gameName.includes(searchTerm)) {
+							$(this).show();
+						} else {
+							$(this).hide();
+						}
+					});
+				});
+			});
+			
+			function getCookie(name) {
+				const value = `; ${document.cookie}`;
+				const parts = value.split(`; ${name}=`);
+				if (parts.length === 2) return parts.pop().split(';').shift();
+				return null;
+			}
+			
+			function setCookie(name, value, days) {
+				const date = new Date();
+				date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+				const expires = "expires=" + date.toUTCString();
+				document.cookie = name + "=" + value + ";" + expires + ";path=/";
+			}
+			
+			function dynamicSort(property) {
+				var sortOrder = 1;
+				if (property[0] === "-") {
+					sortOrder = -1;
+					property = property.substr(1);
+				}
+				return function (a, b) {
+					var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+					return result * sortOrder;
+				};
+			}
+		</script>
+		
+		<style>
+			#pinned {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+				gap: 1.5rem;
+				padding: 2rem;
+				max-width: 1400px;
+				margin: 0 auto;
+			}
+		</style>
+	</body>
+</html>
+
