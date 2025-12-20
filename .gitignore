@@ -37,5 +37,5 @@ test.sh
 .DS_Store
 *.log
 *~
-
+/semag/
 
