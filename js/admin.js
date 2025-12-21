@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const adminDashboard = document.getElementById('admin-dashboard');
     const loginForm = document.getElementById('login-form');
     const logoutBtn = document.getElementById('logout-btn');
-    const importBtn = document.getElementById('import-btn');
     const refreshStatsBtn = document.getElementById('refresh-stats');
     const saveGaIdBtn = document.getElementById('save-ga-id');
 
@@ -54,65 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
         adminDashboard.style.display = 'none';
         document.getElementById('login-email').value = '';
         document.getElementById('login-password').value = '';
-    });
-
-    // Import credentials handler
-    importBtn.addEventListener('click', async () => {
-        const credentialsText = document.getElementById('import-credentials').value;
-        const statusDiv = document.getElementById('import-status');
-        const adminToken = Cookies.get('admin_token');
-
-        if (!adminToken) {
-            statusDiv.textContent = 'Please login first to import credentials.';
-            statusDiv.style.display = 'block';
-            return;
-        }
-
-        if (!credentialsText.trim()) {
-            statusDiv.textContent = 'Please enter credentials to import.';
-            statusDiv.style.display = 'block';
-            return;
-        }
-
-        try {
-            const lines = credentialsText.split('\n').filter(line => line.trim());
-            const credentials = lines.map(line => {
-                const [email, password] = line.split(':').map(s => s.trim());
-                return { email, password };
-            }).filter(cred => cred.email && cred.password);
-
-            if (credentials.length === 0) {
-                statusDiv.textContent = 'No valid credentials found. Format: email:password';
-                statusDiv.style.display = 'block';
-                return;
-            }
-
-            const response = await fetch('/api/admin/import-credentials', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${adminToken}`
-                },
-                body: JSON.stringify({ credentials })
-            });
-
-            const data = await response.json();
-
-            if (response.ok && data.success) {
-                statusDiv.textContent = `Successfully imported ${data.count} credential(s).`;
-                statusDiv.style.color = '#00ff00';
-                document.getElementById('import-credentials').value = '';
-            } else {
-                statusDiv.textContent = data.message || 'Failed to import credentials.';
-                statusDiv.style.color = '#ff0000';
-            }
-            statusDiv.style.display = 'block';
-        } catch (error) {
-            statusDiv.textContent = 'Error importing credentials. Please try again.';
-            statusDiv.style.color = '#ff0000';
-            statusDiv.style.display = 'block';
-            console.error('Import error:', error);
-        }
     });
 
     // Save GA ID handler

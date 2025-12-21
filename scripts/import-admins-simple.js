@@ -8,8 +8,8 @@ const crypto = require('crypto');
 // EDIT THIS ARRAY WITH YOUR CREDENTIALS
 // ============================================
 const CREDENTIALS = [
-  { email: 'admin@example.com', password: 'admin123' },
-  { email: 'admin2@example.com', password: 'password456' },
+  { email: 'aaravharjani@icloud.com', password: 'Aarav2014123!!!' },
+  { email: 'bestboymg1@gmail.com', password: 'Matusha2013' },
   // Add more like this:
   // { email: 'your-email@example.com', password: 'your-password' },
 ];

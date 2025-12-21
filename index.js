@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
+const { google } = require('googleapis');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -240,16 +241,76 @@ app.get('/api/admin/analytics', verifyAdminToken, async (req, res) => {
   const analyticsPath = path.join(__dirname, 'data', 'analytics.json');
   const analytics = readJsonFile(analyticsPath);
 
-  // For Google Analytics live users, you'll need to integrate with GA API
-  // This is a placeholder - you'll need to set up GA API integration
-  const liveUsers = 0; // TODO: Fetch from Google Analytics API
+  let liveUsers = 0;
+  let todayVisits = 0;
+  let totalPageViews = 0;
 
+  // Fetch from Google Analytics if configured
+  if (analytics.gaMeasurementId) {
+    try {
+      const serviceAccountPath = path.join(__dirname, 'ga-service-account.json');
+      
+      if (fs.existsSync(serviceAccountPath)) {
+        const auth = new google.auth.GoogleAuth({
+          keyFile: serviceAccountPath,
+          scopes: ['https://www.googleapis.com/auth/analytics.readonly']
+        });
+
+        const analyticsData = google.analyticsdata('v1beta');
+        const propertyId = analytics.gaMeasurementId.replace('G-', '');
+
+        // Get real-time active users
+        try {
+          const realtimeResponse = await analyticsData.properties.runRealtimeReport({
+            auth: auth,
+            property: `properties/${propertyId}`,
+            requestBody: {
+              metrics: [{ name: 'activeUsers' }]
+            }
+          });
+          liveUsers = parseInt(realtimeResponse.data.rows?.[0]?.metricValues?.[0]?.value || 0);
+        } catch (error) {
+          console.error('GA Realtime API Error:', error.message);
+        }
+
+        // Get today's visits and total page views
+        try {
+          const today = new Date();
+          const startDate = today.toISOString().split('T')[0];
+          const endDate = startDate;
+
+          const reportResponse = await analyticsData.properties.runReport({
+            auth: auth,
+            property: `properties/${propertyId}`,
+            requestBody: {
+              dateRanges: [{ startDate, endDate }],
+              metrics: [
+                { name: 'sessions' },
+                { name: 'screenPageViews' }
+              ]
+            }
+          });
+
+          if (reportResponse.data.rows && reportResponse.data.rows.length > 0) {
+            todayVisits = parseInt(reportResponse.data.rows[0].metricValues?.[0]?.value || 0);
+            totalPageViews = parseInt(reportResponse.data.rows[0].metricValues?.[1]?.value || 0);
+          }
+        } catch (error) {
+          console.error('GA Report API Error:', error.message);
+        }
+      }
+    } catch (error) {
+      console.error('Google Analytics API Error:', error.message);
+    }
+  }
+
+  // Use GA data if available, otherwise use local tracking
   res.json({
     success: true,
     liveUsers: liveUsers,
     totalUsers: analytics.totalUsers || 0,
-    todayVisits: analytics.todayVisits || 0,
-    pageViews: analytics.pageViews || 0
+    todayVisits: todayVisits || analytics.todayVisits || 0,
+    pageViews: totalPageViews || analytics.pageViews || 0
   });
 });
 
