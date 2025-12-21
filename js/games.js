@@ -55,10 +55,14 @@ function loadGames(data) {
 		if (starredgames.includes(data[i].directory)) {
 			$element.find("img.star").attr("id", "starred");
 			$element.find("img.star").attr("src", "img/star-fill.svg");
-			let $pinnedelement = $element.clone();
-			$("#pinned").append($pinnedelement);
-			if ($("#pinnedmessage")) {
-				$("#pinnedmessage").hide();
+			// Check if already in pinned to avoid duplicates
+			var gameIdEscaped = data[i].directory.replace(/[!"#$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&");
+			if ($("#pinned #" + gameIdEscaped).length === 0) {
+				let $pinnedelement = $element.clone();
+				$("#pinned").append($pinnedelement);
+				if ($("#pinnedmessage")) {
+					$("#pinnedmessage").hide();
+				}
 			}
 		}
 
@@ -66,10 +70,18 @@ function loadGames(data) {
 	}
 	$("#games #message").remove();
 
-	// Apply search filter if active (using the new search function)
-	if (typeof window.searchActive !== 'undefined' && window.searchActive) {
+	// Re-initialize search after games are loaded
+	if (typeof window.reinitializeSearch === 'function') {
+		setTimeout(function() {
+			window.reinitializeSearch();
+		}, 100);
+	}
+	
+	// Apply search if there's a search term
+	var searchInput = document.getElementById('gamesearch');
+	if (searchInput && searchInput.value && searchInput.value.trim() !== '') {
 		if (typeof window.searchGames === 'function') {
-			window.searchGames();
+			setTimeout(window.searchGames, 50);
 		}
 	}
 
@@ -91,13 +103,25 @@ function loadGames(data) {
 				} else {
 					starred = [];
 				}
-				starred.push($(this).attr("id"));
-				Cookies.set("starred", JSON.stringify(starred));
-				$element = $(this).clone();
-				$("#pinned").append($element);
+				var gameId = $(this).attr("id");
+				// Only add if not already starred
+				if (!starred.includes(gameId)) {
+					starred.push(gameId);
+					Cookies.set("starred", JSON.stringify(starred));
+				}
 				$("#pinnedmessage").hide();
+				// Rebuild pinned section from DOM to avoid duplicates
 				temp = $("#pinned")[0].childNodes;
 				pinnedarray = [...temp];
+				// Check if game is already in pinned array
+				var alreadyPinned = pinnedarray.some(function(node) {
+					return node.id === gameId;
+				});
+				// Only add if not already present
+				if (!alreadyPinned) {
+					$element = $(this).clone();
+					pinnedarray.push($element[0]);
+				}
 				pinnedarray.sort(dynamicSort("id"));
 				$("#pinned").empty();
 				for (let i = 0; i < pinnedarray.length; i++) {

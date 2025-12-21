@@ -51,7 +51,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	if (document.querySelector("input#bgTheme")) {
 		bgTheme.checked = true;
 	}
-	document.getElementById("blank").addEventListener("click", () => {
+	if (document.getElementById("blank")) {
+		document.getElementById("blank").addEventListener("click", () => {
 		win = window.open();
 		win.document.body.style.margin = "0";
 		win.document.body.style.height = "100vh";
@@ -63,10 +64,10 @@ document.addEventListener("DOMContentLoaded", function () {
 		location.href = "https://google.com";
 		close();
 	});
-	if ($("#panicmode").length > 0) {
+	if (typeof $ !== 'undefined' && $("#panicmode").length > 0) {
 		$("#panicmode").prop({ href: panicurl });
 	}
-	if ($(".seleniteminified").length > 0) {
+	if (typeof $ !== 'undefined' && $(".seleniteminified").length > 0) {
 		$.get("https://raw.githubusercontent.com/skysthelimitt/selenite-optimized/main/build/bookmark.txt", function (data) {
 			$(".seleniteminified").prop({ href: data });
 		});
@@ -75,18 +76,21 @@ document.addEventListener("DOMContentLoaded", function () {
 		});
 	}
 });
+
 function setPanicMode() {
+	if (typeof $ === 'undefined' || $("#panic").length === 0) return;
 	if (!$("#panic").val().startsWith("https")) {
 		document.cookie = "panicurl=https://" + $("#panic").val();
 		return;
 	}
-
 	document.cookie = "panicurl=" + $("#panic").val();
 }
+
 function copyToClipboard(text) {
 	navigator.clipboard.writeText(text);
 	alert("Copied text!");
 }
+
 function setTheme(theme) {
 	localStorage.setItem("selenite.theme", theme);
 	document.body.setAttribute("theme", theme);
@@ -95,7 +99,9 @@ function setTheme(theme) {
 		document.body.style = "";
 	}
 }
-function setPanicMode() {
+
+function setCloakCookie() {
+	if (typeof $ === 'undefined' || $("#panic").length === 0) return;
 	if (!$("#panic").val().startsWith("https")) {
 		document.cookie = "panicurl=https://" + $("#panic").val();
 		return;
@@ -111,11 +117,13 @@ function delPassword() {
 	localStorage.removeItem("selenite.password");
 }
 
-$(document).ready(function () {
-	if (!window.location.href.startsWith("about:")) {
-		$("#webicon").attr("placeholder", window.location.href.replace(/\/[^\/]*$/, "/"));
-	}
-});
+if (typeof $ !== 'undefined') {
+	$(document).ready(function () {
+		if (!window.location.href.startsWith("about:") && $("#webicon").length > 0) {
+			$("#webicon").attr("placeholder", window.location.href.replace(/\/[^\/]*$/, "/"));
+		}
+	});
+}
 function loadScript(a, b) {
 	var c = document.createElement("script");
 	(c.type = "text/javascript"), (c.src = a), (c.onload = b), document.head.appendChild(c);
