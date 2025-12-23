@@ -1972,7 +1972,8 @@ body.gaming-theme.giant-mode .game-play-overlay {
 body.gaming-theme.giant-mode .game-preview-iframe {
     width: 100vw;
     height: calc(100vh - 70px);
-=======
+}
+
 /* Admin Panel Styling */
 .login-container {
     display: flex;
@@ -1984,12 +1985,25 @@ body.gaming-theme.giant-mode .game-preview-iframe {
     gap: 2rem;
 }
 
+.admin-login-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.admin-terminal {
+    margin: 0;
+    width: 100%;
+}
+
 .admin-form {
     display: flex;
     flex-direction: column;
     gap: 1rem;
     width: 100%;
-    max-width: 400px;
     padding: 2rem;
     background: rgba(0, 0, 0, 0.9);
     border: 1px solid var(--gaming-border);
@@ -2009,6 +2023,14 @@ body.gaming-theme.giant-mode .game-preview-iframe {
     font-family: 'Rajdhani', sans-serif;
     font-size: 1rem;
     box-sizing: border-box;
+    display: block;
+    margin: 0;
+}
+
+.admin-form input[type="email"]::placeholder,
+.admin-form input[type="password"]::placeholder,
+.admin-form input[type="text"]::placeholder {
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .admin-form input[type="email"]:focus,

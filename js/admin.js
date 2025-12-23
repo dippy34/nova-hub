@@ -1,4 +1,4 @@
-// Admin Panel JavaScript - Client-side only (no server required)
+// Admin Panel JavaScript - Uses server API
 document.addEventListener('DOMContentLoaded', () => {
     const loginScreen = document.getElementById('login-screen');
     const adminDashboard = document.getElementById('admin-dashboard');
@@ -7,103 +7,89 @@ document.addEventListener('DOMContentLoaded', () => {
     const refreshStatsBtn = document.getElementById('refresh-stats');
     const saveGaIdBtn = document.getElementById('save-ga-id');
 
-    // Embedded credentials (loaded from data/admin-credentials.json)
-    // This allows the admin panel to work without a server
-    let credentials =         [
-                {
-                        "email": "admin@example.com",
-                        "password": "admin123",
-                        "createdAt": "2024-01-01T00:00:00.000Z"
-                },
-                {
-                        "email": "aaravharjani@icloud.com",
-                        "password": "c13e1e564a9ec41ab9e14fb8d855dd0ce369a96ad894fffe1827934d0a811f35",
-                        "createdAt": "2025-12-21T21:15:34.776Z"
-                },
-                {
-                        "email": "bestboymg1@gmail.com",
-                        "password": "e45ced5bb8b2d75d799d0525ff89cb03f26b400e422103e854c0b36afea0fc7f",
-                        "createdAt": "2025-12-21T21:15:34.783Z"
-                }
-        ];
+    // Get stored token
+    function getToken() {
+        return localStorage.getItem('nova_admin_token');
+    }
 
-    let analytics = {
-        totalUsers: 0,
-        todayVisits: 0,
-        pageViews: 0,
-        gaMeasurementId: 'G-Y2TP19FMHZ',
-        lastUpdated: null
-    };
+    // Store token
+    function setToken(token) {
+        localStorage.setItem('nova_admin_token', token);
+    }
 
-    // Try to load credentials from JSON file (if served via HTTP)
-    async function loadCredentials() {
-        try {
-            const response = await fetch('/data/admin-credentials.json');
-            if (response.ok) {
-                const fileCredentials = await response.json();
-                // Merge with embedded credentials, file takes priority
-                const fileEmails = new Set(fileCredentials.map(c => c.email.toLowerCase()));
-                credentials = [
-                    ...fileCredentials,
-                    ...credentials.filter(c => !fileEmails.has(c.email.toLowerCase()))
-                ];
-            }
-        } catch (error) {
-            // If fetch fails (file:// protocol), use embedded credentials
-            console.log('Using embedded credentials (no server needed)');
+    // Remove token
+    function removeToken() {
+        localStorage.removeItem('nova_admin_token');
+        localStorage.removeItem('nova_admin_email');
+    }
+
+    // Make authenticated API request
+    async function apiRequest(url, options = {}) {
+        const token = getToken();
+        if (!token) {
+            throw new Error('Not authenticated');
         }
-    }
 
-    // Load analytics from JSON file initially (or use embedded default)
-    async function loadAnalyticsFromFile() {
-        try {
-            const response = await fetch('/data/analytics.json');
-            if (response.ok) {
-                const fileData = await response.json();
-                analytics = { ...analytics, ...fileData };
-                saveAnalyticsToStorage();
-            }
-        } catch (error) {
-            // If fetch fails, use localStorage or default values
-            console.log('Analytics file not accessible, using localStorage or defaults');
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+            ...options.headers
+        };
+
+        const response = await fetch(url, {
+            ...options,
+            headers
+        });
+
+        if (response.status === 401) {
+            // Token expired or invalid
+            removeToken();
+            showLogin();
+            throw new Error('Session expired. Please login again.');
         }
-    }
 
-    // Load analytics from localStorage
-    function loadAnalyticsFromStorage() {
-        const stored = localStorage.getItem('nova_admin_analytics');
-        if (stored) {
-            analytics = { ...analytics, ...JSON.parse(stored) };
+        if (!response.ok) {
+            const error = await response.json().catch(() => ({ message: 'Request failed' }));
+            throw new Error(error.message || 'Request failed');
         }
+
+        return response.json();
     }
 
-    // Save analytics to localStorage
-    function saveAnalyticsToStorage() {
-        localStorage.setItem('nova_admin_analytics', JSON.stringify(analytics));
-    }
-
-    // SHA-256 hash function for browser
-    async function hashPassword(password) {
-        const encoder = new TextEncoder();
-        const data = encoder.encode(password);
-        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-    }
-
-    // Initialize
+    // Initialize - check if already logged in
     async function init() {
-        await loadCredentials();
-        await loadAnalyticsFromFile();
-        loadAnalyticsFromStorage();
-        
-        const loggedInEmail = localStorage.getItem('nova_admin_email');
-        if (loggedInEmail) {
-            showDashboard(loggedInEmail);
+        const token = getToken();
+        if (token) {
+            try {
+                // Verify token is still valid
+                const response = await fetch('/api/admin/verify', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    showDashboard(data.email);
+                    return;
+                }
+            } catch (error) {
+                console.error('Token verification failed:', error);
+            }
         }
+        // If no token or verification failed, show login
+        showLogin();
     }
-    
-    init();
+
+    // Show login screen
+    function showLogin() {
+        loginScreen.style.display = 'block';
+        adminDashboard.style.display = 'none';
+        document.getElementById('login-email').value = '';
+        document.getElementById('login-password').value = '';
+        document.getElementById('login-error').textContent = '';
+        document.getElementById('login-error').style.display = 'none';
+    }
 
     // Login form handler
     loginForm.addEventListener('submit', async (e) => {
@@ -112,45 +98,32 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('login-password').value;
         const errorDiv = document.getElementById('login-error');
 
-        if (credentials.length === 0) {
-            errorDiv.textContent = 'No admin accounts found. Please add admin accounts using the import script.';
-            errorDiv.style.display = 'block';
-            return;
-        }
+        errorDiv.textContent = '';
+        errorDiv.style.display = 'none';
 
         try {
-            const hashedPassword = await hashPassword(password);
-            const admin = credentials.find(cred => 
-                cred.email.toLowerCase() === email.toLowerCase() && 
-                cred.password === hashedPassword
-            );
+            const response = await fetch('/api/admin/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
 
-            if (!admin) {
-                // Check if password is stored as plain text (for initial setup)
-                const adminPlain = credentials.find(cred => 
-                    cred.email.toLowerCase() === email.toLowerCase() && 
-                    cred.password === password
-                );
-                
-                if (adminPlain) {
-                    // Update to hashed password (but we can't write to file client-side)
-                    // Just allow login
-                    localStorage.setItem('nova_admin_email', adminPlain.email);
-                    showDashboard(adminPlain.email);
-                    errorDiv.textContent = '';
-                    return;
-                }
-                
-                errorDiv.textContent = 'Invalid credentials. Please check your email and password.';
+            const data = await response.json();
+
+            if (!response.ok || !data.success) {
+                errorDiv.textContent = data.message || 'Invalid credentials. Please check your email and password.';
                 errorDiv.style.display = 'block';
                 return;
             }
 
-            localStorage.setItem('nova_admin_email', admin.email);
-            showDashboard(admin.email);
-            errorDiv.textContent = '';
+            // Store token and email
+            setToken(data.token);
+            localStorage.setItem('nova_admin_email', data.email);
+            showDashboard(data.email);
         } catch (error) {
-            errorDiv.textContent = 'Error during login. Please try again.';
+            errorDiv.textContent = 'Error during login. Please check your connection and try again.';
             errorDiv.style.display = 'block';
             console.error('Login error:', error);
         }
@@ -158,36 +131,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Logout handler
     logoutBtn.addEventListener('click', () => {
-        localStorage.removeItem('nova_admin_email');
-        loginScreen.style.display = 'block';
-        adminDashboard.style.display = 'none';
-        document.getElementById('login-email').value = '';
-        document.getElementById('login-password').value = '';
+        removeToken();
+        showLogin();
     });
 
     // Save GA ID handler
-    saveGaIdBtn.addEventListener('click', () => {
+    saveGaIdBtn.addEventListener('click', async () => {
         const gaId = document.getElementById('ga-measurement-id').value;
         const statusDiv = document.getElementById('ga-status');
         
-        if (!localStorage.getItem('nova_admin_email')) {
-            statusDiv.textContent = 'Please login first.';
-            statusDiv.style.display = 'block';
-            return;
-        }
+        statusDiv.textContent = '';
+        statusDiv.style.display = 'none';
 
-        analytics.gaMeasurementId = gaId || '';
-        analytics.lastUpdated = new Date().toISOString();
-        saveAnalyticsToStorage();
-        
-        statusDiv.textContent = 'Google Analytics ID saved successfully.';
-        statusDiv.style.color = '#00ff00';
-        statusDiv.style.display = 'block';
+        try {
+            await apiRequest('/api/admin/save-ga-id', {
+                method: 'POST',
+                body: JSON.stringify({ gaId })
+            });
+            
+            statusDiv.textContent = 'Google Analytics ID saved successfully.';
+            statusDiv.style.color = '#00ff00';
+            statusDiv.style.display = 'block';
+            
+            // Refresh analytics after saving
+            setTimeout(() => {
+                loadAnalytics();
+            }, 1000);
+        } catch (error) {
+            statusDiv.textContent = error.message || 'Failed to save GA ID.';
+            statusDiv.style.color = '#ff0000';
+            statusDiv.style.display = 'block';
+        }
     });
 
     // Refresh stats handler
     refreshStatsBtn.addEventListener('click', () => {
         loadAnalytics();
+        loadAdminCount();
     });
 
     // Show dashboard
@@ -201,26 +181,50 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Load analytics data
-    function loadAnalytics() {
-        loadAnalyticsFromStorage();
-        
-        // For Google Analytics, you'd need to integrate with GA API
-        // For now, just show stored values
-        document.getElementById('live-users').textContent = '0'; // GA integration needed
-        document.getElementById('total-users').textContent = analytics.totalUsers || '0';
-        document.getElementById('today-visits').textContent = analytics.todayVisits || '0';
-        document.getElementById('page-views').textContent = analytics.pageViews || '0';
+    async function loadAnalytics() {
+        try {
+            const data = await apiRequest('/api/admin/analytics');
+            
+            if (data.success) {
+                document.getElementById('live-users').textContent = data.liveUsers || '0';
+                document.getElementById('total-users').textContent = data.totalUsers || '0';
+                document.getElementById('today-visits').textContent = data.todayVisits || '0';
+                document.getElementById('page-views').textContent = data.pageViews || '0';
+            }
+        } catch (error) {
+            console.error('Failed to load analytics:', error);
+            // Show error or use defaults
+            document.getElementById('live-users').textContent = '-';
+            document.getElementById('total-users').textContent = '-';
+            document.getElementById('today-visits').textContent = '-';
+            document.getElementById('page-views').textContent = '-';
+        }
     }
 
     // Load admin count
-    function loadAdminCount() {
-        document.getElementById('admin-count').textContent = credentials.length || '0';
+    async function loadAdminCount() {
+        try {
+            const data = await apiRequest('/api/admin/count');
+            
+            if (data.success) {
+                document.getElementById('admin-count').textContent = data.count || '0';
+            }
+        } catch (error) {
+            console.error('Failed to load admin count:', error);
+            document.getElementById('admin-count').textContent = '-';
+        }
     }
 
     // Load GA ID
-    function loadGaId() {
-        if (analytics.gaMeasurementId) {
-            document.getElementById('ga-measurement-id').value = analytics.gaMeasurementId;
+    async function loadGaId() {
+        try {
+            const data = await apiRequest('/api/admin/ga-id');
+            
+            if (data.success && data.gaId) {
+                document.getElementById('ga-measurement-id').value = data.gaId;
+            }
+        } catch (error) {
+            console.error('Failed to load GA ID:', error);
         }
     }
 
@@ -230,4 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
             loadAnalytics();
         }
     }, 30000);
+
+    // Initialize on page load
+    init();
 });

