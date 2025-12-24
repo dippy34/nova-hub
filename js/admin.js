@@ -262,6 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await apiRequest('/api/admin/suggestions');
             
             if (data.success && data.data) {
+                console.log('Loaded suggestions data:', data.data);
                 displaySuggestions('game-suggestions-list', data.data.gameSuggestions || [], 'game');
                 displaySuggestions('feature-suggestions-list', data.data.featureSuggestions || [], 'feature');
                 displaySuggestions('bug-reports-list', data.data.bugReports || [], 'bug');
