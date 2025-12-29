@@ -141,10 +141,6 @@ app.get('/settings', (req, res) => {
   res.sendFile(path.join(__dirname, 'settings.html'));
 });
 
-app.get('/support', (req, res) => {
-  res.sendFile(path.join(__dirname, 'support.html'));
-});
-
 app.get('/about', (req, res) => {
   res.sendFile(path.join(__dirname, 'about.html'));
 });
@@ -155,10 +151,6 @@ app.get('/transfer', (req, res) => {
 
 app.get('/suggest', (req, res) => {
   res.sendFile(path.join(__dirname, 'suggest.html'));
-});
-
-app.get('/contact', (req, res) => {
-  res.sendFile(path.join(__dirname, 'contact.html'));
 });
 
 app.get('/ad', (req, res) => {

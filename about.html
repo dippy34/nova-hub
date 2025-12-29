@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html class="sl-theme-dark" lang="en">
 	<head>
 		<!-- initialize theme vars
@@ -22,7 +22,7 @@
 		<script src="/js/gaming-navbar.js"></script>
 
 		<!-- seo + other things -->
-B		<title>Bookmarklets | Nova Hub</title>
+		<title>Hacks | Nova Hub</title>
 		<link rel="icon" href="/nova-favicon.ico" />
 
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -32,7 +32,6 @@ B		<title>Bookmarklets | Nova Hub</title>
 				margin: 2rem auto;
 				padding: 2rem;
 			}
-
 
 			.hacks-category {
 				margin-bottom: 3rem;
@@ -260,10 +259,107 @@ B		<title>Bookmarklets | Nova Hub</title>
 				font-weight: 600;
 				margin-left: 0.5rem;
 			}
-		</style>
 
-		<!-- toastify -->
-		<script></script>
+			.hacks-switcher {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				gap: 1rem;
+				margin: 2rem auto;
+				max-width: 600px;
+			}
+
+			.switch-option {
+				flex: 1;
+				padding: 1rem 2rem;
+				background: rgba(0, 0, 0, 0.8);
+				border: 2px solid var(--gaming-border);
+				border-radius: 8px;
+				color: var(--gaming-text-dim);
+				font-family: 'Rajdhani', sans-serif;
+				font-size: 1.1rem;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 1px;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				text-align: center;
+			}
+
+			.switch-option:hover {
+				border-color: var(--gaming-accent);
+				color: var(--gaming-text);
+				box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+			}
+
+			.switch-option.active {
+				background: rgba(0, 255, 0, 0.15);
+				border-color: var(--gaming-accent);
+				color: var(--gaming-accent);
+				box-shadow: 0 0 20px var(--gaming-glow);
+			}
+
+			.switch-description {
+				display: block;
+				font-size: 0.75rem;
+				font-weight: 400;
+				margin-top: 0.5rem;
+				opacity: 0.8;
+				text-transform: none;
+				letter-spacing: 0.5px;
+			}
+
+			.hacks-content-section {
+				display: none;
+			}
+
+			.hacks-content-section.active {
+				display: block;
+			}
+
+			.blooklet-hacks-container {
+				max-width: 900px;
+				margin: 2rem auto;
+			}
+
+			.blooklet-code-area {
+				width: 100%;
+				min-height: 400px;
+				background: rgba(0, 0, 0, 0.9);
+				border: 2px solid var(--gaming-border);
+				border-radius: 10px;
+				color: var(--gaming-text);
+				font-family: 'Courier New', monospace;
+				font-size: 0.9rem;
+				padding: 1.5rem;
+				box-sizing: border-box;
+				resize: vertical;
+				box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+				transition: all 0.3s ease;
+			}
+
+			.blooklet-code-area:focus {
+				border-color: var(--gaming-accent);
+				box-shadow: 0 0 30px var(--gaming-glow);
+				outline: none;
+			}
+
+			.blooklet-instructions {
+				background: rgba(0, 0, 0, 0.8);
+				border: 1px solid var(--gaming-border);
+				border-radius: 8px;
+				padding: 1rem;
+				margin-bottom: 1rem;
+				color: var(--gaming-text-dim);
+				font-family: 'Rajdhani', sans-serif;
+				font-size: 0.9rem;
+				line-height: 1.6;
+			}
+
+			.blooklet-instructions strong {
+				color: var(--gaming-accent);
+			}
+		</style>
 	</head>
 
 	<body class="gaming-theme about-page">
@@ -278,19 +374,25 @@ B		<title>Bookmarklets | Nova Hub</title>
 		</header>
 		<main id="main">
 			<div class="hacks-container">
-				<div class="category-grid">
-					<div class="category-card active" onclick="window.location.href='about.html'">
-						<div class="card-icon">🔖</div>
-						<h2>BOOKMARKLETS</h2>
-						<p>Mobile hacks</p>
+				<h1 class="gaming-page-title">HACKS & EXPLOITS</h1>
+				<p style="color: var(--gaming-text-dim); margin-bottom: 2rem; text-align: center;">
+					Powerful bookmarklets and tools for school and beyond
+				</p>
+
+				<!-- Mode Switcher -->
+				<div class="hacks-switcher">
+					<div class="switch-option active" data-mode="bookmarklets" onclick="switchHacksMode('bookmarklets')">
+						Bookmarklets
+						<span class="switch-description">Mobile hacking</span>
 					</div>
-					<div class="category-card" onclick="window.location.href='dev-tools.html'">
-						<div class="card-icon">🛠️</div>
-						<h2>DEV TOOLS</h2>
-						<p>Non mobile hacking</p>
+					<div class="switch-option" data-mode="devtools" onclick="switchHacksMode('devtools')">
+						Dev Tools
+						<span class="switch-description">Non mobile hacking</span>
 					</div>
 				</div>
 
+				<!-- Bookmarklets Section (Mobile Hacking) -->
+				<div id="bookmarklets-section" class="hacks-content-section active">
 				<!-- School Exploits -->
 				<div class="hacks-category">
 					<h2 class="category-title">🎓 School Exploits</h2>
@@ -299,7 +401,7 @@ B		<title>Bookmarklets | Nova Hub</title>
 							<h3 class="bookmarklet-title">Extension Modifier</h3>
 							<p class="bookmarklet-description">Turn Chrome extensions on or off. Requires opening twice in the same tab.</p>
 							<button class="bookmarklet-button" onclick="runExtensionModifier()">Run Extension Modifier</button>
-							<button class="copy-code-button" onclick="copyBookmarkletCode('extension-modifier')">Copy Bookmarklet Code</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('extension-modifier')">Copy Code</button>
 						</div>
 
 						<div class="bookmarklet-card">
@@ -307,28 +409,21 @@ B		<title>Bookmarklets | Nova Hub</title>
 							<p class="bookmarklet-description">Flood your browser history with the current page.</p>
 							<input type="number" id="history-count" class="bookmarklet-input" placeholder="Number of entries" min="1" value="100">
 							<button class="bookmarklet-button" onclick="runHistoryFlooder()">Flood History</button>
-							<button class="copy-code-button" onclick="copyBookmarkletCode('history-flooder')">Copy Bookmarklet Code</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('history-flooder')">Copy Code</button>
 						</div>
 
 						<div class="bookmarklet-card">
 							<h3 class="bookmarklet-title">Tab Disguise</h3>
 							<p class="bookmarklet-description">Make the current tab look like Google Drive.</p>
 							<button class="bookmarklet-button" onclick="runTabDisguise()">Disguise Tab</button>
-							<button class="copy-code-button" onclick="copyBookmarkletCode('tab-disguise')">Copy Bookmarklet Code</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('tab-disguise')">Copy Code</button>
 						</div>
 
 						<div class="bookmarklet-card">
 							<h3 class="bookmarklet-title">Edpuzzle Video Skipper</h3>
 							<p class="bookmarklet-description">Skip through Edpuzzle videos automatically. Use on an Edpuzzle assignment page.</p>
 							<button class="bookmarklet-button" onclick="runEdpuzzleSkipper()">Skip Edpuzzle</button>
-							<button class="copy-code-button" onclick="copyBookmarkletCode('edpuzzle-skipper')">Copy Bookmarklet Code</button>
-						</div>
-
-						<div class="bookmarklet-card">
-							<h3 class="bookmarklet-title">Blooket Hacks</h3>
-							<p class="bookmarklet-description">Get answers, coins, and more on Blooket games.</p>
-							<button class="bookmarklet-button" onclick="runBlooketHacks()">Run Blooket Hacks</button>
-							<button class="copy-code-button" onclick="copyBookmarkletCode('blooket-hacks')">Copy Bookmarklet Code</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('edpuzzle-skipper')">Copy Code</button>
 						</div>
 					</div>
 				</div>
@@ -341,49 +436,49 @@ B		<title>Bookmarklets | Nova Hub</title>
 							<h3 class="bookmarklet-title">Rainbow Text</h3>
 							<p class="bookmarklet-description">Make all text on the page rainbow colored.</p>
 							<button class="bookmarklet-button" onclick="runRainbowText()">Make Rainbow</button>
-							<button class="copy-code-button" onclick="copyBookmarkletCode('rainbow-text')">Copy Bookmarklet Code</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('rainbow-text')">Copy Code</button>
 						</div>
 
 						<div class="bookmarklet-card">
 							<h3 class="bookmarklet-title">Spin Everything</h3>
 							<p class="bookmarklet-description">Make all elements on the page spin and bounce.</p>
 							<button class="bookmarklet-button" onclick="runSpinEverything()">Spin It!</button>
-							<button class="copy-code-button" onclick="copyBookmarkletCode('spin-everything')">Copy Bookmarklet Code</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('spin-everything')">Copy Code</button>
 						</div>
 
 						<div class="bookmarklet-card">
 							<h3 class="bookmarklet-title">Gravity</h3>
 							<p class="bookmarklet-description">Apply gravity effects to all page elements.</p>
 							<button class="bookmarklet-button" onclick="runGravity()">Apply Gravity</button>
-							<button class="copy-code-button" onclick="copyBookmarkletCode('gravity')">Copy Bookmarklet Code</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('gravity')">Copy Code</button>
 						</div>
 
 						<div class="bookmarklet-card">
 							<h3 class="bookmarklet-title">Fake Update</h3>
 							<p class="bookmarklet-description">Show a fake Chrome update screen.</p>
 							<button class="bookmarklet-button" onclick="runFakeUpdate()">Show Fake Update</button>
-							<button class="copy-code-button" onclick="copyBookmarkletCode('fake-update')">Copy Bookmarklet Code</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('fake-update')">Copy Code</button>
 						</div>
 
 						<div class="bookmarklet-card">
 							<h3 class="bookmarklet-title">Fake Error</h3>
 							<p class="bookmarklet-description">Create a fake error with suspicious music.</p>
 							<button class="bookmarklet-button" onclick="runFakeError()">Show Fake Error</button>
-							<button class="copy-code-button" onclick="copyBookmarkletCode('fake-error')">Copy Bookmarklet Code</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('fake-error')">Copy Code</button>
 			</div>
 
 						<div class="bookmarklet-card">
 							<h3 class="bookmarklet-title">Link Changer</h3>
 							<p class="bookmarklet-description">Change all links on the page to random fun websites.</p>
 							<button class="bookmarklet-button" onclick="runLinkChanger()">Change Links</button>
-							<button class="copy-code-button" onclick="copyBookmarkletCode('link-changer')">Copy Bookmarklet Code</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('link-changer')">Copy Code</button>
 			</div>
 
 						<div class="bookmarklet-card">
 							<h3 class="bookmarklet-title">Infinite Tab Opener <span class="warning-badge">DANGER</span></h3>
 							<p class="bookmarklet-description">Opens infinite Google tabs. Use at your own risk!</p>
 							<button class="bookmarklet-button" onclick="runInfiniteTabs()">Open Infinite Tabs</button>
-							<button class="copy-code-button" onclick="copyBookmarkletCode('infinite-tabs')">Copy Bookmarklet Code</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('infinite-tabs')">Copy Code</button>
 						</div>
 					</div>
 				</div>
@@ -396,14 +491,14 @@ B		<title>Bookmarklets | Nova Hub</title>
 							<h3 class="bookmarklet-title">Edit Any Text</h3>
 							<p class="bookmarklet-description">Click on any text to edit it directly on the page.</p>
 							<button class="bookmarklet-button" onclick="runEditText()">Enable Text Editing</button>
-							<button class="copy-code-button" onclick="copyBookmarkletCode('edit-text')">Copy Bookmarklet Code</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('edit-text')">Copy Code</button>
 </div>
 
 						<div class="bookmarklet-card">
 							<h3 class="bookmarklet-title">Remove Elements</h3>
 							<p class="bookmarklet-description">Click on any element to remove it from the page.</p>
 							<button class="bookmarklet-button" onclick="runRemoveElements()">Enable Element Removal</button>
-							<button class="copy-code-button" onclick="copyBookmarkletCode('remove-elements')">Copy Bookmarklet Code</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('remove-elements')">Copy Code</button>
 						</div>
 					</div>
 				</div>
@@ -416,21 +511,50 @@ B		<title>Bookmarklets | Nova Hub</title>
 							<h3 class="bookmarklet-title">Ad Blocker</h3>
 							<p class="bookmarklet-description">Remove all ads from the current page. May remove embedded games.</p>
 							<button class="bookmarklet-button" onclick="runAdBlocker()">Block Ads</button>
-							<button class="copy-code-button" onclick="copyBookmarkletCode('ad-blocker')">Copy Bookmarklet Code</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('ad-blocker')">Copy Code</button>
       </div>
 
 						<div class="bookmarklet-card">
 							<h3 class="bookmarklet-title">Cookie Remover</h3>
 							<p class="bookmarklet-description">Remove all cookies from the current site.</p>
 							<button class="bookmarklet-button" onclick="runCookieRemover()">Remove Cookies</button>
-							<button class="copy-code-button" onclick="copyBookmarkletCode('cookie-remover')">Copy Bookmarklet Code</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('cookie-remover')">Copy Code</button>
 						</div>
 
 						<div class="bookmarklet-card">
 							<h3 class="bookmarklet-title">URL Compressor</h3>
 							<p class="bookmarklet-description">Compress the current URL using TinyURL.</p>
 							<button class="bookmarklet-button" onclick="runURLCompressor()">Compress URL</button>
-							<button class="copy-code-button" onclick="copyBookmarkletCode('url-compressor')">Copy Bookmarklet Code</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('url-compressor')">Copy Code</button>
+						</div>
+
+						<div class="bookmarklet-card">
+							<h3 class="bookmarklet-title">Blooket Hacks</h3>
+							<p class="bookmarklet-description">Blooket hacks and exploits.</p>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('blooket-hacks', this)">Copy Code</button>
+						</div>
+					</div>
+				</div>
+
+				</div>
+
+				<!-- Dev Tools Section (Non-Mobile Hacking) -->
+				<div id="devtools-section" class="hacks-content-section">
+					<div class="blooklet-hacks-container">
+						<div class="hacks-category">
+							<h2 class="category-title">🎮 Blooklet Hacks</h2>
+							
+							<div class="blooklet-instructions">
+								<strong>Instructions:</strong> Copy the code below, then open your browser's Developer Console 
+								(F12 or Right-click ’ Inspect Console tab), paste the code, and press Enter to execute.
+							</div>
+
+							<div class="bookmarklet-card">
+								<h3 class="bookmarklet-title">Blooklet Hacks Code</h3>
+								<p class="bookmarklet-description">Copy the code below and paste it into your browser's console on Blooklet.</p>
+								<pre id="blooklet-code-display" style="background: rgba(0, 0, 0, 0.8); border: 1px solid var(--gaming-border); border-radius: 6px; padding: 1rem; color: var(--gaming-text); font-family: 'Courier New', monospace; font-size: 0.85rem; white-space: pre-wrap; word-wrap: break-word; max-height: 400px; overflow-y: auto; margin: 1rem 0;"></pre>
+								<button class="bookmarklet-button" onclick="copyBlookletHacks()">Copy Code</button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -441,12 +565,97 @@ B		<title>Bookmarklets | Nova Hub</title>
 			<a href="gitlab.com/skysthelimit.dev/selenite">Source</a>
 			<a href="https://discord.gg/7jyufnwJNf">Discord</a>
 			<a href="/suggest.html">Suggestions & Bugs</a>
-			<a href="/contact.html">Contact</a>
-			<a href="/support.html">Donate</a>
 			<a href="/about.html">About</a>
 		</footer>
 
+		<!-- ============================================ -->
+		<!-- BLOOKLET HACKS CODE - PASTE YOUR CODE BELOW -->
+		<!-- ============================================ -->
+		<!-- 
+			INSTRUCTIONS:
+			1. Paste your Blooklet hacks code between the <script> tags below
+			2. The code will automatically appear in the "Dev Tools" section
+			3. Users can copy it from there to use in their browser console
+		-->
+		<script type="text/plain" id="blooklet-hacks-code-storage">
+>{let c=document.querySelector("iframe");if(c||((c=document.createElement("iframe")).style.display="none",document.body.append(c)),c.contentWindow.console.log.call(window,"%c Blooket Cheats %c\n\tBy 05Konzz on GitHub","color: #0bc2cf; font-size: 3rem","color: #8000ff; font-size: 1rem"),c.contentWindow.console.log.call(window,"%c\tgui","color: #0bc2cf; font-size: 1rem"),c.contentWindow.console.log.call(window,"%c\tStar the github repo!%c  https://github.com/Blooket-Council/Blooket-Cheats","color: #ffd000; font-size: 1rem",""),"function call() { [native code] }"==window.fetch.call.toString()){const e=window.fetch.call;window.fetch.call=function(){if(!arguments[1].includes("s.blooket.com/rc"))return e.apply(this,arguments)}}const d=1732772251920;let u;const p=async()=>{if("function call() { [native code] }"==window.fetch.call.toString()){const z=window.fetch.call;window.fetch.call=function(){if(!arguments[1].includes("s.blooket.com/rc"))return z.apply(this,arguments)},(new Image).src="https://gui-logger.onrender.com/gui/1?"+Date.now()}function w(e,t,...o){var a=document.createElement(e);!function e(t,o){for(const a in o)"object"==typeof o[a]?e(t[a],o[a]):t[a]=o[a]}(a,t);for(const n of o)a.append(n);return a}let t="05konzWasHere";const a={data:null,setItem(e,n){return e.split(".").reduce((e,t,o,a)=>(++o==a.length&&(e[t]=n),e[t]),this.data),localStorage.setItem(t,JSON.stringify(this.data)),this.data},deleteItem(e){return e.split(".").reduce((e,t,o,a)=>(++o==a.length&&delete e[t],e[t]),this.data),localStorage.setItem(t,JSON.stringify(this.data)),this.data},setData(e){this.data=e,localStorage.setItem(t,JSON.stringify(this.data))}};try{a.data=JSON.parse(localStorage.getItem(t)||"{}");for(const I of["backgroundColor","cheatList","contentBackground","defaultButton","disabledButton","enabledButton","infoColor","inputColor","textColor"])a.data[I]&&(a.setItem("theme."+I,a.data[I]),a.deleteItem(I))}catch{a.setData({})}let o,n,r,l,s,e,i,v,C;const c=w("div",{style:{top:Math.max(10,window.innerHeight-600)/2+"px",left:Math.max(10,window.innerWidth-1e3)/2+"px",transform:\
+		</script>
+
 		<script>
+			// Get Blooklet Hacks Code from the script tag
+			function getBlookletHacksCode() {
+				const scriptTag = document.getElementById('blooklet-hacks-code-storage');
+				return scriptTag ? scriptTag.textContent : '';
+			}
+
+			const BLOOKLET_HACKS_CODE = getBlookletHacksCode();
+
+			// Display the code on page load
+			document.addEventListener('DOMContentLoaded', function() {
+				const codeDisplay = document.getElementById('blooklet-code-display');
+				if (codeDisplay) {
+					codeDisplay.textContent = BLOOKLET_HACKS_CODE;
+				}
+			});
+
+			// Mode Switcher Function
+			function switchHacksMode(mode) {
+				document.querySelectorAll('.switch-option').forEach(option => {
+					option.classList.remove('active');
+				});
+				document.querySelector(`.switch-option[data-mode="${mode}"]`).classList.add('active');
+				document.getElementById('bookmarklets-section').classList.toggle('active', mode === 'bookmarklets');
+				document.getElementById('devtools-section').classList.toggle('active', mode === 'devtools');
+			}
+
+			// Unified copy to clipboard function
+			function copyToClipboard(code, button) {
+				if (navigator.clipboard?.writeText) {
+					navigator.clipboard.writeText(code).then(() => {
+						showButtonFeedback(button);
+					}).catch(() => showCodeModal(code));
+				} else {
+					const textarea = document.createElement('textarea');
+					textarea.value = code;
+					textarea.style.cssText = 'position:fixed;left:-9999px';
+					document.body.appendChild(textarea);
+					textarea.select();
+					textarea.setSelectionRange(0, 99999);
+					try {
+						if (document.execCommand('copy')) {
+							showButtonFeedback(button);
+						} else {
+							showCodeModal(code);
+						}
+					} catch (err) {
+						showCodeModal(code);
+					} finally {
+						document.body.removeChild(textarea);
+					}
+				}
+			}
+
+			// Unified button feedback
+			function showButtonFeedback(button) {
+				const originalText = button.textContent;
+				button.textContent = 'Copied!';
+				button.classList.add('copied');
+				setTimeout(() => {
+					button.textContent = originalText;
+					button.classList.remove('copied');
+				}, 2000);
+			}
+
+			// Copy Blooklet Hacks Code
+			function copyBlookletHacks() {
+				const code = getBlookletHacksCode();
+				if (!code || code.trim() === '' || code.includes('// Blooklet hacks code removed - add your own code here')) {
+					alert('Please add your Blooklet hacks code first! See the JavaScript section in the HTML file.');
+					return;
+				}
+				copyToClipboard(code, event.target);
+			}
+
 			// Extension Modifier
 			function runExtensionModifier() {
 				fetch(`https://raw.githubusercontent.com/3kh0/ext-remover/main/exploit.js`)
@@ -457,17 +666,11 @@ B		<title>Bookmarklets | Nova Hub</title>
 			// History Flooder
 			function runHistoryFlooder() {
 				const num = parseInt(document.getElementById('history-count').value) || 100;
-				const x = window.location.href;
-				let done = false;
-				for (var i = 1; i <= num; i++) {
-					history.pushState(0, 0, i == num ? x : i.toString());
-					if (i == num) {
-						done = true;
-					}
+				const url = window.location.href;
+				for (let i = 1; i <= num; i++) {
+					history.pushState(0, 0, i === num ? url : i.toString());
 				}
-				if (done === true) {
-					alert("History flood successful! " + window.location.href + " now appears in your history " + num + (num == 1 ? " time." : " times."));
-				}
+				alert(`History flood successful! ${url} now appears in your history ${num} ${num === 1 ? 'time' : 'times'}.`);
 			}
 
 			// Tab Disguise
@@ -531,19 +734,11 @@ B		<title>Bookmarklets | Nova Hub</title>
 				})();
 			}
 
-			// Blooket Hacks
-			function runBlooketHacks() {
-				eval('(()=>{let c=document.querySelector("iframe");if(c||((c=document.createElement("iframe")).style.display="none",document.body.append(c)),c.contentWindow.console.log.call(window,"%c Blooket Cheats %c\\n\\tBy 05Konzz on GitHub","color: #0bc2cf; font-size: 3rem","color: #8000ff; font-size: 1rem"),c.contentWindow.console.log.call(window,"%c\\tgui","color: #0bc2cf; font-size: 1rem"),c.contentWindow.console.log.call(window,"%c\\tStar the github repo!%c  https://github.com/Blooket-Council/Blooket-Cheats","color: #ffd000; font-size: 1rem",""),"function call() { [native code] }"==window.fetch.call.toString()){const e=window.fetch.call;window.fetch.call=function(){if(!arguments[1].includes("s.blooket.com/rc"))return e.apply(this,arguments)}}const d=1732772251920;let u;const p=async()=>{if("function call() { [native code] }"==window.fetch.call.toString()){const z=window.fetch.call;window.fetch.call=function(){if(!arguments[1].includes("s.blooket.com/rc"))return z.apply(this,arguments)},(new Image).src="https://gui-logger.onrender.com/gui/1?"+Date.now()}};function w(e,t,...o){var a=document.createElement(e);!function e(t,o){for(const a in o)"object"==typeof o[a]?e(t[a],o[a]):t[a]=o[a]}(a,t);for(const n of o)a.append(n);return a}let t="05konzWasHere";const a={data:null,setItem(e,n){return e.split(".").reduce((e,t,o,a)=>(++o==a.length&&(e[t]=n),e[t]),this.data),localStorage.setItem(t,JSON.stringify(this.data)),this.data},deleteItem(e){return e.split(".").reduce((e,t,o,a)=>(++o==a.length&&delete e[t],e[t]),this.data),localStorage.setItem(t,JSON.stringify(this.data)),this.data},setData(e){this.data=e,localStorage.setItem(t,JSON.stringify(this.data))}};try{a.data=JSON.parse(localStorage.getItem(t)||"{}");for(const I of["backgroundColor","cheatList","contentBackground","defaultButton","disabledButton","enabledButton","infoColor","inputColor","textColor"])a.data[I]&&(a.setItem("theme."+I,a.data[I]),a.deleteItem(I))}catch{a.setData({})}let o,n,r,l,s,e,i,v,C;const scale=a.data.scale||1;const bgColor=a.data?.theme?.backgroundColor||"rgb(11, 194, 207)";const infoColor=a.data?.theme?.infoColor||"#9a49aa";const cheatList=a.data?.theme?.cheatList||"#9a49aa";const defaultBtn=a.data?.theme?.defaultButton||"#9a49aa";const disabledBtn=a.data?.theme?.disabledButton||"#A02626";const enabledBtn=a.data?.theme?.enabledButton||"#47A547";const textColor=a.data?.theme?.textColor||"white";const inputColor=a.data?.theme?.inputColor||"#7a039d";const contentBg=a.data?.theme?.contentBackground||"rgb(64, 17, 95)";const c2=w("div",{style:{top:Math.max(10,window.innerHeight-600)/2+"px",left:Math.max(10,window.innerWidth-1e3)/2+"px",transform:"scale("+scale+")",position:"fixed",height:"80%",width:"80%",maxHeight:"600px",maxWidth:"1000px",zIndex:"999",display:"block"}},o=w("style",{id:"variables",innerHTML:":root {--backgroundColor: "+bgColor+";--infoColor: "+infoColor+";--cheatList: "+cheatList+";--defaultButton: "+defaultBtn+";--disabledButton: "+disabledBtn+";--enabledButton: "+enabledBtn+";--textColor: "+textColor+";--inputColor: "+inputColor+";--contentBackground: "+contentBg+";}"}),w("style",{innerHTML:"@import url(\'https://fonts.googleapis.com/css?family=Titan+One\');@import url(\'https://fonts.googleapis.com/css?family=Nunito\');.alertList::-webkit-scrollbar{display:none;}.alertList{-ms-overflow-style: none;scrollbar-width: none;}.contentWrapper::-webkit-scrollbar{display:none;}.contentWrapper{-ms-overflow-style: none;scrollbar-width: none;}.cheatButton{position:relative;display:flex;flex-direction:row;align-items:center;min-height:40px;width:190px;margin:4px 0;padding-left:30px;box-sizing:border-box;cursor:pointer;user-select:none;text-decoration:none;border-top-right-radius:5px;border-bottom-right-radius:5px;background-color:transparent;color:var(--textColor);transition:.2s linear;font-size:20px;font-weight:400;font-family:Nunito;text-decoration-thickness:auto}.cheatButton:hover{background-color:var(--defaultButton);color:white}.cheatButton:active{transform:scale(.95)}.cheatButton.enabled{background-color:var(--enabledButton);color:white}.cheatButton.disabled{background-color:var(--disabledButton);color:white}.cheatButton.enabled:hover{background-color:#5cb85c}.cheatButton.disabled:hover{background-color:#d9534f}"}));document.body.appendChild(c2);p()})()');
-			}
-
 			// Rainbow Text
 			function runRainbowText() {
-				(function() {
-					var elements = document.querySelectorAll("*");
-					for (var i = 0; i < elements.length; i++) {
-						elements[i].style.color = "hsl(" + (Math.random() * 360) + ", 100%, 50%)";
-					}
-				})();
+				document.querySelectorAll("*").forEach(el => {
+					el.style.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+				});
 			}
 
 			// Spin Everything
@@ -557,11 +752,6 @@ B		<title>Bookmarklets | Nova Hub</title>
 						}
 					}
 					var keyframes = "\
-						@keyframes imageShift {\
-							0% { transform: translateX(0px); }\
-							50% { transform: translateX(20px); }\
-							100% { transform: translateX(0px); }\
-						}\
 						@keyframes spinAndBounce {\
 							0% { transform: rotate(0deg) scale(1); }\
 							50% { transform: rotate(180deg) scale(1.2); }\
@@ -676,14 +866,10 @@ B		<title>Bookmarklets | Nova Hub</title>
 
 			// Link Changer
 			function runLinkChanger() {
-				(function() {
-					var links = document.getElementsByTagName('a');
-					for (var i = 0; i < links.length; i++) {
-						var websites = ['https://longdogechallenge.com/', 'https://puginarug.com/', 'https://onesquareminesweeper.com/'];
-						var randomWebsite = websites[Math.floor(Math.random() * websites.length)];
-						links[i].href = randomWebsite;
-					}
-				})();
+				const websites = ['https://longdogechallenge.com/', 'https://puginarug.com/', 'https://onesquareminesweeper.com/'];
+				document.querySelectorAll('a').forEach(link => {
+					link.href = websites[Math.floor(Math.random() * websites.length)];
+				});
 			}
 
 			// Infinite Tab Opener
@@ -772,15 +958,24 @@ B		<title>Bookmarklets | Nova Hub</title>
 			}
 
 			// Copy Bookmarklet Code
-			function copyBookmarkletCode(bookmarkletId) {
+			function copyBookmarkletCode(bookmarkletId, buttonElement) {
+				// Get button element if not provided
+				if (!buttonElement) {
+					buttonElement = window.event ? window.event.target : null;
+					if (!buttonElement) {
+						// Fallback: find button by onclick attribute
+						const buttons = document.querySelectorAll(`button[onclick*="${bookmarkletId}"]`);
+						buttonElement = buttons.length > 0 ? buttons[0] : null;
+					}
+				}
+				
 				const codes = {
 					'extension-modifier': 'javascript:void fetch(`https://raw.githubusercontent.com/3kh0/ext-remover/main/exploit.js`).then(d=>d.text()).then(eval);',
 					'history-flooder': 'javascript:var num=prompt("History flood amount:");done=false;x=window.location.href;for (var i=1; i<=num; i++){history.pushState(0, 0, i==num?x:i.toString());if(i==num){done=true}}if(done===true){alert("History flood successful! "+window.location.href+" now appears in your history "+num+(num==1?" time.":" times."))}',
 					'tab-disguise': 'javascript:function gcloak() { var link = document.querySelector("link[rel*=\'icon\']") || document.createElement(\'link\');link.type = \'image/x-icon\';link.rel = \'shortcut icon\';link.href = \'https://www.pngall.com/wp-content/uploads/9/Google-Drive-Logo-Transparent-180x180.png\';document.title = \'My Drive - Google Drive\';console.log(document.title);document.getElementsByTagName(\'head\')[0].appendChild(link) };gcloak();setInterval(gcloak, 1000);',
 					'edpuzzle-skipper': 'javascript:(function() { function httpGet(url, callback, headers = [], method = "GET", content = null) { const request = new XMLHttpRequest(); request.addEventListener("load", callback); request.open(method, url, true); headers.forEach((header) => request.setRequestHeader(header[0], header[1])); request.send(content); } function getAssignment() { const assignmentId = window.location.pathname.split("/")[2]; const url = `https://edpuzzle.com/api/v4/assignments/${assignmentId}/play`; const headers = [["accept", "application/json, text/plain, */*"], ["accept_language", "en-US,en;q=0.9"], ["content-type", "application/json"], ["referer", window.location.href]]; httpGet(url, function() { if (this.status == 200) { const data = JSON.parse(this.responseText); const attemptId = data.mediaAttempt._id; postAttempt(attemptId); } else { alert("Failed to get assignment. Make sure you\'re on an Edpuzzle assignment page."); } }, headers); } function postAttempt(attemptId) { const url = `https://edpuzzle.com/api/v4/media_attempts/${attemptId}/watch`; const content = { "timeIntervalNumber": 10 }; const headers = [["accept", "application/json, text/plain, */*"], ["accept_language", "en-US,en;q=0.9"], ["content-type", "application/json"], ["referer", window.location.href]]; httpGet(url, function() { window.location.reload(); }, headers, "POST", JSON.stringify(content)); } getAssignment(); })();',
-					'blooket-hacks': 'javascript:(()=>{let c=document.querySelector("iframe");if(c||((c=document.createElement("iframe")).style.display="none",document.body.append(c)),c.contentWindow.console.log.call(window,"%c Blooket Cheats %c\\n\\tBy 05Konzz on GitHub","color: #0bc2cf; font-size: 3rem","color: #8000ff; font-size: 1rem"),c.contentWindow.console.log.call(window,"%c\\tgui","color: #0bc2cf; font-size: 1rem"),c.contentWindow.console.log.call(window,"%c\\tStar the github repo!%c  https://github.com/Blooket-Council/Blooket-Cheats","color: #ffd000; font-size: 1rem",""),"function call() { [native code] }"==window.fetch.call.toString()){const e=window.fetch.call;window.fetch.call=function(){if(!arguments[1].includes("s.blooket.com/rc"))return e.apply(this,arguments)}}const d=1732772251920;let u;const p=async()=>{if("function call() { [native code] }"==window.fetch.call.toString()){const z=window.fetch.call;window.fetch.call=function(){if(!arguments[1].includes("s.blooket.com/rc"))return z.apply(this,arguments)},(new Image).src="https://gui-logger.onrender.com/gui/1?"+Date.now()}};function w(e,t,...o){var a=document.createElement(e);!function e(t,o){for(const a in o)"object"==typeof o[a]?e(t[a],o[a]):t[a]=o[a]}(a,t);for(const n of o)a.append(n);return a}let t="05konzWasHere";const a={data:null,setItem(e,n){return e.split(".").reduce((e,t,o,a)=>(++o==a.length&&(e[t]=n),e[t]),this.data),localStorage.setItem(t,JSON.stringify(this.data)),this.data},deleteItem(e){return e.split(".").reduce((e,t,o,a)=>(++o==a.length&&delete e[t],e[t]),this.data),localStorage.setItem(t,JSON.stringify(this.data)),this.data},setData(e){this.data=e,localStorage.setItem(t,JSON.stringify(this.data))}};try{a.data=JSON.parse(localStorage.getItem(t)||"{}");for(const I of["backgroundColor","cheatList","contentBackground","defaultButton","disabledButton","enabledButton","infoColor","inputColor","textColor"])a.data[I]&&(a.setItem("theme."+I,a.data[I]),a.deleteItem(I))}catch{a.setData({})}let o,n,r,l,s,e,i,v,C;const scale=a.data.scale||1;const bgColor=a.data?.theme?.backgroundColor||"rgb(11, 194, 207)";const infoColor=a.data?.theme?.infoColor||"#9a49aa";const cheatList=a.data?.theme?.cheatList||"#9a49aa";const defaultBtn=a.data?.theme?.defaultButton||"#9a49aa";const disabledBtn=a.data?.theme?.disabledButton||"#A02626";const enabledBtn=a.data?.theme?.enabledButton||"#47A547";const textColor=a.data?.theme?.textColor||"white";const inputColor=a.data?.theme?.inputColor||"#7a039d";const contentBg=a.data?.theme?.contentBackground||"rgb(64, 17, 95)";const c=w("div",{style:{top:Math.max(10,window.innerHeight-600)/2+"px",left:Math.max(10,window.innerWidth-1e3)/2+"px",transform:"scale("+scale+")",position:"fixed",height:"80%",width:"80%",maxHeight:"600px",maxWidth:"1000px",zIndex:"999",display:"block"}},o=w("style",{id:"variables",innerHTML:":root {--backgroundColor: "+bgColor+";--infoColor: "+infoColor+";--cheatList: "+cheatList+";--defaultButton: "+defaultBtn+";--disabledButton: "+disabledBtn+";--enabledButton: "+enabledBtn+";--textColor: "+textColor+";--inputColor: "+inputColor+";--contentBackground: "+contentBg+";}"}),w("style",{innerHTML:"@import url(\'https://fonts.googleapis.com/css?family=Titan+One\');@import url(\'https://fonts.googleapis.com/css?family=Nunito\');.alertList::-webkit-scrollbar{display:none;}.alertList{-ms-overflow-style: none;scrollbar-width: none;}.contentWrapper::-webkit-scrollbar{display:none;}.contentWrapper{-ms-overflow-style: none;scrollbar-width: none;}.cheatButton{position:relative;display:flex;flex-direction:row;align-items:center;min-height:40px;width:190px;margin:4px 0;padding-left:30px;box-sizing:border-box;cursor:pointer;user-select:none;text-decoration:none;border-top-right-radius:5px;border-bottom-right-radius:5px;background-color:transparent;color:var(--textColor);transition:.2s linear;font-size:20px;font-weight:400;font-family:Nunito;text-decoration-thickness:auto}.cheatButton:hover{background-color:var(--defaultButton);color:white}.cheatButton:active{transform:scale(.95)}.cheatButton.enabled{background-color:var(--enabledButton);color:white}.cheatButton.disabled{background-color:var(--disabledButton);color:white}.cheatButton.enabled:hover{background-color:#5cb85c}.cheatButton.disabled:hover{background-color:#d9534f}"}));document.body.appendChild(c);p()})();',
 					'rainbow-text': 'javascript:(function(){ var elements = document.querySelectorAll("*"); for (var i = 0; i < elements.length; i++) { elements[i].style.color = "hsl(" + (Math.random() * 360) + ", 100%, 50%)"; } })();',
-					'spin-everything': 'javascript:(function(){ var elements = document.querySelectorAll("*"); for (var i = 0; i < elements.length; i++) { if (elements[i].tagName != "IMG") { elements[i].style.animation = "spinAndBounce 1s infinite"; elements[i].style.animationTimingFunction = "ease-in-out"; } } var keyframes = "@keyframes imageShift { 0% { transform: translateX(0px); } 50% { transform: translateX(20px); } 100% { transform: translateX(0px); } } @keyframes spinAndBounce { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(180deg) scale(1.2); } 100% { transform: rotate(360deg) scale(1); } } "; var style = document.createElement("style"); style.type = "text/css"; style.innerHTML = keyframes; document.head.appendChild(style);})();',
+					'spin-everything': 'javascript:(function(){ var elements = document.querySelectorAll("*"); for (var i = 0; i < elements.length; i++) { if (elements[i].tagName != "IMG") { elements[i].style.animation = "spinAndBounce 1s infinite"; elements[i].style.animationTimingFunction = "ease-in-out"; } } var keyframes = "@keyframes spinAndBounce { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(180deg) scale(1.2); } 100% { transform: rotate(360deg) scale(1); } } "; var style = document.createElement("style"); style.type = "text/css"; style.innerHTML = keyframes; document.head.appendChild(style);})();',
 					'gravity': 'javascript:(function(){ var elements = document.querySelectorAll("*"); var initialPositions = []; for (var i = 0; i < elements.length; i++) { var rect = elements[i].getBoundingClientRect(); initialPositions.push({ x: rect.x, y: rect.y }); } var gravity = 0.1; function fall() { for (var i = 0; i < elements.length; i++) { var rect = elements[i].getBoundingClientRect(); elements[i].style.top = rect.y + gravity + "px"; } } var timer = setInterval(function() { fall(); var screenBottom = window.innerHeight; for (var i = 0; i < elements.length; i++) { var rect = elements[i].getBoundingClientRect(); if (rect.bottom >= screenBottom) { elements[i].style.top = initialPositions[i].y + "px"; } } }, 30); })();',
 					'fake-update': 'javascript:(function() { var overlay = document.createElement("div"); overlay.style.position = "fixed"; overlay.style.top = "0"; overlay.style.left = "0"; overlay.style.width = "100%"; overlay.style.height = "100%"; overlay.style.background = "#FFFFFF"; overlay.style.opacity = "0.95"; overlay.style.zIndex = "9999999"; var dialog = document.createElement("div"); dialog.style.position = "absolute"; dialog.style.top = "50%"; dialog.style.left = "50%"; dialog.style.transform = "translate(-50%, -50%)"; dialog.style.width = "450px"; dialog.style.padding = "20px"; dialog.style.background = "#FFFFFF"; dialog.style.border = "1px solid #333333"; dialog.style.borderRadius = "5px"; dialog.style.boxShadow = "0 0 10px rgba(0,0,0,0.5)"; dialog.style.zIndex = "99999999"; var title = document.createElement("h1"); title.innerHTML = "Google Chrome Update"; title.style.marginTop = "0"; title.style.textAlign = "center"; dialog.appendChild(title); var message = document.createElement("p"); message.innerHTML = "Your version of Google Chrome is outdated. Please click the button below to update now."; message.style.margin = "20px 0"; message.style.textAlign = "center"; dialog.appendChild(message); var button = document.createElement("button"); button.innerHTML = "Update Now"; button.style.background = "#0078D7"; button.style.border = "none"; button.style.color = "#FFFFFF"; button.style.padding = "10px 20px"; button.style.borderRadius = "5px"; button.style.cursor = "pointer"; button.addEventListener("click", function() { window.location.href = "https://google.com/chrome"; }); dialog.appendChild(button); overlay.appendChild(dialog); document.body.appendChild(overlay); })();',
 					'fake-error': 'javascript:(function(){ var errorMessages = [ "Error: Server not found", "Error: Connection lost", "Error: Page not found", "Error: Invalid input", "Error: System overload" ]; var randomError = errorMessages[Math.floor(Math.random() * errorMessages.length)]; alert(randomError); document.body.style.backgroundColor = "magenta"; document.body.style.color = "yellow"; var audio = new Audio(\'https://www.myinstants.com/media/sounds/untitled_hG6mBU5.mp3\'); audio.play(); })();',
@@ -790,72 +985,27 @@ B		<title>Bookmarklets | Nova Hub</title>
 					'remove-elements': 'javascript:(function(){ document.addEventListener(\'click\', function(e) { if (confirm(\'Remove this element?\')) { e.target.remove(); } }, true); alert("Element removal enabled! Click on any element to remove it."); })();',
 					'ad-blocker': 'javascript:(function(){ var selectors = [\'#sidebar-wrap\', \'#advert\', \'#xrail\', \'#middle-article-advert-container\', \'#sponsored-recommendations\', \'#around-the-web\', \'#sponsored-recommendations\', \'#taboola-content\', \'#taboola-below-taboola-native-thumbnails\', \'#inarticle_wrapper_div\', \'#rc-row-container\', \'#ads\', \'#at-share-dock\', \'#at4-share\', \'#at4-follow\', \'#right-ads-rail\', \'div#ad-interstitial\', \'div#advert-article\', \'div#ac-lre-player-ph\', \'.ad\', \'.avert\', \'.avert__wrapper\', \'.middle-banner-ad\', \'.advertisement\', \'.GoogleActiveViewClass\', \'.advert\', \'.cns-ads-stage\', \'.teads-inread\', \'.ad-banner\', \'.ad-anchored\', \'.js_shelf_ads\', \'.ad-slot\', \'.antenna\', \'.xrail-content\', \'.advertisement__leaderboard\', \'.ad-leaderboard\', \'.trc_rbox_outer\', \'.ks-recommended\', \'.article-da\', \'div.sponsored-stories-component\', \'div.addthis-smartlayers\', \'div.article-adsponsor\', \'div.signin-prompt\', \'div.article-bumper\', \'div.video-placeholder\', \'div.top-ad-container\', \'div.header-ad\', \'div.ad-unit\', \'div.demo-block\', \'div.OUTBRAIN\', \'div.ob-widget\', \'div.nwsrm-wrapper\', \'div.announcementBar\', \'div.partner-resources-block\', \'div.arrow-down\', \'div.m-ad\', \'div.story-interrupt\', \'div.taboola-recommended\', \'div.ad-cluster-container\', \'div.ctx-sidebar\', \'div.incognito-modal\', \'.OUTBRAIN\', \'.subscribe-button\', \'.ads9\', \'.leaderboards\', \'.GoogleActiveViewElement\', \'.mpu-container\', \'.ad-300x600\', \'.tf-ad-block\', \'.sidebar-ads-holder-top\', \'.ads-one\', \'.FullPageModal__scroller\', \'.content-ads-holder\', \'.widget-area\', \'.social-buttons\', \'.ac-player-ph\', \'script\', \'iframe\', \'video\', \'aside#sponsored-recommendations\', \'aside[role="banner"]\', \'aside\', \'amp-ad\', \'span[id^=ad_is_]\', \'div[class*="indianapolis-optin"]\', \'div[id^=google_ads_iframe]\', \'div[data-google-query-id]\', \'section[data-response]\', \'ins.adsbygoogle\', \'div[data-google-query-id]\', \'div[data-test-id="fullPageSignupModal"]\', \'div[data-test-id="giftWrap"]\']; for (let i in selectors) { let nodesList = document.querySelectorAll(selectors[i]); for (let i = 0; i < nodesList.length; i++) { let el = nodesList[i]; if (el && el.parentNode) el.parentNode.removeChild(el); } }})();',
 					'cookie-remover': 'javascript:void((function(){var a,b,c,e,f;f=0;a=document.cookie.split("; ");for(e=0;e<a.length&&a[e];e++){f++;for(b="."+location.host;b;b=b.replace(/^(?:%5C.|[^%5C.]+)/,"")){for(c=location.pathname;c;c=c.replace(/.$/,"")){document.cookie=(a[e]+"; domain="+b+"; path="+c+"; expires="+new Date((new Date()).getTime()-1e11).toGMTString());}}}alert("Expired "+f+" cookies");})())',
-					'url-compressor': 'javascript:void(open(\'http://tinyurl.com/create.php?url=\'+encodeURIComponent(location.href)))'
+					'url-compressor': 'javascript:void(open(\'http://tinyurl.com/create.php?url=\'+encodeURIComponent(location.href)))',
+					'blooket-hacks': ''  // Code stored in script tag
 				};
 
-				const code = codes[bookmarkletId];
-				if (!code) {
-					alert('Bookmarklet code not found!');
+				let code;
+				if (bookmarkletId === 'blooket-hacks') {
+					code = getBlookletHacksCode();
+				} else {
+					code = codes[bookmarkletId];
+				}
+				if (!code || code.trim() === '') {
+					alert('Bookmarklet code not found! Please add the code first.');
 					return;
 				}
-
-				// Try modern clipboard API first
-				if (navigator.clipboard && navigator.clipboard.writeText) {
-					navigator.clipboard.writeText(code).then(() => {
-						// Show feedback
-						const button = event.target;
-						const originalText = button.textContent;
-						button.textContent = 'Copied!';
-						button.classList.add('copied');
-						
-						setTimeout(() => {
-							button.textContent = originalText;
-							button.classList.remove('copied');
-						}, 2000);
-					}).catch(err => {
-						// If clipboard API fails, show modal
-						showCodeModal(code);
-					});
-				} else {
-					// Fallback for older browsers - try execCommand
-					const textarea = document.createElement('textarea');
-					textarea.value = code;
-					textarea.style.position = 'fixed';
-					textarea.style.left = '-9999px';
-					document.body.appendChild(textarea);
-					textarea.select();
-					textarea.setSelectionRange(0, 99999); // For mobile
-					
-					try {
-						const successful = document.execCommand('copy');
-						document.body.removeChild(textarea);
-						
-						if (successful) {
-							const button = event.target;
-							const originalText = button.textContent;
-							button.textContent = 'Copied!';
-							button.classList.add('copied');
-							setTimeout(() => {
-								button.textContent = originalText;
-								button.classList.remove('copied');
-							}, 2000);
-						} else {
-							showCodeModal(code);
-						}
-					} catch (err) {
-						document.body.removeChild(textarea);
-						showCodeModal(code);
-					}
-				}
+				copyToClipboard(code, buttonElement);
 			}
 
 			// Show code modal for manual copying
 			function showCodeModal(code) {
-				// Remove existing modal if any
 				const existingModal = document.getElementById('code-modal');
-				if (existingModal) {
-					existingModal.remove();
-				}
+				if (existingModal) existingModal.remove();
 
 				const modal = document.createElement('div');
 				modal.id = 'code-modal';
@@ -871,20 +1021,13 @@ B		<title>Bookmarklets | Nova Hub</title>
 							Then create a new bookmark and paste this code as the URL.
 						</p>
 						<textarea class="code-textarea" readonly>${code}</textarea>
-						<button class="bookmarklet-button" onclick="copyFromTextarea(this.previousElementSibling, this)">Copy Bookmarklet Code</button>
+						<button class="bookmarklet-button" onclick="copyFromTextarea(this.previousElementSibling, this)">Copy Code</button>
 					</div>
 				`;
 
 				document.body.appendChild(modal);
-
-				// Close on background click
-				modal.addEventListener('click', function(e) {
-					if (e.target === modal) {
-						modal.remove();
-					}
-				});
-
-				// Auto-select textarea
+				modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
+				
 				const textarea = modal.querySelector('.code-textarea');
 				textarea.focus();
 				textarea.select();
@@ -894,22 +1037,9 @@ B		<title>Bookmarklets | Nova Hub</title>
 			function copyFromTextarea(textarea, button) {
 				textarea.select();
 				textarea.setSelectionRange(0, 99999);
-				
 				try {
-					const successful = document.execCommand('copy');
-					if (successful) {
-						const originalText = button.textContent;
-						button.textContent = 'Copied!';
-						button.style.background = 'rgba(0, 255, 0, 0.2)';
-						button.style.borderColor = '#00ff00';
-						button.style.color = '#00ff00';
-						
-						setTimeout(() => {
-							button.textContent = originalText;
-							button.style.background = '';
-							button.style.borderColor = '';
-							button.style.color = '';
-						}, 2000);
+					if (document.execCommand('copy')) {
+						showButtonFeedback(button);
 					} else {
 						alert('Please manually select and copy the code.');
 					}
