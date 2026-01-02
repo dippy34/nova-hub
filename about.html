@@ -277,6 +277,7 @@
 				max-width: 600px;
 			}
 
+
 			.switch-option {
 				flex: 1;
 				padding: 1rem 2rem;
@@ -315,6 +316,49 @@
 				opacity: 0.8;
 				text-transform: none;
 				letter-spacing: 0.5px;
+			}
+
+			.hacks-search-container {
+				position: relative;
+				max-width: 600px;
+				margin: 1.5rem auto;
+			}
+
+			.hacks-search-input {
+				width: 100%;
+				padding: 0.75rem 2.5rem 0.75rem 1rem;
+				background: rgba(0, 0, 0, 0.8);
+				border: 2px solid var(--gaming-border);
+				border-radius: 8px;
+				color: var(--gaming-text);
+				font-family: 'Rajdhani', sans-serif;
+				font-size: 1rem;
+				transition: all 0.3s ease;
+				box-sizing: border-box;
+			}
+
+			.hacks-search-input:focus {
+				outline: none;
+				border-color: var(--gaming-accent);
+				box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+			}
+
+			.hacks-search-input::placeholder {
+				color: var(--gaming-text-dim);
+			}
+
+			.hacks-search-icon {
+				position: absolute;
+				right: 1rem;
+				top: 50%;
+				transform: translateY(-50%);
+				color: var(--gaming-text-dim);
+				pointer-events: none;
+			}
+
+			.bookmarklet-card.hidden,
+			.hacks-category.hidden {
+				display: none !important;
 			}
 
 			.hacks-content-section {
@@ -391,16 +435,22 @@
 				<div class="hacks-switcher">
 					<div class="switch-option active" data-mode="bookmarklets" onclick="switchHacksMode('bookmarklets')">
 						Bookmarklets
-						<span class="switch-description">Mobile hacking</span>
+						<span class="switch-description">for any device laptops ipads etc</span>
 					</div>
 					<div class="switch-option" data-mode="devtools" onclick="switchHacksMode('devtools')">
 						Dev Tools
-						<span class="switch-description">Non mobile hacking</span>
+						<span class="switch-description">only for laptops and computer or running through my custom dev console</span>
 					</div>
 					<div class="switch-option" data-mode="tutorials" onclick="switchHacksMode('tutorials')">
 						Tutorials
 						<span class="switch-description">Learn how to use</span>
 					</div>
+				</div>
+
+				<!-- Search Bar -->
+				<div class="hacks-search-container">
+					<input type="text" id="hacks-search" class="hacks-search-input" placeholder="Search hacks..." autocomplete="off">
+					<span class="hacks-search-icon">🔍</span>
 				</div>
 
 				<!-- Bookmarklets Section (Mobile Hacking) -->
@@ -436,6 +486,13 @@
 							<p class="bookmarklet-description">Skip through Edpuzzle videos automatically. Use on an Edpuzzle assignment page.</p>
 							<button class="bookmarklet-button" onclick="runEdpuzzleSkipper()">Skip Edpuzzle</button>
 							<button class="copy-code-button" onclick="copyBookmarkletCode('edpuzzle-skipper')">Copy Code</button>
+						</div>
+
+						<div class="bookmarklet-card">
+							<h3 class="bookmarklet-title">Big Ideas Math Bot</h3>
+							<p class="bookmarklet-description">Get answers for Big Ideas Math assignments. Works on Big Ideas Math websites.</p>
+							<button class="bookmarklet-button" onclick="runBigIdeasMathBot()">Run Bot</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('big-ideas-math-bot')">Copy Code</button>
 						</div>
 					</div>
 				</div>
@@ -546,6 +603,20 @@
 							<button class="bookmarklet-button" onclick="runCustomConsole()">Open Console</button>
 							<button class="copy-code-button" onclick="copyBookmarkletCode('custom-console')">Copy Code</button>
 						</div>
+
+						<div class="bookmarklet-card">
+							<h3 class="bookmarklet-title">Auto Clicker</h3>
+							<p class="bookmarklet-description">Automatically clicks at your cursor position with customizable clicks per second. Set your hotkey and click rate.</p>
+							<button class="bookmarklet-button" onclick="runAutoClicker()">Start Auto Clicker</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('auto-clicker')">Copy Code</button>
+						</div>
+
+						<div class="bookmarklet-card">
+							<h3 class="bookmarklet-title">Auto Clicker (Mobile)</h3>
+							<p class="bookmarklet-description">Auto clicker with a draggable cursor for mobile devices. Drag the cursor to set where it clicks.</p>
+							<button class="bookmarklet-button" onclick="runAutoClickerMobile()">Start Auto Clicker</button>
+							<button class="copy-code-button" onclick="copyBookmarkletCode('auto-clicker-mobile')">Copy Code</button>
+						</div>
 					</div>
 				</div>
 
@@ -573,6 +644,27 @@
 								<button class="bookmarklet-button" onclick="copyBlookletHacks()">Copy Code</button>
 							</div>
 						</div>
+
+						<div class="hacks-category">
+							<h2 class="category-title">📐 Big Ideas Math Bot</h2>
+							
+							<div class="blooklet-instructions">
+								<strong>Instructions:</strong> Click "Execute" to run the code directly, or "Copy Code" to copy it and paste into your browser's Developer Console 
+								(F12 or Right-click → Inspect → Console tab). Use on Big Ideas Math assignment pages.
+							</div>
+
+							<div class="bookmarklet-card">
+								<h3 class="bookmarklet-title">Big Ideas Math Bot Code</h3>
+								<p class="bookmarklet-description">Execute the code directly or copy it to use in your browser's console on Big Ideas Math.</p>
+								<pre id="big-ideas-math-bot-code-display" style="background: rgba(0, 0, 0, 0.8); border: 1px solid var(--gaming-border); border-radius: 6px; padding: 1rem; color: var(--gaming-text); font-family: 'Courier New', monospace; font-size: 0.85rem; white-space: pre-wrap; word-wrap: break-word; max-height: 400px; overflow-y: auto; margin: 1rem 0;"></pre>
+								<div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+									<button class="bookmarklet-button" onclick="executeBigIdeasMathBot()">Execute</button>
+									<span style="color: var(--gaming-text); font-size: 0.85rem; opacity: 0.8;">⚠️ Will look weird on our site - works normally on Big Ideas Math</span>
+								</div>
+								<button class="bookmarklet-button" onclick="copyBigIdeasMathBot()">Copy Code</button>
+							</div>
+						</div>
+
 					</div>
 				</div>
 
@@ -606,8 +698,836 @@
 		</footer>
 
 		<!-- ============================================ -->
+		<!-- AUTO CLICKER (MOBILE) CODE -->
+		<!-- ============================================ -->
+		<script type="text/plain" id="auto-clicker-mobile-code-storage">
+javascript:(function(){
+    if(document.getElementById("ac-mobile-if")){
+        document.getElementById("ac-mobile-if").remove();
+        if(document.getElementById("ac-mobile-cursor")){
+            document.getElementById("ac-mobile-cursor").remove();
+        }
+        return;
+    }
+    var i=document.createElement("div");
+    i.id="ac-mobile-if";
+    i.style.cssText="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#000;border:2px solid rgba(0,255,0,0.3);border-radius:8px;padding:0;z-index:999999998;min-width:300px;box-shadow:0 0 20px rgba(0,255,0,0.3);";
+    var header=document.createElement("div");
+    header.style.cssText="background:rgba(0,255,0,0.1);border-bottom:1px solid rgba(0,255,0,0.3);padding:10px 15px;cursor:move;user-select:none;border-radius:8px 8px 0 0;";
+    var t=document.createElement("h3");
+    t.textContent="Auto Clicker (Mobile)";
+    t.style.cssText="color:#00ff00;margin:0;font-family:monospace;display:inline-block;";
+    var content=document.createElement("div");
+    content.style.cssText="padding:20px;";
+    var isDragging=false;
+    var currentX=0;
+    var currentY=0;
+    var initialX=0;
+    var initialY=0;
+    var xOffset=0;
+    var yOffset=0;
+    function dragStart(e){
+        if(e.target===header||e.target===t||header.contains(e.target)){
+            initialX=(e.touches?e.touches[0].clientX:e.clientX)-xOffset;
+            initialY=(e.touches?e.touches[0].clientY:e.clientY)-yOffset;
+            if(e.target===header||header.contains(e.target)){
+                isDragging=true;
+            }
+        }
+    }
+    function dragEnd(e){
+        initialX=currentX;
+        initialY=currentY;
+        isDragging=false;
+    }
+    function drag(e){
+        if(isDragging){
+            e.preventDefault();
+            currentX=(e.touches?e.touches[0].clientX:e.clientX)-initialX;
+            currentY=(e.touches?e.touches[0].clientY:e.clientY)-initialY;
+            xOffset=currentX;
+            yOffset=currentY;
+            i.style.transform="translate("+currentX+"px, "+currentY+"px)";
+            i.style.top="0";
+            i.style.left="0";
+        }
+    }
+    header.addEventListener("mousedown",dragStart);
+    header.addEventListener("touchstart",dragStart);
+    document.addEventListener("mousemove",drag);
+    document.addEventListener("touchmove",drag);
+    document.addEventListener("mouseup",dragEnd);
+    document.addEventListener("touchend",dragEnd);
+    header.appendChild(t);
+    i.appendChild(header);
+    var l=document.createElement("label");
+    l.textContent="Clicks per second:";
+    l.style.cssText="color:#00ff00;display:block;margin-bottom:5px;font-family:monospace;";
+    var inp=document.createElement("input");
+    inp.type="number";
+    inp.value="10";
+    inp.min="1";
+    inp.max="1000";
+    inp.style.cssText="width:100%;padding:8px;background:#000;border:1px solid rgba(0,255,0,0.3);border-radius:4px;color:#00ff00;font-family:monospace;margin-bottom:15px;box-sizing:border-box;";
+    var hkLabel=document.createElement("label");
+    hkLabel.textContent="Hotkey:";
+    hkLabel.style.cssText="color:#00ff00;display:block;margin-bottom:5px;font-family:monospace;";
+    var hkInp=document.createElement("input");
+    hkInp.type="text";
+    hkInp.value="Space";
+    hkInp.readOnly=true;
+    hkInp.placeholder="Click to set hotkey";
+    hkInp.style.cssText="width:100%;padding:8px;background:#000;border:1px solid rgba(0,255,0,0.3);border-radius:4px;color:#00ff00;font-family:monospace;margin-bottom:15px;box-sizing:border-box;cursor:pointer;";
+    var currentHotkey="Space";
+    var isCapturingKey=false;
+    hkInp.addEventListener("focus",function(){
+        isCapturingKey=true;
+        hkInp.value="Press any key...";
+        hkInp.style.borderColor="#00ff00";
+    });
+    hkInp.addEventListener("blur",function(){
+        isCapturingKey=false;
+        hkInp.style.borderColor="rgba(0,255,0,0.3)";
+        if(hkInp.value==="Press any key..."){
+            hkInp.value=currentHotkey;
+        }
+    });
+    var cursorInfo=document.createElement("p");
+    cursorInfo.textContent="Drag the green cursor on screen to set click position";
+    cursorInfo.style.cssText="color:#888;font-size:12px;margin:0 0 15px 0;font-family:monospace;";
+    var s=document.createElement("button");
+    s.textContent="Start";
+    s.style.cssText="width:100%;padding:10px;background:rgba(0,255,0,0.2);border:1px solid #00ff00;border-radius:4px;color:#00ff00;font-family:monospace;font-weight:bold;cursor:pointer;";
+    var c=document.createElement("button");
+    c.textContent="Close";
+    c.style.cssText="width:100%;padding:10px;margin-top:10px;background:rgba(255,0,0,0.2);border:1px solid #ff0000;border-radius:4px;color:#ff0000;font-family:monospace;font-weight:bold;cursor:pointer;";
+    var st=document.createElement("div");
+    st.id="ac-mobile-st";
+    st.style.cssText="margin-top:15px;padding:10px;background:rgba(0,0,0,0.5);border-radius:4px;color:#00ff00;font-family:monospace;font-size:12px;text-align:center;display:none;";
+    var cursor=document.createElement("div");
+    cursor.id="ac-mobile-cursor";
+    cursor.style.cssText="position:fixed;width:20px;height:20px;border:2px solid #00ff00;border-radius:50%;background:rgba(0,255,0,0.3);z-index:999999999;pointer-events:auto;box-shadow:0 0 10px rgba(0,255,0,0.5);cursor:move;touch-action:none;transform:translate(-50%,-50%);will-change:transform;";
+    var cursorX=window.innerWidth/2;
+    var cursorY=window.innerHeight/2;
+    cursor.style.left=cursorX+"px";
+    cursor.style.top=cursorY+"px";
+    var isDraggingCursor=false;
+    function updateCursorPosition(x,y){
+        cursorX=x;
+        cursorY=y;
+        cursor.style.left=cursorX+"px";
+        cursor.style.top=cursorY+"px";
+    }
+    function cursorDragStart(e){
+        isDraggingCursor=true;
+        var clientX=e.touches?e.touches[0].clientX:e.clientX;
+        var clientY=e.touches?e.touches[0].clientY:e.clientY;
+        updateCursorPosition(clientX,clientY);
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    function cursorDrag(e){
+        if(isDraggingCursor){
+            e.preventDefault();
+            e.stopPropagation();
+            var clientX=e.touches?e.touches[0].clientX:e.clientX;
+            var clientY=e.touches?e.touches[0].clientY:e.clientY;
+            updateCursorPosition(clientX,clientY);
+        }
+    }
+    function cursorDragEnd(e){
+        isDraggingCursor=false;
+    }
+    cursor.addEventListener("mousedown",cursorDragStart,{passive:false});
+    cursor.addEventListener("touchstart",cursorDragStart,{passive:false});
+    document.addEventListener("mousemove",cursorDrag,{passive:false});
+    document.addEventListener("touchmove",cursorDrag,{passive:false});
+    document.addEventListener("mouseup",cursorDragEnd);
+    document.addEventListener("touchend",cursorDragEnd);
+    document.body.appendChild(cursor);
+    var r=false;
+    var cl=null;
+    var cnt=0;
+    var nextClickTime=0;
+    var lastCps=0;
+    var cachedElement=null;
+    var elementValidationCounter=0;
+    var elementValidationInterval=20;
+    var clickEvent=null;
+    var lastStatusUpdate=0;
+    var statusUpdateInterval=100;
+    try{
+        clickEvent=new MouseEvent("click",{bubbles:true,cancelable:true,view:window});
+    }catch(e){
+        clickEvent=null;
+    }
+    function clickerLoop(){
+        if(!r||!cl)return;
+        if(document.hidden){
+            return;
+        }
+        var now=performance.now();
+        var currentCps=parseInt(inp.value)||10;
+        if(currentCps<1||currentCps>1000){
+            return;
+        }
+        var targetInterval=1000/currentCps;
+        if(targetInterval<5)targetInterval=5;
+        if(currentCps!==lastCps){
+            nextClickTime=now;
+            lastCps=currentCps;
+        }
+        if(nextClickTime===0){
+            nextClickTime=now;
+        }
+        var clicksDue=0;
+        while(now>=nextClickTime){
+            clicksDue++;
+            nextClickTime+=targetInterval;
+        }
+        if(clicksDue>0){
+            elementValidationCounter++;
+            if(!cachedElement||elementValidationCounter>=elementValidationInterval){
+                cachedElement=document.elementFromPoint(cursorX+10,cursorY+10);
+                elementValidationCounter=0;
+            }
+            if(cachedElement&&clickEvent){
+                for(var i=0;i<clicksDue;i++){
+                    try{
+                        cachedElement.dispatchEvent(clickEvent);
+                        cnt++;
+                    }catch(e){
+                        console.error("Auto Clicker error:",e);
+                        cachedElement=null;
+                        break;
+                    }
+                }
+            }
+            var statusNow=Date.now();
+            if(statusNow-lastStatusUpdate>=statusUpdateInterval){
+                st.textContent="Status: ACTIVE | Clicks: "+cnt+" | CPS: "+currentCps;
+                st.style.display="block";
+                st.style.color="#00ff00";
+                lastStatusUpdate=statusNow;
+            }
+        }
+    }
+    var tog=function(){
+        var cps=parseInt(inp.value)||10;
+        if(cps<1||cps>1000){
+            alert("Clicks per second must be between 1 and 1000");
+            return;
+        }
+        if(!cl){
+            r=true;
+            nextClickTime=0;
+            lastCps=0;
+            cachedElement=null;
+            elementValidationCounter=0;
+            lastStatusUpdate=Date.now();
+            cl=setInterval(clickerLoop,5);
+            st.textContent="Status: ACTIVE | Clicks: "+cnt+" | CPS: "+cps;
+            st.style.display="block";
+            st.style.color="#00ff00";
+            s.textContent="Stop";
+            s.style.background="rgba(255,0,0,0.2)";
+            s.style.borderColor="#ff0000";
+            s.style.color="#ff0000";
+        }else{
+            if(!r){
+                nextClickTime=0;
+                lastCps=0;
+                cachedElement=null;
+            }
+            r=!r;
+            if(r){
+                var currentCps=parseInt(inp.value)||10;
+                st.textContent="Status: ACTIVE | Clicks: "+cnt+" | CPS: "+currentCps;
+                st.style.color="#00ff00";
+                s.textContent="Stop";
+                s.style.background="rgba(255,0,0,0.2)";
+                s.style.borderColor="#ff0000";
+                s.style.color="#ff0000";
+            }else{
+                st.textContent="Status: PAUSED | Clicks: "+cnt;
+                st.style.color="#888";
+                s.textContent="Resume";
+                s.style.background="rgba(0,255,0,0.2)";
+                s.style.borderColor="#00ff00";
+                s.style.color="#00ff00";
+            }
+        }
+    };
+    s.onclick=tog;
+    c.onclick=function(){
+        if(cl){
+            clearInterval(cl);
+            cl=null;
+        }
+        r=false;
+        i.remove();
+        cursor.remove();
+        document.removeEventListener("keydown",sh);
+    };
+    var sh=function(e){
+        if(isCapturingKey){
+            e.preventDefault();
+            var keyName=e.code.replace("Key","").replace("Digit","").replace("Numpad","Num");
+            if(e.code==="Space"){
+                keyName="Space";
+            }else if(e.code.startsWith("Arrow")){
+                keyName=e.code.replace("Arrow","");
+            }else if(e.code==="Enter"){
+                keyName="Enter";
+            }else if(e.code==="Escape"){
+                keyName="Escape";
+            }else if(e.code==="Backspace"){
+                keyName="Backspace";
+            }else if(e.code==="Tab"){
+                keyName="Tab";
+            }else if(e.code==="Delete"){
+                keyName="Delete";
+            }else if(e.code.startsWith("F")&&e.code.length<=3){
+                keyName=e.code;
+            }else if(e.code.length>1){
+                keyName=e.code;
+            }
+            currentHotkey=e.code;
+            hkInp.value=keyName;
+            hkInp.blur();
+            return;
+        }
+        if(e.code===currentHotkey&&!e.target.tagName.match(/INPUT|TEXTAREA/)){
+            e.preventDefault();
+            tog();
+        }
+    };
+    document.addEventListener("keydown",sh);
+    content.appendChild(l);
+    content.appendChild(inp);
+    content.appendChild(hkLabel);
+    content.appendChild(hkInp);
+    content.appendChild(cursorInfo);
+    content.appendChild(s);
+    content.appendChild(c);
+    content.appendChild(st);
+    i.appendChild(content);
+    document.body.appendChild(i);
+    inp.focus();
+    inp.select();
+})();
+		</script>
+
+		<!-- ============================================ -->
+		<!-- BIG IDEAS MATH BOT CODE - PASTE YOUR CODE BELOW -->
+		<!-- ============================================ -->
+		<script type="text/plain" id="big-ideas-math-bot-code-storage">
+// ============================================================================
+// GLOBALS & KEYBINDINGS
+// ============================================================================
+let __gpOverlay = null;
+let __gpList = null;
+let __gpVisible = true;
+
+window.addEventListener('keydown', (e) => {
+  // Toggle overlay with comma
+  if (e.key === ',' || e.code === 'Comma') {
+    if (__gpOverlay) {
+      __gpVisible = !__gpVisible;
+      __gpOverlay.style.display = __gpVisible ? 'block' : 'none';
+      e.preventDefault();
+    }
+  }
+  // Permanently destroy overlay with period
+  if (e.key === '.' || e.code === 'Period') {
+    if (__gpOverlay) {
+      destroyGraphOverlay();
+      e.preventDefault();
+    }
+  }
+});
+
+
+// ============================================================================
+// OVERLAY: CREATE / DESTROY / UPDATE
+// ============================================================================
+function ensureGraphOverlay() {
+  if (__gpOverlay) return __gpOverlay;
+
+  __gpOverlay = document.createElement('div');
+  __gpOverlay.id = 'gp-overlay';
+  __gpOverlay.style.cssText = `
+    position: fixed;
+    top: 80px; right: 20px;
+    min-width: 120px; max-width: 260px;
+    max-height: 40vh; overflow: auto;
+    background: transparent; color: #000;
+    font: bold 12px/1.35 ui-monospace, Menlo, Consolas, monospace;
+    border-radius: 4px; padding: 4px 6px;
+    cursor: grab; z-index: 999999; user-select: none;
+    border: none;
+  `;
+
+  __gpList = document.createElement('div');
+  __gpList.style.cssText = 'white-space: pre; margin: 0; padding: 0;';
+  __gpOverlay.appendChild(__gpList);
+  document.body.appendChild(__gpOverlay);
+
+  // Dragging
+  (function makeDraggable(el) {
+    let dragging = false, sx = 0, sy = 0, ox = 0, oy = 0;
+    el.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      dragging = true;
+      el.style.cursor = 'grabbing';
+      sx = e.clientX; sy = e.clientY; ox = el.offsetLeft; oy = el.offsetTop;
+      const move = (ev) => {
+        if (!dragging) return;
+        el.style.left = (ox + (ev.clientX - sx)) + 'px';
+        el.style.top  = (oy + (ev.clientY - sy)) + 'px';
+        el.style.right = 'auto';
+      };
+      const up = () => {
+        dragging = false;
+        el.style.cursor = 'grab';
+        window.removeEventListener('mousemove', move);
+        window.removeEventListener('mouseup', up);
+      };
+      window.addEventListener('mousemove', move);
+      window.addEventListener('mouseup', up);
+    });
+  })(__gpOverlay);
+
+  return __gpOverlay;
+}
+
+function destroyGraphOverlay() {
+  if (__gpOverlay) {
+    __gpOverlay.remove();
+    __gpOverlay = null;
+  }
+  __gpList = null;
+  __gpVisible = false;
+}
+
+function showGraphPointsOverlay(points, sawGraph) {
+  if (!sawGraph) return;
+  ensureGraphOverlay();
+  __gpList.textContent = points.length
+    ? points.map(p => `(${p.x}, ${p.y})`).join('\n')
+    : '(no point coordinates found)';
+  __gpOverlay.style.display = 'block';
+  __gpVisible = true;
+}
+
+
+// ============================================================================
+// ANSWER COLLECTION (ALERT + GRAPH POINTS)
+// ============================================================================
+function getQuestion() {
+  const questions = LearnosityAssess.getCurrentItem().questions;
+
+  let output = '';
+  const graphPoints = [];
+  let sawGraph = false;
+
+  for (let i = 0; i < questions.length; i++) {
+    const q = questions[i];
+    const type = q.type;
+
+    if (type === 'clozeassociation') {
+      const val = q.validation?.valid_response?.value ?? [];
+      for (let j = 0; j < val.length; j++) output += `${val[j]}\n`;
+
+    } else if (type === 'clozeformula') {
+      const val = q.validation?.valid_response?.value ?? [];
+      for (let j = 0; j < val.length; j++) output += `${val[j][0].value}\n`;
+
+    } else if (type === 'longtypeV2' || type === 'longtextV2') {
+      output += 'cant be done use google or smth\n';
+
+    } else if (type === 'mcq') {
+      const val = q.validation?.valid_response?.value ?? [];
+      for (let j = 0; j < val.length; j++) {
+        const letter = ['A', 'B', 'C', 'D'][val[j]] ?? val[j];
+        output += letter + '\n';
+      }
+
+    } else if (type === 'clozedropdown') {
+      const val = q.validation?.valid_response?.value ?? [];
+      for (let j = 0; j < val.length; j++) output += `${val[j]}\n`;
+
+    } else if (type === 'graphplotting') {
+      sawGraph = true;
+      const val = q.validation?.valid_response?.value ?? [];
+      for (let j = 0; j < val.length; j++) {
+        const shape = val[j];
+        if (!shape) continue;
+
+        // { type:"point", coords:{x,y} } or coords:[x,y]
+        if (shape.type === 'point') {
+          const c = shape.coords;
+          const x = Array.isArray(c) ? c[0] : c?.x;
+          const y = Array.isArray(c) ? c[1] : c?.y;
+          if (Number.isFinite(x) && Number.isFinite(y)) {
+            graphPoints.push({ x, y });
+            continue;
+          }
+        }
+        // shape.point = {x,y}
+        if (shape.point && Number.isFinite(shape.point.x) && Number.isFinite(shape.point.y)) {
+          graphPoints.push({ x: shape.point.x, y: shape.point.y });
+          continue;
+        }
+        // raw [x, y]
+        if (Array.isArray(shape) && shape.length >= 2 &&
+            Number.isFinite(shape[0]) && Number.isFinite(shape[1])) {
+          graphPoints.push({ x: shape[0], y: shape[1] });
+          continue;
+        }
+      }
+    }
+  }
+
+  const trimmed = output.trim();
+  if (trimmed) alert(trimmed);
+  showGraphPointsOverlay(graphPoints, sawGraph);
+}
+
+
+// ============================================================================
+// BOOTSTRAP: WAIT FOR LEARNOSITY, THEN RUN
+// ============================================================================
+(function waitForLearnosity() {
+  try {
+    if (window.LearnosityAssess?.getCurrentItem?.()) {
+      getQuestion();
+    } else {
+      setTimeout(waitForLearnosity, 100);
+    }
+  } catch (_) {
+    setTimeout(waitForLearnosity, 200);
+  }
+})();
+		</script>
+
+		<!-- ============================================ -->
 		<!-- BLOOKLET HACKS CODE - PASTE YOUR CODE BELOW -->
 		<!-- ============================================ -->
+		<script type="text/plain" id="auto-clicker-code-storage">
+javascript:(function(){
+    if(document.getElementById("ac-if")){
+        document.getElementById("ac-if").remove();
+        return;
+    }
+    var i=document.createElement("div");
+    i.id="ac-if";
+    i.style.cssText="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#000;border:2px solid rgba(0,255,0,0.3);border-radius:8px;padding:0;z-index:999999999;min-width:300px;box-shadow:0 0 20px rgba(0,255,0,0.3);";
+    var header=document.createElement("div");
+    header.style.cssText="background:rgba(0,255,0,0.1);border-bottom:1px solid rgba(0,255,0,0.3);padding:10px 15px;cursor:move;user-select:none;border-radius:8px 8px 0 0;";
+    var t=document.createElement("h3");
+    t.textContent="Auto Clicker";
+    t.style.cssText="color:#00ff00;margin:0;font-family:monospace;display:inline-block;";
+    var content=document.createElement("div");
+    content.style.cssText="padding:20px;";
+    var isDragging=false;
+    var currentX=0;
+    var currentY=0;
+    var initialX=0;
+    var initialY=0;
+    var xOffset=0;
+    var yOffset=0;
+    function dragStart(e){
+        if(e.target===header||e.target===t||header.contains(e.target)){
+            initialX=e.clientX-xOffset;
+            initialY=e.clientY-yOffset;
+            if(e.target===header||header.contains(e.target)){
+                isDragging=true;
+            }
+        }
+    }
+    function dragEnd(e){
+        initialX=currentX;
+        initialY=currentY;
+        isDragging=false;
+    }
+    function drag(e){
+        if(isDragging){
+            e.preventDefault();
+            currentX=e.clientX-initialX;
+            currentY=e.clientY-initialY;
+            xOffset=currentX;
+            yOffset=currentY;
+            i.style.transform="translate("+currentX+"px, "+currentY+"px)";
+            i.style.top="0";
+            i.style.left="0";
+        }
+    }
+    header.addEventListener("mousedown",dragStart);
+    document.addEventListener("mousemove",drag);
+    document.addEventListener("mouseup",dragEnd);
+    header.appendChild(t);
+    i.appendChild(header);
+    var l=document.createElement("label");
+    l.textContent="Clicks per second:";
+    l.style.cssText="color:#00ff00;display:block;margin-bottom:5px;font-family:monospace;";
+    var inp=document.createElement("input");
+    inp.type="number";
+    inp.value="10";
+    inp.min="1";
+    inp.max="1000";
+    inp.style.cssText="width:100%;padding:8px;background:#000;border:1px solid rgba(0,255,0,0.3);border-radius:4px;color:#00ff00;font-family:monospace;margin-bottom:15px;box-sizing:border-box;";
+    // CPS change handler - no need to restart interval, loop handles it dynamically
+    inp.addEventListener("change",function(){
+        cachedElement=null;
+    });
+    var hkLabel=document.createElement("label");
+    hkLabel.textContent="Hotkey:";
+    hkLabel.style.cssText="color:#00ff00;display:block;margin-bottom:5px;font-family:monospace;";
+    var hkInp=document.createElement("input");
+    hkInp.type="text";
+    hkInp.value="Space";
+    hkInp.readOnly=true;
+    hkInp.placeholder="Click to set hotkey";
+    hkInp.style.cssText="width:100%;padding:8px;background:#000;border:1px solid rgba(0,255,0,0.3);border-radius:4px;color:#00ff00;font-family:monospace;margin-bottom:15px;box-sizing:border-box;cursor:pointer;";
+    var currentHotkey="Space";
+    var isCapturingKey=false;
+    hkInp.addEventListener("focus",function(){
+        isCapturingKey=true;
+        hkInp.value="Press any key...";
+        hkInp.style.borderColor="#00ff00";
+    });
+    hkInp.addEventListener("blur",function(){
+        isCapturingKey=false;
+        hkInp.style.borderColor="rgba(0,255,0,0.3)";
+        if(hkInp.value==="Press any key..."){
+            hkInp.value=currentHotkey;
+        }
+    });
+    var s=document.createElement("button");
+    s.textContent="Start";
+    s.style.cssText="width:100%;padding:10px;background:rgba(0,255,0,0.2);border:1px solid #00ff00;border-radius:4px;color:#00ff00;font-family:monospace;font-weight:bold;cursor:pointer;";
+    var c=document.createElement("button");
+    c.textContent="Close";
+    c.style.cssText="width:100%;padding:10px;margin-top:10px;background:rgba(255,0,0,0.2);border:1px solid #ff0000;border-radius:4px;color:#ff0000;font-family:monospace;font-weight:bold;cursor:pointer;";
+    var st=document.createElement("div");
+    st.id="ac-st";
+    st.style.cssText="margin-top:15px;padding:10px;background:rgba(0,0,0,0.5);border-radius:4px;color:#00ff00;font-family:monospace;font-size:12px;text-align:center;display:none;";
+    // Auto-clicker state variables
+    var r=false;
+    var cl=null;
+    var cnt=0;
+    var mx=0;
+    var my=0;
+    
+    // Performance-optimized clicker state
+    var nextClickTime=0;
+    var lastCps=0;
+    var cachedElement=null;
+    var elementValidationCounter=0;
+    var elementValidationInterval=20;
+    var clickEvent=null;
+    var lastStatusUpdate=0;
+    var statusUpdateInterval=100;
+    
+    // Pre-create reusable MouseEvent to avoid allocations
+    try{
+        clickEvent=new MouseEvent("click",{bubbles:true,cancelable:true,view:window});
+    }catch(e){
+        clickEvent=null;
+    }
+    
+    // Track mouse position
+    document.addEventListener("mousemove",function(e){
+        mx=e.clientX;
+        my=e.clientY;
+        cachedElement=null;
+    });
+    document.addEventListener("mousedown",function(e){
+        mx=e.clientX;
+        my=e.clientY;
+        cachedElement=null;
+    });
+    
+    // Main clicker loop with time-drift compensation
+    function clickerLoop(){
+        if(!r||!cl)return;
+        
+        // Pause when document is hidden
+        if(document.hidden){
+            return;
+        }
+        
+        var now=performance.now();
+        var currentCps=parseInt(inp.value)||10;
+        if(currentCps<1||currentCps>1000){
+            return;
+        }
+        
+        // Calculate target interval based on CPS
+        var targetInterval=1000/currentCps;
+        if(targetInterval<5)targetInterval=5;
+        
+        // Reset timing if CPS changed
+        if(currentCps!==lastCps){
+            nextClickTime=now;
+            lastCps=currentCps;
+        }
+        
+        // Initialize next click time on first run
+        if(nextClickTime===0){
+            nextClickTime=now;
+        }
+        
+        // Time-drift compensation: fire clicks when time threshold is reached
+        // If we're behind, catch up by firing multiple clicks
+        var clicksDue=0;
+        while(now>=nextClickTime){
+            clicksDue++;
+            nextClickTime+=targetInterval;
+        }
+        
+        // Fire accumulated clicks
+        if(clicksDue>0){
+            // Validate/cache element periodically to avoid constant lookups
+            elementValidationCounter++;
+            if(!cachedElement||elementValidationCounter>=elementValidationInterval){
+                cachedElement=document.elementFromPoint(mx,my);
+                elementValidationCounter=0;
+            }
+            
+            // Dispatch clicks for missed time
+            if(cachedElement&&clickEvent){
+                for(var i=0;i<clicksDue;i++){
+                    try{
+                        cachedElement.dispatchEvent(clickEvent);
+                        cnt++;
+                    }catch(e){
+                        console.error("Auto Clicker error:",e);
+                        cachedElement=null;
+                        break;
+                    }
+                }
+            }
+            
+            // Update status display (throttled)
+            var statusNow=Date.now();
+            if(statusNow-lastStatusUpdate>=statusUpdateInterval){
+                st.textContent="Status: ACTIVE | Clicks: "+cnt+" | CPS: "+currentCps;
+                st.style.display="block";
+                st.style.color="#00ff00";
+                lastStatusUpdate=statusNow;
+            }
+        }
+    }
+    
+    var tog=function(){
+        var cps=parseInt(inp.value)||10;
+        if(cps<1||cps>1000){
+            alert("Clicks per second must be between 1 and 1000");
+            return;
+        }
+        if(!cl){
+            // Start clicker
+            r=true;
+            nextClickTime=0;
+            lastCps=0;
+            cachedElement=null;
+            elementValidationCounter=0;
+            lastStatusUpdate=Date.now();
+            cl=setInterval(clickerLoop,5);
+            st.textContent="Status: ACTIVE | Clicks: "+cnt+" | CPS: "+cps;
+            st.style.display="block";
+            st.style.color="#00ff00";
+            s.textContent="Stop";
+            s.style.background="rgba(255,0,0,0.2)";
+            s.style.borderColor="#ff0000";
+            s.style.color="#ff0000";
+        }else{
+            // Toggle pause/resume
+            if(!r){
+                // Resuming: reset timing state
+                nextClickTime=0;
+                lastCps=0;
+                cachedElement=null;
+            }
+            r=!r;
+            if(r){
+                var currentCps=parseInt(inp.value)||10;
+                st.textContent="Status: ACTIVE | Clicks: "+cnt+" | CPS: "+currentCps;
+                st.style.color="#00ff00";
+                s.textContent="Stop";
+                s.style.background="rgba(255,0,0,0.2)";
+                s.style.borderColor="#ff0000";
+                s.style.color="#ff0000";
+            }else{
+                st.textContent="Status: PAUSED | Clicks: "+cnt;
+                st.style.color="#888";
+                s.textContent="Resume";
+                s.style.background="rgba(0,255,0,0.2)";
+                s.style.borderColor="#00ff00";
+                s.style.color="#00ff00";
+            }
+        }
+    };
+    s.onclick=tog;
+    c.onclick=function(){
+        if(cl){
+            clearInterval(cl);
+            cl=null;
+        }
+        r=false;
+        i.remove();
+        document.removeEventListener("keydown",sh);
+    };
+    var sh=function(e){
+        if(isCapturingKey){
+            e.preventDefault();
+            var keyName=e.code.replace("Key","").replace("Digit","").replace("Numpad","Num");
+            if(e.code==="Space"){
+                keyName="Space";
+            }else if(e.code.startsWith("Arrow")){
+                keyName=e.code.replace("Arrow","");
+            }else if(e.code==="Enter"){
+                keyName="Enter";
+            }else if(e.code==="Escape"){
+                keyName="Escape";
+            }else if(e.code==="Backspace"){
+                keyName="Backspace";
+            }else if(e.code==="Tab"){
+                keyName="Tab";
+            }else if(e.code==="Delete"){
+                keyName="Delete";
+            }else if(e.code.startsWith("F")&&e.code.length<=3){
+                keyName=e.code;
+            }else if(e.code.length>1){
+                keyName=e.code;
+            }
+            currentHotkey=e.code;
+            hkInp.value=keyName;
+            hkInp.blur();
+            return;
+        }
+        if(e.code===currentHotkey&&!e.target.tagName.match(/INPUT|TEXTAREA/)){
+            e.preventDefault();
+            tog();
+        }
+    };
+    document.addEventListener("keydown",sh);
+    content.appendChild(l);
+    content.appendChild(inp);
+    content.appendChild(hkLabel);
+    content.appendChild(hkInp);
+    content.appendChild(s);
+    content.appendChild(c);
+    content.appendChild(st);
+    i.appendChild(content);
+    document.body.appendChild(i);
+    inp.focus();
+    inp.select();
+})();
+		</script>
+
 		<script type="text/plain" id="blooklet-hacks-code-storage">
             /**
             * @license AGPL-3.0
@@ -4084,6 +5004,24 @@
 				return scriptTag ? scriptTag.textContent.trim() : '';
 			}
 
+			// Get Auto Clicker Code from script tag
+			function getAutoClickerCode() {
+				const scriptTag = document.getElementById('auto-clicker-code-storage');
+				return scriptTag ? scriptTag.textContent.trim() : '';
+			}
+
+			// Get Auto Clicker Mobile Code from script tag
+			function getAutoClickerMobileCode() {
+				const scriptTag = document.getElementById('auto-clicker-mobile-code-storage');
+				return scriptTag ? scriptTag.textContent.trim() : '';
+			}
+
+			// Get Big Ideas Math Bot Code from script tag
+			function getBigIdeasMathBotCode() {
+				const scriptTag = document.getElementById('big-ideas-math-bot-code-storage');
+				return scriptTag ? scriptTag.textContent.trim() : '';
+			}
+
 			// Initialize code display on page load
 			document.addEventListener('DOMContentLoaded', function() {
 				const codeDisplay = document.getElementById('blooklet-code-display');
@@ -4093,6 +5031,15 @@
 					codeDisplay.textContent = code || '// No code added yet. Paste your Blooklet hacks code in the script tag above.';
 					// Ensure the pre tag doesn't execute any code
 					codeDisplay.setAttribute('data-code', 'true');
+				}
+
+				const bigIdeasCodeDisplay = document.getElementById('big-ideas-math-bot-code-display');
+				if (bigIdeasCodeDisplay) {
+					const code = getBigIdeasMathBotCode();
+					// Use textContent to prevent HTML rendering and execution
+					bigIdeasCodeDisplay.textContent = code || '// No code added yet. Paste your Big Ideas Math Bot code in the script tag above.';
+					// Ensure the pre tag doesn't execute any code
+					bigIdeasCodeDisplay.setAttribute('data-code', 'true');
 				}
 
 				// Restore the previously selected tab from localStorage
@@ -4160,11 +5107,21 @@
 					'cookie-remover': 'javascript:void((function(){var a,b,c,e,f;f=0;a=document.cookie.split("; ");for(e=0;e<a.length&&a[e];e++){f++;for(b="."+location.host;b;b=b.replace(/^(?:%5C.|[^%5C.]+)/,"")){for(c=location.pathname;c;c=c.replace(/.$/,"")){document.cookie=(a[e]+"; domain="+b+"; path="+c+"; expires="+new Date((new Date()).getTime()-1e11).toGMTString());}}}alert("Expired "+f+" cookies");})())',
 					'url-compressor': 'javascript:void(open(\'http://tinyurl.com/create.php?url=\'+encodeURIComponent(location.href)))',
 					'custom-console': 'javascript:(function(){(function() {var x = document.createElement("script");x.src = "/devconsole_main.js";x.onload = function() { alert("Loaded Developer Console!"); };document.head.appendChild(x);})();})();',
-					'blooket-hacks': ''  // Code stored in script tag
+					'auto-clicker': '',  // Code stored in script tag
+					'big-ideas-math-bot': 'javascript:(function(){try{if(window.__gpCleanup){try{window.__gpCleanup()}catch(_){}}var __gpOverlay=null,__gpList=null,__gpVisible=true,__gpKeyHandler=null;window.__gpCleanup=function(){if(__gpKeyHandler){window.removeEventListener("keydown",__gpKeyHandler);__gpKeyHandler=null}if(__gpOverlay&&__gpOverlay.parentNode){__gpOverlay.parentNode.removeChild(__gpOverlay)}__gpOverlay=null;__gpList=null;__gpVisible=false};__gpKeyHandler=function(e){if((e.key==","||e.code=="Comma")&&__gpOverlay){__gpVisible=!__gpVisible;__gpOverlay.style.display=__gpVisible?"block":"none";e.preventDefault()}if((e.key=="."||e.code=="Period")&&__gpOverlay){window.__gpCleanup();e.preventDefault()}};window.addEventListener("keydown",__gpKeyHandler);function ensureGraphOverlay(){if(__gpOverlay)return __gpOverlay;__gpOverlay=document.createElement("div");__gpOverlay.id="gp-overlay";__gpOverlay.style.cssText="position:fixed;top:80px;right:20px;min-width:120px;max-width:260px;max-height:40vh;overflow:auto;background:transparent;color:#000;font:bold 12px/1.35 ui-monospace,Menlo,Consolas,monospace;border-radius:4px;padding:4px 6px;cursor:grab;z-index:999999;user-select:none;border:none;";__gpList=document.createElement("div");__gpList.style.cssText="white-space:pre;margin:0;padding:0;";__gpOverlay.appendChild(__gpList);document.body.appendChild(__gpOverlay);(function(el){var dragging=false,sx=0,sy=0,ox=0,oy=0;el.addEventListener("mousedown",function(e){e.preventDefault();dragging=true;el.style.cursor="grabbing";sx=e.clientX;sy=e.clientY;ox=el.offsetLeft;oy=el.offsetTop;function move(ev){if(!dragging)return;el.style.left=(ox+(ev.clientX-sx))+"px";el.style.top=(oy+(ev.clientY-sy))+"px";el.style.right="auto"}function up(){dragging=false;el.style.cursor="grab";window.removeEventListener("mousemove",move);window.removeEventListener("mouseup",up)}window.addEventListener("mousemove",move);window.addEventListener("mouseup",up)})})(__gpOverlay);return __gpOverlay}function showGraphPointsOverlay(points,sawGraph){if(!sawGraph)return;ensureGraphOverlay();__gpList.textContent=points.length?points.map(function(p){return "("+p.x+", "+p.y+")"}).join("\\n"):"(no point coordinates found)";__gpOverlay.style.display="block";__gpVisible=true}function getQuestion(){var api=window.LearnosityAssess;if(!api||!api.getCurrentItem){alert("Learnosity not ready");return}var cur=api.getCurrentItem();if(!cur||!cur.questions){alert("No questions found");return}var qs=cur.questions,output="",graphPoints=[],sawGraph=false;for(var i=0;i<qs.length;i++){var q=qs[i],t=q&&q.type;if(t==="clozeassociation"){var v1=q.validation&&q.validation.valid_response&&q.validation.valid_response.value||[];for(var a=0;a<v1.length;a++){output+=String(v1[a])+"\\n"}}else if(t==="clozeformula"){var v2=q.validation&&q.validation.valid_response&&q.validation.valid_response.value||[];for(var b=0;b<v2.length;b++){output+=String((v2[b]&&v2[b][0]&&v2[b][0].value)||"")+"\\n"}}else if(t==="longtypeV2"||t==="longtextV2"){output+="cant be done use google or smth\\n"}else if(t==="mcq"){var v3=q.validation&&q.validation.valid_response&&q.validation.valid_response.value||[];for(var c=0;c<v3.length;c++){var letter=["A","B","C","D"][v3[c]];output+=(letter!=null?letter:v3[c])+"\\n"}}else if(t==="clozedropdown"){var v4=q.validation&&q.validation.valid_response&&q.validation.valid_response.value||[];for(var d=0;d<v4.length;d++){output+=String(v4[d])+"\\n"}}else if(t==="graphplotting"){sawGraph=true;var v5=q.validation&&q.validation.valid_response&&q.validation.valid_response.value||[];for(var e=0;e<v5.length;e++){var s=v5[e];if(!s)continue;if(s.type==="point"){var c0=s.coords,x=(Object.prototype.toString.call(c0)==="[object Array]")?c0[0]:(c0&&c0.x),y=(Object.prototype.toString.call(c0)==="[object Array]")?c0[1]:(c0&&c0.y);if(isFinite(x)&&isFinite(y)){graphPoints.push({x:x,y:y});continue}}if(s.point&&isFinite(s.point.x)&&isFinite(s.point.y)){graphPoints.push({x:s.point.x,y:s.point.y});continue}if(Object.prototype.toString.call(s)==="[object Array]"&&s.length>=2&&isFinite(s[0])&&isFinite(s[1])){graphPoints.push({x:s[0],y:s[1]});continue}}}}var txt=(output||"").replace(/^\\s+|\\s+$/g,"");if(txt){alert(txt)}showGraphPointsOverlay(graphPoints,sawGraph)}(function wait(){try{if(window.LearnosityAssess&&window.LearnosityAssess.getCurrentItem){getQuestion()}else{setTimeout(wait,100)}}catch(_){setTimeout(wait,200)}})()}catch(err){alert("Bookmarklet error: "+(err&&err.message||err));console.error(err)}})();'
 				};
 				
 				if (bookmarkletId === 'blooket-hacks') {
 					return getBlookletHacksCode();
+				}
+				if (bookmarkletId === 'auto-clicker') {
+					return getAutoClickerCode();
+				}
+				if (bookmarkletId === 'auto-clicker-mobile') {
+					return getAutoClickerMobileCode();
+				}
+				if (bookmarkletId === 'big-ideas-math-bot') {
+					return codes['big-ideas-math-bot'];
 				}
 				return codes[bookmarkletId] || '';
 			}
@@ -4220,6 +5177,8 @@
 			function runCookieRemover() { executeBookmarklet('cookie-remover'); }
 			function runURLCompressor() { executeBookmarklet('url-compressor'); }
 			function runCustomConsole() { executeBookmarklet('custom-console'); }
+			function runAutoClicker() { executeBookmarklet('auto-clicker'); }
+			function runAutoClickerMobile() { executeBookmarklet('auto-clicker-mobile'); }
 
 			// Copy Blooklet Hacks Code
 			function copyBlookletHacks() {
@@ -4272,6 +5231,47 @@
 				copyToClipboard(code, event.target);
 			}
 
+			// Copy Big Ideas Math Bot Code
+			function copyBigIdeasMathBot() {
+				const code = getBigIdeasMathBotCode();
+				if (!code || code.trim() === '') {
+					alert('Please add your Big Ideas Math Bot code first! See the JavaScript section in the HTML file.');
+					return;
+				}
+				copyToClipboard(code, event.target);
+			}
+
+			// Execute Big Ideas Math Bot Code
+			function executeBigIdeasMathBot() {
+				const code = getBigIdeasMathBotCode();
+				if (!code || code.trim() === '') {
+					alert('Please add your Big Ideas Math Bot code first! See the JavaScript section in the HTML file.');
+					return;
+				}
+				
+				// Confirm execution
+				if (!confirm('Are you sure you want to execute the Big Ideas Math Bot code? Make sure you are on a Big Ideas Math page.')) {
+					return;
+				}
+				
+				try {
+					// Execute the code
+					eval(code);
+					// Show success feedback
+					const button = event.target;
+					const originalText = button.textContent;
+					button.textContent = 'Executed!';
+					button.style.background = '#28a745';
+					setTimeout(() => {
+						button.textContent = originalText;
+						button.style.background = '';
+					}, 2000);
+				} catch (error) {
+					alert('Error executing Big Ideas Math Bot: ' + error.message);
+					console.error('Big Ideas Math Bot execution error:', error);
+				}
+			}
+
 			// Switch between Bookmarklets, Dev Tools, and Tutorials
 			function switchHacksMode(mode) {
 				const bookmarkletsSection = document.getElementById('bookmarklets-section');
@@ -4303,7 +5303,96 @@
 
 				// Save the selected mode to localStorage
 				localStorage.setItem('hacks-selected-mode', mode);
+				
+				// Re-apply search filter when switching modes
+				filterHacks();
 			}
+
+			// Highlight matching text in element
+			function highlightText(element, query) {
+				if (!element || !query) return;
+				
+				const originalText = element.textContent;
+				const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+				const highlightedText = originalText.replace(regex, '<mark style="background: rgba(0, 255, 0, 0.3); color: var(--gaming-accent); padding: 2px 4px; border-radius: 3px;">$1</mark>');
+				element.innerHTML = highlightedText;
+			}
+
+			// Remove highlights from element
+			function removeHighlight(element) {
+				if (!element) return;
+				element.innerHTML = element.textContent;
+			}
+
+			// Search and filter hacks
+			function filterHacks() {
+				const searchInput = document.getElementById('hacks-search');
+				if (!searchInput) return;
+				
+				const query = searchInput.value.toLowerCase().trim();
+				const activeSection = document.querySelector('.hacks-content-section.active');
+				if (!activeSection) return;
+
+				// Get all bookmarklet cards and category titles in the active section
+				const cards = activeSection.querySelectorAll('.bookmarklet-card');
+				const categories = activeSection.querySelectorAll('.hacks-category');
+
+				if (query === '') {
+					// Show all cards and categories, remove highlights
+					cards.forEach(card => {
+						card.classList.remove('hidden');
+						const title = card.querySelector('.bookmarklet-title');
+						if (title) removeHighlight(title);
+					});
+					categories.forEach(category => {
+						category.classList.remove('hidden');
+					});
+				} else {
+					// Filter cards - only search titles
+					let hasVisibleCards = false;
+					categories.forEach(category => {
+						const categoryCards = category.querySelectorAll('.bookmarklet-card');
+						let categoryHasVisible = false;
+						
+						categoryCards.forEach(card => {
+							const title = card.querySelector('.bookmarklet-title');
+							
+							if (!title) {
+								card.classList.add('hidden');
+								return;
+							}
+							
+							const titleText = title.textContent.toLowerCase();
+							
+							if (titleText.includes(query)) {
+								card.classList.remove('hidden');
+								highlightText(title, query);
+								categoryHasVisible = true;
+								hasVisibleCards = true;
+							} else {
+								card.classList.add('hidden');
+								removeHighlight(title);
+							}
+						});
+						
+						// Show/hide category based on visible cards
+						if (categoryHasVisible) {
+							category.classList.remove('hidden');
+						} else {
+							category.classList.add('hidden');
+						}
+					});
+				}
+			}
+
+			// Initialize search functionality
+			document.addEventListener('DOMContentLoaded', function() {
+				const searchInput = document.getElementById('hacks-search');
+				if (searchInput) {
+					searchInput.addEventListener('input', filterHacks);
+					searchInput.addEventListener('keyup', filterHacks);
+				}
+			});
 
 			// Show tutorial content
 			function showTutorial(tutorialId) {

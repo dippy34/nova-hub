@@ -292,6 +292,43 @@ body:has(.gaming-navbar) footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.gaming-navbar.collapsed {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.gaming-nav-toggle {
+    position: fixed;
+    top: 4.5rem;
+    left: 50%;
+    margin-left: -20px;
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 255, 0, 0.2);
+    border: 2px solid var(--gaming-accent);
+    border-radius: 50%;
+    color: var(--gaming-accent);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    transition: top 0.3s ease, background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.gaming-nav-toggle:hover {
+    background: rgba(0, 255, 0, 0.3);
+    box-shadow: 0 0 15px var(--gaming-glow);
+    transform: scale(1.2);
+}
+
+.gaming-nav-toggle.collapsed {
+    top: 1rem;
 }
 
 .gaming-navbar::before {

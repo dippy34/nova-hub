@@ -20,6 +20,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Insert navbar at the beginning of body
     document.body.insertAdjacentHTML('afterbegin', navbarHTML);
     
+    // Add toggle button for navbar
+    const toggleBtn = document.createElement('button');
+    toggleBtn.id = 'gaming-nav-toggle';
+    toggleBtn.className = 'gaming-nav-toggle';
+    toggleBtn.innerHTML = '▲';
+    toggleBtn.title = 'Toggle navigation';
+    toggleBtn.addEventListener('click', toggleGamingNav);
+    document.body.appendChild(toggleBtn);
+    
     // Note: Theme class is managed by main.js based on selected theme
     // Don't force add gaming-theme here, let main.js handle it
     
@@ -30,6 +39,20 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 100);
 });
+
+// Toggle navigation bar collapse/expand
+function toggleGamingNav() {
+    const navbar = document.querySelector('.gaming-navbar');
+    const toggleBtn = document.getElementById('gaming-nav-toggle');
+    if (navbar && toggleBtn) {
+        navbar.classList.toggle('collapsed');
+        toggleBtn.classList.toggle('collapsed');
+        toggleBtn.textContent = navbar.classList.contains('collapsed') ? '▼' : '▲';
+    }
+}
+
+// Make function globally accessible
+window.toggleGamingNav = toggleGamingNav;
 
 // Panic Button Functions (for all pages)
 window.updatePanicButton = function() {
