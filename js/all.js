@@ -1,43 +1,52 @@
 let backup_icon;
 let backup_name;
 let socket;
-if (location.origin.includes("https")) {
-	socket = new WebSocket(`wss://${location.host}/socket`);
-} else {
-	socket = new WebSocket(`ws://${location.host}/socket`);
-}
-socket.addEventListener("open", (event) => {
-	let cookies = document.cookie.split("; ");
-	for (let i = 0; i < cookies.length; i++) {
-		if (cookies[i].trim().startsWith("token=")) {
-			socket.send(cookies[i].trim());
+try {
+	if (location.origin.includes("https")) {
+		socket = new WebSocket(`wss://${location.host}/socket`);
+	} else {
+		socket = new WebSocket(`ws://${location.host}/socket`);
+	}
+	socket.addEventListener("open", (event) => {
+		let cookies = document.cookie.split("; ");
+		for (let i = 0; i < cookies.length; i++) {
+			if (cookies[i].trim().startsWith("token=")) {
+				socket.send(cookies[i].trim());
+			}
 		}
-	}
-});
-socket.addEventListener("message", (event) => {
-	if (event.data == "ping") {
-		socket.send(`pong${location.pathname.includes("/semag/") ? location.pathname.split("/")[2] : ""}`);
-		return;
-	}
-	if (event.data.startsWith("announce.")) {
-		let styles = document.createElement("style");
-		styles.innerHTML = `@import url("https://fonts.googleapis.com/css2?family=Prompt:wght@300&display=swap");.announce {font-family: "Prompt", sans-serif;position: absolute;margin-left: auto;margin-right: auto;top: 10px;z-index: 10000000;background-color: #a53026;padding: 10px;width: max-content;border-radius: 10px;left:0;right:0;border-color: #f74f40;border-width: 5px;border-radius: 10px;border-style: solid;max-width: 60%;font-size: 16px;color: white;}@keyframes FadeIn {0% {opacity: 0;}100% {opacity: 1;}}@keyframes FadeOut {0% {opacity: 1;}100% {opacity: 0;}}`;
-		let announcement = document.createElement("div");
-		announcement.innerText = event.data.substring(9);
-		announcement.setAttribute("class", "announce");
-		announcement.style.opacity = "0";
-		announcement.style.animation = "FadeIn 1s ease-in-out forwards";
-		document.head.appendChild(styles);
-		document.body.appendChild(announcement);
-		setTimeout(() => {
-			announcement.style.animation = "FadeOut 1s ease-in-out forwards";
+	});
+	socket.addEventListener("error", (event) => {
+		// Silently handle WebSocket errors (common in local development)
+		// Don't log to console to avoid noise
+	});
+	socket.addEventListener("message", (event) => {
+		if (event.data == "ping") {
+			socket.send(`pong${location.pathname.includes("/semag/") ? location.pathname.split("/")[2] : ""}`);
+			return;
+		}
+		if (event.data.startsWith("announce.")) {
+			let styles = document.createElement("style");
+			styles.innerHTML = `@import url("https://fonts.googleapis.com/css2?family=Prompt:wght@300&display=swap");.announce {font-family: "Prompt", sans-serif;position: absolute;margin-left: auto;margin-right: auto;top: 10px;z-index: 10000000;background-color: #a53026;padding: 10px;width: max-content;border-radius: 10px;left:0;right:0;border-color: #f74f40;border-width: 5px;border-radius: 10px;border-style: solid;max-width: 60%;font-size: 16px;color: white;}@keyframes FadeIn {0% {opacity: 0;}100% {opacity: 1;}}@keyframes FadeOut {0% {opacity: 1;}100% {opacity: 0;}}`;
+			let announcement = document.createElement("div");
+			announcement.innerText = event.data.substring(9);
+			announcement.setAttribute("class", "announce");
+			announcement.style.opacity = "0";
+			announcement.style.animation = "FadeIn 1s ease-in-out forwards";
+			document.head.appendChild(styles);
+			document.body.appendChild(announcement);
 			setTimeout(() => {
-				announcement.remove();
-				styles.remove();
-			}, 1000);
-		}, 14000);
-	}
-});
+				announcement.style.animation = "FadeOut 1s ease-in-out forwards";
+				setTimeout(() => {
+					announcement.remove();
+					styles.remove();
+				}, 1000);
+			}, 14000);
+		}
+	});
+} catch (error) {
+	// Silently handle WebSocket initialization errors (common in local development)
+	// Don't log to console to avoid noise
+}
 
 function setCloak(name, icon) {
 	var tabicon = getCookie("tabicon");

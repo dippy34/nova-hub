@@ -2,6 +2,15 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
+const { exec } = require('child_process');
+const util = require('util');
+const execPromise = util.promisify(exec);
+
+// Hardcoded primary admin account
+const PRIMARY_ADMIN = {
+  email: 'aaravharjani@icloud.com',
+  password: 'Aarav2014123!!!' // Password in code as requested
+};
 
 // Google APIs - optional, only load if service account file exists
 let google;
@@ -283,27 +292,25 @@ app.post('/api/admin/login', (req, res) => {
       return res.status(400).json({ success: false, message: 'Email and password required' });
     }
 
+    // Check hardcoded primary admin first
+    if (email.toLowerCase() === PRIMARY_ADMIN.email.toLowerCase() && password === PRIMARY_ADMIN.password) {
+      const token = generateToken();
+      activeTokens[token] = { email: PRIMARY_ADMIN.email };
+      return res.json({ success: true, token, email: PRIMARY_ADMIN.email });
+    }
+
+    // Check other admin accounts from file
     const credentialsPath = path.join(__dirname, 'data', 'admin-credentials.json');
     const credentials = readJsonFile(credentialsPath);
 
     if (credentials.length === 0) {
-      return res.status(401).json({ success: false, message: 'No admin accounts found. Please add admin accounts using the import script.' });
+      return res.status(401).json({ success: false, message: 'Invalid credentials' });
     }
 
     const hashedPassword = hashPassword(password);
-    const admin = credentials.find(cred => cred.email === email && cred.password === hashedPassword);
+    const admin = credentials.find(cred => cred.email.toLowerCase() === email.toLowerCase() && cred.password === hashedPassword);
 
     if (!admin) {
-      // Check if password is stored as plain text (for initial setup)
-      const adminPlain = credentials.find(cred => cred.email === email && cred.password === password);
-      if (adminPlain) {
-        // Update to hashed password
-        adminPlain.password = hashedPassword;
-        writeJsonFile(credentialsPath, credentials);
-        const token = generateToken();
-        activeTokens[token] = { email: adminPlain.email };
-        return res.json({ success: true, token, email: adminPlain.email });
-      }
       return res.status(401).json({ success: false, message: 'Invalid credentials' });
     }
 
@@ -356,7 +363,89 @@ app.post('/api/admin/import-credentials', verifyAdminToken, (req, res) => {
 app.get('/api/admin/count', verifyAdminToken, (req, res) => {
   const credentialsPath = path.join(__dirname, 'data', 'admin-credentials.json');
   const credentials = readJsonFile(credentialsPath);
-  res.json({ success: true, count: credentials.length });
+  // Count includes the primary admin + file-based admins
+  res.json({ success: true, count: 1 + credentials.length });
+});
+
+// Create new admin account
+app.post('/api/admin/create-account', verifyAdminToken, async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ success: false, message: 'Email and password are required' });
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ success: false, message: 'Invalid email format' });
+    }
+
+    // Don't allow creating account with primary admin email
+    if (email.toLowerCase() === PRIMARY_ADMIN.email.toLowerCase()) {
+      return res.status(400).json({ success: false, message: 'This email is reserved for the primary admin' });
+    }
+
+    const credentialsPath = path.join(__dirname, 'data', 'admin-credentials.json');
+    let credentials = readJsonFile(credentialsPath);
+    
+    // Ensure it's an array
+    if (!Array.isArray(credentials)) {
+      credentials = [];
+    }
+
+    // Check if email already exists
+    const existingEmails = new Set(credentials.map(c => c.email.toLowerCase()));
+    if (existingEmails.has(email.toLowerCase())) {
+      return res.status(400).json({ success: false, message: 'An admin account with this email already exists' });
+    }
+
+    // Add new admin account
+    credentials.push({
+      email: email,
+      password: hashPassword(password),
+      createdAt: new Date().toISOString()
+    });
+
+    // Write to file
+    if (!writeJsonFile(credentialsPath, credentials)) {
+      return res.status(500).json({ success: false, message: 'Failed to save admin account' });
+    }
+
+    res.json({ success: true, message: 'Admin account created successfully' });
+  } catch (error) {
+    console.error('Create admin account error:', error);
+    res.status(500).json({ success: false, message: 'Server error: ' + error.message });
+  }
+});
+
+// Commit changes to git
+app.post('/api/admin/commit-changes', verifyAdminToken, async (req, res) => {
+  try {
+    const { message } = req.body;
+    const commitMessage = message || 'Add new admin account';
+
+    // Stage the admin-credentials.json file
+    try {
+      await execPromise(`cd ${__dirname} && git add data/admin-credentials.json`);
+      
+      // Commit the changes
+      await execPromise(`cd ${__dirname} && git commit -m "${commitMessage.replace(/"/g, '\\"')}"`);
+      
+      res.json({ success: true, message: 'Changes committed successfully' });
+    } catch (gitError) {
+      console.error('Git commit error:', gitError);
+      // Check if there are no changes to commit
+      if (gitError.message && gitError.message.includes('nothing to commit')) {
+        return res.status(400).json({ success: false, message: 'No changes to commit' });
+      }
+      return res.status(500).json({ success: false, message: 'Failed to commit changes: ' + gitError.message });
+    }
+  } catch (error) {
+    console.error('Commit changes error:', error);
+    res.status(500).json({ success: false, message: 'Server error: ' + error.message });
+  }
 });
 
 app.get('/api/admin/analytics', verifyAdminToken, async (req, res) => {

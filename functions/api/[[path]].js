@@ -197,6 +197,59 @@ export async function onRequest(context) {
       return jsonResponse({ success: true, count: credentials.length });
     }
 
+    // Route: GET /api/admin/list
+    if (pathname === '/api/admin/list' && method === 'GET') {
+      const auth = await verifyAdminToken(request, env);
+      if (!auth.valid) {
+        return jsonResponse({ success: false, message: 'Invalid token' }, 401);
+      }
+
+      const credentials = await readKV(env.ADMIN_CREDENTIALS_KV, 'credentials', []);
+      // Return only email addresses (not passwords)
+      const adminList = credentials.map(cred => ({ email: cred.email }));
+      return jsonResponse({ success: true, admins: adminList });
+    }
+
+    // Route: POST /api/admin/delete-admin
+    if (pathname === '/api/admin/delete-admin' && method === 'POST') {
+      const auth = await verifyAdminToken(request, env);
+      if (!auth.valid) {
+        return jsonResponse({ success: false, message: 'Invalid token' }, 401);
+      }
+
+      const body = await request.json();
+      const { email } = body;
+
+      if (!email) {
+        return jsonResponse({ success: false, message: 'Email is required' }, 400);
+      }
+
+      const credentials = await readKV(env.ADMIN_CREDENTIALS_KV, 'credentials', []);
+      
+      // Prevent deleting the last admin account
+      if (credentials.length <= 1) {
+        return jsonResponse({ success: false, message: 'Cannot delete the last admin account. There must be at least one admin.' }, 400);
+      }
+
+      // Prevent deleting yourself
+      if (email.toLowerCase() === auth.email.toLowerCase()) {
+        return jsonResponse({ success: false, message: 'You cannot delete your own account.' }, 400);
+      }
+
+      // Remove the admin account
+      const filteredCredentials = credentials.filter(c => c.email.toLowerCase() !== email.toLowerCase());
+      
+      if (filteredCredentials.length === credentials.length) {
+        return jsonResponse({ success: false, message: 'Admin account not found' }, 404);
+      }
+
+      if (await writeKV(env.ADMIN_CREDENTIALS_KV, 'credentials', filteredCredentials)) {
+        return jsonResponse({ success: true, message: 'Admin account deleted successfully' });
+      } else {
+        return jsonResponse({ success: false, message: 'Failed to delete admin account' }, 500);
+      }
+    }
+
     // Route: GET /api/admin/suggestions
     if (pathname === '/api/admin/suggestions' && method === 'GET') {
       const auth = await verifyAdminToken(request, env);
@@ -348,6 +401,56 @@ export async function onRequest(context) {
 
       await writeKV(env.ANALYTICS_KV, 'analytics', analytics);
       return jsonResponse({ success: true });
+    }
+
+    // Route: GET /api/terminal-text (public endpoint)
+    if (pathname === '/api/terminal-text' && method === 'GET') {
+      const terminalText = await readKV(env.ANALYTICS_KV, 'terminal-text', {
+        welcomeLines: ['Welcome to Nova Hub', 'Your ultimate gaming destination'],
+        statusText: 'If you see this, it loaded.'
+      });
+      return jsonResponse({ success: true, data: terminalText });
+    }
+
+    // Route: GET /api/admin/terminal-text
+    if (pathname === '/api/admin/terminal-text' && method === 'GET') {
+      const auth = await verifyAdminToken(request, env);
+      if (!auth.valid) {
+        return jsonResponse({ success: false, message: 'Invalid token' }, 401);
+      }
+
+      const terminalText = await readKV(env.ANALYTICS_KV, 'terminal-text', {
+        welcomeLines: ['Welcome to Nova Hub', 'Your ultimate gaming destination'],
+        statusText: 'If you see this, it loaded.'
+      });
+      return jsonResponse({ success: true, data: terminalText });
+    }
+
+    // Route: POST /api/admin/save-terminal-text
+    if (pathname === '/api/admin/save-terminal-text' && method === 'POST') {
+      const auth = await verifyAdminToken(request, env);
+      if (!auth.valid) {
+        return jsonResponse({ success: false, message: 'Invalid token' }, 401);
+      }
+
+      const body = await request.json();
+      const { welcomeLines, statusText } = body;
+
+      if (!Array.isArray(welcomeLines) || !statusText) {
+        return jsonResponse({ success: false, message: 'welcomeLines (array) and statusText (string) are required' }, 400);
+      }
+
+      const terminalText = {
+        welcomeLines: welcomeLines,
+        statusText: statusText,
+        lastUpdated: new Date().toISOString()
+      };
+
+      if (await writeKV(env.ANALYTICS_KV, 'terminal-text', terminalText)) {
+        return jsonResponse({ success: true, message: 'Terminal text saved successfully' });
+      } else {
+        return jsonResponse({ success: false, message: 'Failed to save terminal text' }, 500);
+      }
     }
 
     // Route not found
