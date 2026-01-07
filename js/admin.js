@@ -87,7 +87,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 removeToken();
                 showLogin();
             }
-            throw new Error('Session expired. Please login again.');
+            const error = new Error('Session expired. Please login again.');
+            error.status = 401;
+            throw error;
         }
 
         if (!response.ok) {
@@ -190,15 +192,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function showDashboard() {
         loginScreen.style.display = 'none';
         adminDashboard.style.display = 'block';
+        
+        // Load non-authenticated data immediately
         loadAnalytics();
-        if (document.getElementById('ga-measurement-id')) {
-            loadGaId();
-        }
-        loadTerminalText();
         loadFormsData();
         setupFormsTabs();
         setupTerminalTextHandlers();
         setupChangePasswordHandler();
+        
+        // Load authenticated endpoints after a short delay to ensure token is available in KV
+        setTimeout(() => {
+            if (document.getElementById('ga-measurement-id')) {
+                loadGaId();
+            }
+            loadTerminalText();
+        }, 500); // 500ms delay to ensure token is available in Cloudflare KV
     }
 
     // Load analytics data from Google Script
@@ -223,8 +231,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // Load GA ID
-    async function loadGaId() {
+    // Load GA ID with retry logic
+    async function loadGaId(retryCount = 0) {
         const gaIdInput = document.getElementById('ga-measurement-id');
         if (!gaIdInput) return;
         
@@ -236,7 +244,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 gaIdInput.value = data.gaId;
             }
         } catch (error) {
-            console.error('Failed to load GA ID:', error);
+            // Retry once if we get a 401 (token might not be in KV yet) and we haven't retried
+            if (error.status === 401 && retryCount === 0) {
+                setTimeout(() => loadGaId(1), 1000);
+                return;
+            }
+            // Only log in development, not in production to avoid console noise
+            if (isLocalDev()) {
+                console.error('Failed to load GA ID:', error);
+            }
         }
     }
 
@@ -307,8 +323,8 @@ document.addEventListener('DOMContentLoaded', () => {
                window.location.hostname.includes('localhost');
     }
 
-    // Load terminal text
-    async function loadTerminalText() {
+    // Load terminal text with retry logic
+    async function loadTerminalText(retryCount = 0) {
         // Skip API call in local development to avoid 404 errors
         if (isLocalDev()) {
             return;
@@ -330,8 +346,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         } catch (error) {
+            // Retry once if we get a 401 (token might not be in KV yet) and we haven't retried
+            if (error.status === 401 && retryCount === 0) {
+                setTimeout(() => loadTerminalText(1), 1000);
+                return;
+            }
             // Silently fail - terminal text is optional
-            console.log('Terminal text load failed (optional):', error.message);
+            // Only log in development, not in production to avoid console noise
+            if (isLocalDev()) {
+                console.log('Terminal text load failed (optional):', error.message);
+            }
         }
     }
 
