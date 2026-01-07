@@ -115,20 +115,37 @@ document.addEventListener('DOMContentLoaded', () => {
         const token = getToken();
         if (token) {
             try {
-                // Verify token is still valid
-                const response = await fetch('/api/admin/verify', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
+                // Verify token is still valid with retry logic for KV eventual consistency
+                let verified = false;
+                for (let i = 0; i < 2; i++) {
+                    const response = await fetch('/api/admin/verify', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
 
-                if (response.ok) {
-                    const data = await response.json();
-                    showDashboard();
-                    return;
+                    if (response.ok) {
+                        verified = true;
+                        showDashboard();
+                        return;
+                    }
+                    
+                    // If 401 and first attempt, wait a bit and retry (KV might be eventually consistent)
+                    if (response.status === 401 && i === 0) {
+                        await new Promise(resolve => setTimeout(resolve, 500));
+                    }
+                }
+                
+                // If verification failed after retries, token is invalid
+                if (!verified) {
+                    removeToken();
                 }
             } catch (error) {
-                console.error('Token verification failed:', error);
+                // Only log errors in development
+                if (isLocalDev()) {
+                    console.error('Token verification failed:', error);
+                }
+                removeToken();
             }
         }
         // If no token or verification failed, show login
@@ -172,7 +189,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Store token
             setToken(data.token);
-            showDashboard();
+            
+            // Wait a bit for KV eventual consistency before verifying
+            await new Promise(resolve => setTimeout(resolve, 300));
+            
+            // Verify token is actually available in KV before showing dashboard
+            // Cloudflare KV has eventual consistency, so we need to wait a bit
+            let verified = false;
+            for (let i = 0; i < 5; i++) {
+                try {
+                    const verifyResponse = await fetch('/api/admin/verify', {
+                        headers: {
+                            'Authorization': `Bearer ${data.token}`
+                        }
+                    });
+                    
+                    if (verifyResponse.ok) {
+                        verified = true;
+                        break;
+                    }
+                } catch (error) {
+                    // Continue to retry
+                }
+                
+                // Wait before retrying (exponential backoff: 200ms, 400ms, 600ms, 800ms)
+                if (i < 4) {
+                    await new Promise(resolve => setTimeout(resolve, 200 * (i + 1)));
+                }
+            }
+            
+            if (verified) {
+                showDashboard();
+            } else {
+                // Token verification failed after retries - this might be a KV configuration issue
+                // Still show dashboard since login was successful - user can refresh if needed
+                console.warn('Token verification failed after login, but proceeding anyway. If you see issues, please refresh the page.');
+                showDashboard();
+            }
         } catch (error) {
             errorDiv.textContent = 'Error during login. Please check your connection and try again.';
             errorDiv.style.display = 'block';
