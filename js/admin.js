@@ -82,9 +82,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (response.status === 401) {
             // Token expired or invalid
-            removeToken();
-            showLogin();
-            throw new Error('Session expired. Please login again.');
+            // Only trigger logout if not explicitly disabled (for optional endpoints)
+            if (options.skipLogoutOn401 !== true) {
+                removeToken();
+                showLogin();
+            }
+            const error = new Error('Session expired. Please login again.');
+            error.status = 401;
+            throw error;
         }
 
         if (!response.ok) {
@@ -110,20 +115,40 @@ document.addEventListener('DOMContentLoaded', () => {
         const token = getToken();
         if (token) {
             try {
-                // Verify token is still valid
-                const response = await fetch('/api/admin/verify', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
+                // Verify token is still valid with single retry for KV eventual consistency
+                let verified = false;
+                for (let i = 0; i < 2; i++) {
+                    const response = await fetch('/api/admin/verify', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
 
-                if (response.ok) {
-                    const data = await response.json();
-                    showDashboard();
-                    return;
+                    if (response.ok) {
+                        verified = true;
+                        showDashboard();
+                        return;
+                    }
+                    
+                    // If 401 and first attempt, wait a bit and retry (KV might be eventually consistent)
+                    if (response.status === 401 && i === 0) {
+                        await new Promise(resolve => setTimeout(resolve, 500));
+                    } else if (response.status === 401) {
+                        // Token is invalid, remove it
+                        break;
+                    }
+                }
+                
+                // If verification failed after retries, token is invalid
+                if (!verified) {
+                    removeToken();
                 }
             } catch (error) {
-                console.error('Token verification failed:', error);
+                // Only log errors in development
+                if (isLocalDev()) {
+                    console.error('Token verification failed:', error);
+                }
+                removeToken();
             }
         }
         // If no token or verification failed, show login
@@ -167,7 +192,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Store token
             setToken(data.token);
+            
+            // Show dashboard immediately - token verification will happen in background
+            // Cloudflare KV has eventual consistency, so we don't block on verification
             showDashboard();
+            
+            // Verify token in background (non-blocking)
+            // This helps catch KV configuration issues but doesn't block the user
+            setTimeout(async () => {
+                try {
+                    const verifyResponse = await fetch('/api/admin/verify', {
+                        headers: {
+                            'Authorization': `Bearer ${data.token}`
+                        }
+                    });
+                    
+                    if (!verifyResponse.ok) {
+                        // Only log in development - this might be a KV config issue
+                        if (isLocalDev()) {
+                            console.warn('Token verification failed. This might indicate a KV namespace configuration issue.');
+                        }
+                    }
+                } catch (error) {
+                    // Silently fail - non-critical
+                    if (isLocalDev()) {
+                        console.warn('Token verification check failed:', error);
+                    }
+                }
+            }, 1000);
         } catch (error) {
             errorDiv.textContent = 'Error during login. Please check your connection and try again.';
             errorDiv.style.display = 'block';
@@ -187,15 +239,22 @@ document.addEventListener('DOMContentLoaded', () => {
     function showDashboard() {
         loginScreen.style.display = 'none';
         adminDashboard.style.display = 'block';
+        
+        // Load non-authenticated data immediately
         loadAnalytics();
-        if (document.getElementById('ga-measurement-id')) {
-            loadGaId();
-        }
-        loadTerminalText();
         loadFormsData();
         setupFormsTabs();
         setupTerminalTextHandlers();
         setupChangePasswordHandler();
+        
+        // Load authenticated endpoints after a delay to ensure token is available in KV
+        // Increased delay to account for KV eventual consistency
+        setTimeout(() => {
+            if (document.getElementById('ga-measurement-id')) {
+                loadGaId();
+            }
+            loadTerminalText();
+        }, 1500); // 1.5s delay to ensure token is available in Cloudflare KV
     }
 
     // Load analytics data from Google Script
@@ -226,13 +285,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!gaIdInput) return;
         
         try {
-            const data = await apiRequest('/api/admin/ga-id');
+            // Use skipLogoutOn401 to prevent logout if token verification fails for optional endpoint
+            const data = await apiRequest('/api/admin/ga-id', { skipLogoutOn401: true });
             
             if (data.success && data.gaId) {
                 gaIdInput.value = data.gaId;
             }
         } catch (error) {
-            console.error('Failed to load GA ID:', error);
+            // Silently fail - GA ID is optional
+            // Don't log errors in production to avoid console noise
+            // The 401 errors will still appear in console from fetch(), but we handle them gracefully
         }
     }
 
@@ -311,7 +373,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         try {
-            const data = await apiRequest('/api/admin/terminal-text');
+            // Use skipLogoutOn401 to prevent logout if token verification fails for optional endpoint
+            const data = await apiRequest('/api/admin/terminal-text', { skipLogoutOn401: true });
             
             if (data && data.success && data.data) {
                 const welcomeTextarea = document.getElementById('terminal-welcome-lines');
@@ -326,6 +389,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (error) {
             // Silently fail - terminal text is optional
+            // Don't log errors in production to avoid console noise
+            // The 401 errors will still appear in console from fetch(), but we handle them gracefully
         }
     }
 

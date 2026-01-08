@@ -33,242 +33,89 @@ body.gaming-theme,
     --gaming-text-dim: #888888;
     --gaming-glow: rgba(0, 255, 0, 0.5);
     --gaming-border: rgba(0, 255, 0, 0.3);
+    --bg: var(--gaming-bg);
+    --inputbg: rgba(0, 0, 0, 0.8);
+    --inputborder: var(--gaming-border);
+    --uibg: rgba(0, 0, 0, 0.9);
+    --textcolor: var(--gaming-text);
 }
 
-/* Cyberpunk Theme Variables - Cyan Blue and Pink */
-body.cyberpunk-theme,
-.cyberpunk-theme {
-    --gaming-bg: #0a0a0f;
-    --gaming-bg-secondary: #0f0f1a;
-    --gaming-accent: #00ffff;
-    --gaming-accent-secondary: #ff00ff;
+/* Ocean Theme - Blue and Teal */
+body.ocean-theme,
+.ocean-theme {
+    --gaming-bg: #0a1419;
+    --gaming-bg-secondary: #0f1f2a;
+    --gaming-accent: #00b8d4;
+    --gaming-accent-secondary: #00e5ff;
     --gaming-text: #ffffff;
-    --gaming-text-dim: #a0a0b0;
-    --gaming-glow: rgba(0, 255, 255, 0.5);
-    --gaming-border: rgba(0, 255, 255, 0.3);
+    --gaming-text-dim: #a0c0d0;
+    --gaming-glow: rgba(0, 184, 212, 0.5);
+    --gaming-border: rgba(0, 184, 212, 0.3);
+    --bg: var(--gaming-bg);
+    --inputbg: rgba(10, 20, 25, 0.8);
+    --inputborder: var(--gaming-border);
+    --uibg: rgba(10, 20, 25, 0.9);
+    --textcolor: var(--gaming-text);
 }
 
-/* Apply cyberpunk theme colors */
-body.cyberpunk-theme::before {
-    background: 
-        radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.02) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(255, 0, 255, 0.02) 0%, transparent 50%),
-        radial-gradient(circle at 40% 20%, rgba(0, 255, 255, 0.02) 0%, transparent 50%);
+body.ocean-theme,
+body.ocean-theme html {
+    background: var(--gaming-bg) !important;
+    background-color: var(--gaming-bg) !important;
+    background-image: none !important;
 }
 
-body.cyberpunk-theme .gaming-navbar {
-    background: rgba(10, 10, 15, 0.95);
-    border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+/* Sunset Theme - Orange and Red */
+body.sunset-theme,
+.sunset-theme {
+    --gaming-bg: #1a0f0a;
+    --gaming-bg-secondary: #2a1a0f;
+    --gaming-accent: #ff6b35;
+    --gaming-accent-secondary: #ff8c42;
+    --gaming-text: #ffffff;
+    --gaming-text-dim: #c0a0a0;
+    --gaming-glow: rgba(255, 107, 53, 0.5);
+    --gaming-border: rgba(255, 107, 53, 0.3);
+    --bg: var(--gaming-bg);
+    --inputbg: rgba(26, 15, 10, 0.8);
+    --inputborder: var(--gaming-border);
+    --uibg: rgba(26, 15, 10, 0.9);
+    --textcolor: var(--gaming-text);
 }
 
-body.cyberpunk-theme .gaming-navbar .logo {
-    background: linear-gradient(135deg, #00ffff 0%, #ff00ff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 0 0 20px rgba(0, 255, 255, 0.5), 0 0 40px rgba(255, 0, 255, 0.3);
+body.sunset-theme,
+body.sunset-theme html {
+    background: url("/img/backgrounds/sunset_theme.jpg"), var(--gaming-bg) !important;
+    background-color: var(--gaming-bg) !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-attachment: fixed !important;
 }
 
-body.cyberpunk-theme .gaming-navbar .nav-links a:hover,
-body.cyberpunk-theme .gaming-navbar .nav-links a.active {
-    color: #00ffff;
-    text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 0 0 20px rgba(255, 0, 255, 0.4);
+/* Purple Theme - Purple and Violet */
+body.purple-theme,
+.purple-theme {
+    --gaming-bg: #0f0a1a;
+    --gaming-bg-secondary: #1a0f2a;
+    --gaming-accent: #a855f7;
+    --gaming-accent-secondary: #c084fc;
+    --gaming-text: #ffffff;
+    --gaming-text-dim: #b0a0c0;
+    --gaming-glow: rgba(168, 85, 247, 0.5);
+    --gaming-border: rgba(168, 85, 247, 0.3);
+    --bg: var(--gaming-bg);
+    --inputbg: rgba(15, 10, 26, 0.8);
+    --inputborder: var(--gaming-border);
+    --uibg: rgba(15, 10, 26, 0.9);
+    --textcolor: var(--gaming-text);
 }
 
-body.cyberpunk-theme .gaming-page-title {
-    background: linear-gradient(135deg, #00ffff 0%, #ff00ff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 0 0 30px rgba(0, 255, 255, 0.6), 0 0 60px rgba(255, 0, 255, 0.3);
-}
-
-/* Cyberpunk theme - Apply to all gaming theme elements */
-body.cyberpunk-theme .gaming-navbar .nav-links a::after {
-    background: linear-gradient(90deg, transparent, #00ffff, transparent);
-}
-
-body.cyberpunk-theme .category-title {
-    background: linear-gradient(135deg, #00ffff 0%, #ff00ff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    border-bottom-color: rgba(0, 255, 255, 0.3);
-}
-
-body.cyberpunk-theme .bookmarklet-card:hover,
-body.cyberpunk-theme .settings-section:hover {
-    border-color: rgba(0, 255, 255, 0.5);
-    box-shadow: 0 0 30px rgba(0, 255, 255, 0.3), 0 0 60px rgba(255, 0, 255, 0.2);
-}
-
-body.cyberpunk-theme .bookmarklet-button:hover,
-body.cyberpunk-theme .admin-form button:hover {
-    background: rgba(0, 255, 255, 0.15);
-    border-color: #00ffff;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
-}
-
-body.cyberpunk-theme input:focus,
-body.cyberpunk-theme textarea:focus,
-body.cyberpunk-theme select:focus {
-    border-color: #00ffff;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
-}
-
-body.cyberpunk-theme .theme-card-active {
-    border-color: #00ffff;
-    box-shadow: 0 0 25px rgba(0, 255, 255, 0.5), 0 0 50px rgba(255, 0, 255, 0.3);
-    background: rgba(0, 255, 255, 0.05);
-}
-
-body.cyberpunk-theme .theme-badge {
-    background: linear-gradient(135deg, #00ffff 0%, #ff00ff 100%);
-    color: #000000;
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(255, 0, 255, 0.3);
-}
-
-/* Cyberpunk theme - Override all gaming-theme specific styles */
-body.cyberpunk-theme {
-    background: var(--gaming-bg);
-    color: var(--gaming-text);
-}
-
-body.cyberpunk-theme .gaming-navbar::before {
-    background: linear-gradient(90deg, transparent, #00ffff, transparent);
-}
-
-body.cyberpunk-theme .stats-bar {
-    background: rgba(10, 10, 15, 0.8);
-    border: 1px solid rgba(0, 255, 255, 0.3);
-}
-
-body.cyberpunk-theme .stat-item {
-    border-right: 1px solid rgba(0, 255, 255, 0.2);
-}
-
-body.cyberpunk-theme .stat-value {
-    color: #00ffff;
-    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-}
-
-body.cyberpunk-theme .terminal-container {
-    background: rgba(10, 10, 15, 0.9);
-    border: 1px solid rgba(0, 255, 255, 0.3);
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2), 0 0 40px rgba(255, 0, 255, 0.1);
-}
-
-body.cyberpunk-theme .terminal-line {
-    color: #00ffff;
-}
-
-body.cyberpunk-theme .terminal-line .prompt {
-    color: #00ffff;
-    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
-}
-
-body.cyberpunk-theme .category-card:hover {
-    border-color: #00ffff;
-    box-shadow: 0 0 30px rgba(0, 255, 255, 0.3), 0 0 60px rgba(255, 0, 255, 0.2);
-}
-
-body.cyberpunk-theme .bookmarklet-card,
-body.cyberpunk-theme .settings-section {
-    background: linear-gradient(135deg, 
-        rgba(10, 10, 15, 0.4) 0%, 
-        rgba(15, 15, 26, 0.6) 50%,
-        rgba(10, 10, 15, 0.4) 100%);
-    border: 1px solid rgba(0, 255, 255, 0.2);
-}
-
-body.cyberpunk-theme .bookmarklet-card:hover,
-body.cyberpunk-theme .settings-section:hover {
-    border-color: rgba(0, 255, 255, 0.5);
-    box-shadow: 
-        0 12px 48px rgba(0, 0, 0, 0.6),
-        0 0 60px rgba(0, 255, 255, 0.2),
-        0 0 80px rgba(255, 0, 255, 0.1);
-}
-
-body.cyberpunk-theme .bookmarklet-button,
-body.cyberpunk-theme .admin-form button,
-body.cyberpunk-theme .submit {
-    background: rgba(10, 10, 15, 0.8);
-    border: 1px solid rgba(0, 255, 255, 0.3);
-    color: var(--gaming-text);
-}
-
-body.cyberpunk-theme .bookmarklet-button:hover,
-body.cyberpunk-theme .admin-form button:hover,
-body.cyberpunk-theme .submit:hover {
-    background: rgba(0, 255, 255, 0.15);
-    border-color: #00ffff;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5), 0 0 30px rgba(255, 0, 255, 0.3);
-}
-
-body.cyberpunk-theme input[type="text"],
-body.cyberpunk-theme input[type="email"],
-body.cyberpunk-theme input[type="password"],
-body.cyberpunk-theme input[type="number"],
-body.cyberpunk-theme textarea,
-body.cyberpunk-theme select {
-    background: rgba(10, 10, 15, 0.8);
-    border: 1px solid rgba(0, 255, 255, 0.3);
-    color: var(--gaming-text);
-}
-
-body.cyberpunk-theme input[type="text"]:focus,
-body.cyberpunk-theme input[type="email"]:focus,
-body.cyberpunk-theme input[type="password"]:focus,
-body.cyberpunk-theme input[type="number"]:focus,
-body.cyberpunk-theme textarea:focus,
-body.cyberpunk-theme select:focus {
-    border-color: #00ffff;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
-}
-
-body.cyberpunk-theme .status-message.success {
-    border-color: #00ffff;
-    color: #00ffff;
-}
-
-body.cyberpunk-theme .status-message.error {
-    border-color: #ff00ff;
-    color: #ff00ff;
-}
-
-body.cyberpunk-theme .status-message.info {
-    border-color: #00ffff;
-    color: #00ffff;
-}
-
-/* Cyberpunk theme - Override base styles to use CSS variables */
-body.cyberpunk-theme h1,
-body.cyberpunk-theme h2,
-body.cyberpunk-theme h3,
-body.cyberpunk-theme p,
-body.cyberpunk-theme a,
-body.cyberpunk-theme label {
-    color: var(--gaming-text);
-}
-
-body.cyberpunk-theme main {
-    background: var(--gaming-bg);
-    color: var(--gaming-text);
-}
-
-body.cyberpunk-theme .gaming-navbar .logo:hover {
-    color: #00ffff;
-    text-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 30px rgba(255, 0, 255, 0.4);
-}
-
-body.cyberpunk-theme .gaming-navbar .nav-links a::before {
-    background: #00ffff;
-}
-
-body.cyberpunk-theme .gaming-navbar .nav-links a:hover::before,
-body.cyberpunk-theme .gaming-navbar .nav-links a.active::before {
-    background: linear-gradient(90deg, #00ffff, #ff00ff);
+body.purple-theme,
+body.purple-theme html {
+    background: var(--gaming-bg) !important;
+    background-color: var(--gaming-bg) !important;
+    background-image: none !important;
 }
 
 /* Hide old header/footer when gaming navbar is present */
@@ -748,21 +595,6 @@ body.gaming-theme {
     background-image: none;
 }
 
-/* Cyberpunk theme background overrides */
-body.cyberpunk-theme,
-body.cyberpunk-theme html {
-    background-color: var(--gaming-bg);
-}
-
-body.cyberpunk-theme {
-    background: var(--gaming-bg);
-    background-color: var(--gaming-bg);
-    background-image: none;
-}
-    background-color: var(--gaming-bg);
-    background-image: none;
-}
-
 body.gaming-theme h1,
 body.gaming-theme h2,
 body.gaming-theme h3,
@@ -904,8 +736,19 @@ body.gaming-theme.settings-page main h1::after {
     border-radius: 2px;
 }
 
-/* Settings Sections Grid Container */
-body.gaming-theme.settings-page main {
+/* Settings Sections Grid Container - Apply to all themes */
+body.settings-page main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem 1.5rem;
+}
+
+body.gaming-theme.settings-page main,
+body.ocean-theme.settings-page main,
+body.sunset-theme.settings-page main,
+body.purple-theme.settings-page main {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1006,14 +849,15 @@ body.gaming-theme.settings-page .theme-badge {
     box-shadow: 0 0 10px var(--gaming-glow);
 }
 
-body.gaming-theme.settings-page .settings-section {
+/* Settings sections - Apply to all themes */
+body.settings-page .settings-section {
     background: linear-gradient(135deg, 
         rgba(0, 0, 0, 0.4) 0%, 
         rgba(10, 10, 10, 0.6) 50%,
         rgba(0, 0, 0, 0.4) 100%);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(0, 255, 0, 0.2);
+    border: 1px solid var(--gaming-border);
     border-radius: 20px;
     padding: 2rem;
     margin-bottom: 0;
@@ -1022,11 +866,18 @@ body.gaming-theme.settings-page .settings-section {
     box-sizing: border-box;
     box-shadow: 
         0 8px 32px rgba(0, 0, 0, 0.4),
-        0 0 0 1px rgba(0, 255, 0, 0.1) inset,
-        0 2px 4px rgba(0, 255, 0, 0.1) inset;
+        0 0 0 1px var(--gaming-border) inset,
+        0 2px 4px var(--gaming-border) inset;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+}
+
+body.gaming-theme.settings-page .settings-section,
+body.ocean-theme.settings-page .settings-section,
+body.sunset-theme.settings-page .settings-section,
+body.purple-theme.settings-page .settings-section {
+    border: 1px solid var(--gaming-border);
 }
 
 body.gaming-theme.settings-page .settings-section::before {
@@ -1047,6 +898,15 @@ body.gaming-theme.settings-page .settings-section:hover::before {
     left: 100%;
 }
 
+body.settings-page .settings-section:hover {
+    border-color: var(--gaming-accent) !important;
+    box-shadow: 
+        0 12px 48px rgba(0, 0, 0, 0.6),
+        0 0 60px var(--gaming-glow),
+        0 0 0 1px var(--gaming-accent) inset !important;
+    transform: translateY(-4px) !important;
+}
+
 body.gaming-theme.settings-page .settings-section:hover {
     border-color: rgba(0, 255, 0, 0.5);
     box-shadow: 
@@ -1054,6 +914,19 @@ body.gaming-theme.settings-page .settings-section:hover {
         0 0 60px rgba(0, 255, 0, 0.2),
         0 0 0 1px rgba(0, 255, 0, 0.3) inset;
     transform: translateY(-4px);
+}
+
+body.settings-page .settings-section h2 {
+    color: var(--gaming-accent) !important;
+    font-family: 'Orbitron', monospace !important;
+    text-shadow: 0 0 20px var(--gaming-glow) !important;
+    font-size: 1.5rem !important;
+    margin: 0 0 0.5rem 0 !important;
+    font-weight: 700 !important;
+    letter-spacing: 1px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
 }
 
 body.gaming-theme.settings-page .settings-section h2 {
@@ -1128,12 +1001,13 @@ body.gaming-theme.settings-page main h3 {
     margin-bottom: 0.25rem;
 }
 
-/* Form Groups - Modern 2025 Design */
-body.gaming-theme.settings-page .form-group {
-    margin-bottom: 1.5rem;
-    position: relative;
+/* Form Groups - Modern 2025 Design - Apply to all themes */
+body.settings-page .form-group {
+    margin-bottom: 1.5rem !important;
+    position: relative !important;
 }
 
+body.settings-page .form-group label,
 body.gaming-theme.settings-page .form-group label {
     display: block;
     color: rgba(255, 255, 255, 0.9);
@@ -1145,6 +1019,10 @@ body.gaming-theme.settings-page .form-group label {
     letter-spacing: 0.3px;
 }
 
+body.settings-page main input[type="text"],
+body.settings-page main input[type="color"],
+body.settings-page main select,
+body.settings-page main input[type="file"],
 body.gaming-theme:has([href*="settings.html"]) main input[type="text"],
 body.gaming-theme.settings-page main input[type="text"],
 body.gaming-theme:has([href*="settings.html"]) main input[type="color"],
@@ -1912,10 +1790,32 @@ body.gaming-theme #gamesearch::placeholder,
     }
 }
 
-/* Hide Discord button for gaming theme */
+/* Hide Discord button for all themes */
 body.gaming-theme #discord,
-.gaming-theme #discord {
+body.ocean-theme #discord,
+body.sunset-theme #discord,
+body.purple-theme #discord,
+.gaming-theme #discord,
+.ocean-theme #discord,
+.sunset-theme #discord,
+.purple-theme #discord,
+#discord {
     display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Override purple colors from old theme system for all themes */
+body.gaming-theme,
+body.ocean-theme,
+body.sunset-theme,
+body.purple-theme {
+    --inputbg: var(--gaming-bg-secondary) !important;
+    --inputborder: var(--gaming-border) !important;
+    --uibg: var(--gaming-bg) !important;
+    --textcolor: var(--gaming-text) !important;
+    --bg: var(--gaming-bg) !important;
 }
 
 /* Panic Button - Urgent Styling */

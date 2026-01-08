@@ -2,6 +2,10 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
+const { exec } = require('child_process');
+const util = require('util');
+const execPromise = util.promisify(exec);
+
 
 // Google APIs - optional, only load if service account file exists
 let google;
@@ -266,50 +270,52 @@ function verifyAdminToken(req, res, next) {
   const token = authHeader.substring(7);
   const adminData = activeTokens[token];
 
-  if (!adminData) {
+  if (!adminData || !adminData.authenticated) {
     return res.status(401).json({ success: false, message: 'Invalid token' });
   }
 
-  req.adminEmail = adminData.email;
   next();
 }
 
 // Admin API Routes
 app.post('/api/admin/login', (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { password } = req.body;
 
-    if (!email || !password) {
-      return res.status(400).json({ success: false, message: 'Email and password required' });
+    if (!password) {
+      return res.status(400).json({ success: false, message: 'Password required' });
     }
 
+    // Get stored password hash, or initialize with default password
     const credentialsPath = path.join(__dirname, 'data', 'admin-credentials.json');
-    const credentials = readJsonFile(credentialsPath);
-
-    if (credentials.length === 0) {
-      return res.status(401).json({ success: false, message: 'No admin accounts found. Please add admin accounts using the import script.' });
+    let credentials = readJsonFile(credentialsPath);
+    
+    // Migrate from old array format to new object format
+    if (Array.isArray(credentials)) {
+      // Old format - migrate to new format with default password
+      const defaultPassword = 'nova_admin_aarav_matthew';
+      const hashedDefaultPassword = hashPassword(defaultPassword);
+      credentials = { adminPassword: hashedDefaultPassword };
+      fs.writeFileSync(credentialsPath, JSON.stringify(credentials, null, 2));
+    }
+    
+    // If no password is stored, initialize with default password
+    if (!credentials || !credentials.adminPassword) {
+      const defaultPassword = 'nova_admin_aarav_matthew';
+      const hashedDefaultPassword = hashPassword(defaultPassword);
+      credentials = { adminPassword: hashedDefaultPassword };
+      fs.writeFileSync(credentialsPath, JSON.stringify(credentials, null, 2));
     }
 
     const hashedPassword = hashPassword(password);
-    const admin = credentials.find(cred => cred.email === email && cred.password === hashedPassword);
 
-    if (!admin) {
-      // Check if password is stored as plain text (for initial setup)
-      const adminPlain = credentials.find(cred => cred.email === email && cred.password === password);
-      if (adminPlain) {
-        // Update to hashed password
-        adminPlain.password = hashedPassword;
-        writeJsonFile(credentialsPath, credentials);
-        const token = generateToken();
-        activeTokens[token] = { email: adminPlain.email };
-        return res.json({ success: true, token, email: adminPlain.email });
-      }
-      return res.status(401).json({ success: false, message: 'Invalid credentials' });
+    if (hashedPassword !== credentials.adminPassword) {
+      return res.status(401).json({ success: false, message: 'Invalid password' });
     }
 
     const token = generateToken();
-    activeTokens[token] = { email: admin.email };
-    res.json({ success: true, token, email: admin.email });
+    activeTokens[token] = { authenticated: true };
+    res.json({ success: true, token });
   } catch (error) {
     console.error('Login error:', error);
     res.status(500).json({ success: false, message: 'Server error during login' });
@@ -317,46 +323,78 @@ app.post('/api/admin/login', (req, res) => {
 });
 
 app.get('/api/admin/verify', verifyAdminToken, (req, res) => {
-  res.json({ success: true, email: req.adminEmail });
+  res.json({ success: true });
 });
 
-app.post('/api/admin/import-credentials', verifyAdminToken, (req, res) => {
-  const { credentials } = req.body;
+// Change admin password
+app.post('/api/admin/change-password', verifyAdminToken, (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
 
-  if (!Array.isArray(credentials) || credentials.length === 0) {
-    return res.status(400).json({ success: false, message: 'Invalid credentials format' });
-  }
-
-  const credentialsPath = path.join(__dirname, 'data', 'admin-credentials.json');
-  const existingCredentials = readJsonFile(credentialsPath);
-
-  let count = 0;
-  credentials.forEach(cred => {
-    if (cred.email && cred.password) {
-      // Check if email already exists
-      const exists = existingCredentials.find(c => c.email === cred.email);
-      if (!exists) {
-        existingCredentials.push({
-          email: cred.email,
-          password: hashPassword(cred.password),
-          createdAt: new Date().toISOString()
-        });
-        count++;
-      }
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({ success: false, message: 'Current password and new password are required' });
     }
-  });
 
-  if (writeJsonFile(credentialsPath, existingCredentials)) {
-    res.json({ success: true, count });
-  } else {
-    res.status(500).json({ success: false, message: 'Failed to save credentials' });
+    if (newPassword.length < 8) {
+      return res.status(400).json({ success: false, message: 'New password must be at least 8 characters long' });
+    }
+
+    // Get stored password hash
+    const credentialsPath = path.join(__dirname, 'data', 'admin-credentials.json');
+    let credentials = readJsonFile(credentialsPath);
+    
+    // If no password is stored, initialize with default password
+    if (!credentials || !credentials.adminPassword) {
+      const defaultPassword = 'nova_admin_aarav_matthew';
+      const hashedDefaultPassword = hashPassword(defaultPassword);
+      credentials = { adminPassword: hashedDefaultPassword };
+    }
+
+    // Verify current password
+    const hashedCurrentPassword = hashPassword(currentPassword);
+    if (hashedCurrentPassword !== credentials.adminPassword) {
+      return res.status(401).json({ success: false, message: 'Current password is incorrect' });
+    }
+
+    // Set new password
+    const hashedNewPassword = hashPassword(newPassword);
+    credentials.adminPassword = hashedNewPassword;
+    writeJsonFile(credentialsPath, credentials);
+
+    res.json({ success: true, message: 'Password changed successfully' });
+  } catch (error) {
+    console.error('Change password error:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
 
-app.get('/api/admin/count', verifyAdminToken, (req, res) => {
-  const credentialsPath = path.join(__dirname, 'data', 'admin-credentials.json');
-  const credentials = readJsonFile(credentialsPath);
-  res.json({ success: true, count: credentials.length });
+
+// Commit changes to git
+app.post('/api/admin/commit-changes', verifyAdminToken, async (req, res) => {
+  try {
+    const { message } = req.body;
+    const commitMessage = message || 'Add new admin account';
+
+    // Stage the admin-credentials.json file
+    try {
+      await execPromise(`cd ${__dirname} && git add data/admin-credentials.json`);
+      
+      // Commit the changes
+      await execPromise(`cd ${__dirname} && git commit -m "${commitMessage.replace(/"/g, '\\"')}"`);
+      
+      res.json({ success: true, message: 'Changes committed successfully' });
+    } catch (gitError) {
+      console.error('Git commit error:', gitError);
+      // Check if there are no changes to commit
+      if (gitError.message && gitError.message.includes('nothing to commit')) {
+        return res.status(400).json({ success: false, message: 'No changes to commit' });
+      }
+      return res.status(500).json({ success: false, message: 'Failed to commit changes: ' + gitError.message });
+    }
+  } catch (error) {
+    console.error('Commit changes error:', error);
+    res.status(500).json({ success: false, message: 'Server error: ' + error.message });
+  }
 });
 
 app.get('/api/admin/analytics', verifyAdminToken, async (req, res) => {

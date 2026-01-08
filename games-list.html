@@ -39,17 +39,6 @@
 		
 		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3415518411898563" crossorigin="anonymous"></script>
 	</head>
-	<alerts>
-		<div id="toast"></div>
-		<script>
-			$.getJSON("data/changelog.json", (data) => {
-				if (localStorage.getItem("selenite.version") != data.version) {
-					toast({ title: "New Update!", message: data.desc, time: data.timestamp });
-					localStorage.setItem("selenite.version", data.version);
-				}
-			});
-		</script>
-	</alerts>
 	<body class="gaming-theme">
 		<main>
 			<h1 class="gaming-page-title">ALL GAMES</h1>

@@ -5,13 +5,19 @@ function setTheme(theme) {
 	// Save theme to localStorage first
 	localStorage.setItem("selenite.theme", theme);
 	
-	// Remove both theme classes first
-	document.body.classList.remove("gaming-theme", "cyberpunk-theme");
+	// Remove all theme classes first
+	document.body.classList.remove("gaming-theme", "cyberpunk-theme", "ocean-theme", "sunset-theme", "purple-theme");
 	
 	// Apply theme immediately without reload
-	if (theme === "cyberpunk") {
-		document.body.classList.add("cyberpunk-theme");
-		document.body.setAttribute("theme", "cyberpunk");
+	if (theme === "ocean") {
+		document.body.classList.add("ocean-theme");
+		document.body.setAttribute("theme", "ocean");
+	} else if (theme === "sunset") {
+		document.body.classList.add("sunset-theme");
+		document.body.setAttribute("theme", "sunset");
+	} else if (theme === "purple") {
+		document.body.classList.add("purple-theme");
+		document.body.setAttribute("theme", "purple");
 	} else {
 		// Default to code theme (gaming-theme)
 		document.body.classList.add("gaming-theme");
@@ -45,17 +51,23 @@ document.addEventListener("DOMContentLoaded", function () {
 		localStorage.setItem("selenite.theme", localStorage.getItem("theme"));
 		localStorage.removeItem("theme");
 	}
-	// Always remove both theme classes first to ensure clean state
-	document.body.classList.remove("gaming-theme", "cyberpunk-theme");
+	// Always remove all theme classes first to ensure clean state
+	document.body.classList.remove("gaming-theme", "cyberpunk-theme", "ocean-theme", "sunset-theme", "purple-theme");
 	
 	if (localStorage.getItem("selenite.theme")) {
 		const savedTheme = localStorage.getItem("selenite.theme");
 		if (savedTheme === "code" || savedTheme === "default") {
 			document.body.classList.add("gaming-theme");
 			document.body.removeAttribute("theme");
-		} else if (savedTheme === "cyberpunk") {
-			document.body.classList.add("cyberpunk-theme");
-			document.body.setAttribute("theme", "cyberpunk");
+		} else if (savedTheme === "ocean") {
+			document.body.classList.add("ocean-theme");
+			document.body.setAttribute("theme", "ocean");
+		} else if (savedTheme === "sunset") {
+			document.body.classList.add("sunset-theme");
+			document.body.setAttribute("theme", "sunset");
+		} else if (savedTheme === "purple") {
+			document.body.classList.add("purple-theme");
+			document.body.setAttribute("theme", "purple");
 		} else {
 			// Legacy theme support - default to code
 			document.body.classList.add("gaming-theme");
@@ -124,6 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		location.href = "https://google.com";
 		close();
 	});
+	}
 	if (typeof $ !== 'undefined' && $("#panicmode").length > 0) {
 		$("#panicmode").prop({ href: panicurl });
 	}

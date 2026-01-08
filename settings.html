@@ -345,6 +345,28 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Please allow pop-ups for this site to use the About Blank feature.');
         }
     });
+    
+    // Theme Selection Functionality
+    const themeSelect = document.getElementById('themeSelect');
+    if (themeSelect) {
+        // Load saved theme on page load
+        const savedTheme = localStorage.getItem('selenite.theme') || 'code';
+        themeSelect.value = savedTheme;
+        
+        // Apply theme when selection changes
+        themeSelect.addEventListener('change', function() {
+            const selectedTheme = this.value;
+            if (typeof setTheme === 'function') {
+                setTheme(selectedTheme);
+            } else if (typeof window.setTheme === 'function') {
+                window.setTheme(selectedTheme);
+            } else {
+                // Fallback if setTheme is not available
+                localStorage.setItem('selenite.theme', selectedTheme);
+                location.reload();
+            }
+        });
+    }
 });
 </script>
 
@@ -443,6 +465,24 @@ document.addEventListener('DOMContentLoaded', function() {
             <button type="button" id="clearCloakBtn" class="submit btn-clear">Clear Cloak</button>
       </div>
           <p class="section-description auto-save-indicator">Settings are saved automatically</p>
+        </form>
+      </section>
+      
+      <!-- Theme Selection Section -->
+      <section class="settings-section">
+        <h2>🎨 Theme</h2>
+        <p class="section-description">Choose your preferred theme</p>
+        <form action="javascript:void(0);" class="settings-form" id="themeForm">
+          <div class="form-group">
+            <label for="themeSelect">Select Theme</label>
+            <select id="themeSelect" name="themeSelect">
+              <option value="code">Code (Green on Black)</option>
+              <option value="ocean">Ocean (Blue & Teal)</option>
+              <option value="sunset">Sunset (Orange & Red)</option>
+              <option value="purple">Purple (Purple & Violet)</option>
+            </select>
+          </div>
+          <p class="section-description auto-save-indicator">Theme changes are applied immediately</p>
         </form>
       </section>
       

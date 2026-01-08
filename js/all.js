@@ -39,40 +39,46 @@ socket.addEventListener("message", (event) => {
 	}
 });
 
+let cloakIconElement = null;
+let cloakTitleBackup = null;
+
 function setCloak(name, icon) {
-	var tabicon = getCookie("tabicon");
-	if (tabicon || icon) {
-		var link = document.querySelector("link[rel~='icon']");
-		if (link) {
-			if (link.href != icon) backup_icon = link;
-			while (document.querySelector("link[rel~='icon']")) {
-				document.querySelector("link[rel~='icon']").remove();
-			}
-		}
-		var link = document.querySelector("link[rel~='shortcut icon']");
-		if (link) {
-			if (link.href != icon) backup_icon = link;
-			while (document.querySelector("link[rel~='shortcut icon']")) {
-				document.querySelector("link[rel~='shortcut icon']").remove();
-			}
-		}
-		link = document.createElement("link");
-		link.rel = "icon";
-		document.head.appendChild(link);
-		link.href = tabicon;
-		if (name) {
-			link.href = icon;
+	// Cache title backup once
+	if (!cloakTitleBackup) {
+		cloakTitleBackup = document.title;
+	}
+	
+	// Set title immediately (fast operation)
+	if (name) {
+		document.title = name;
+	} else {
+		var tabname = getCookie("tabname");
+		if (tabname) {
+			document.title = tabname;
 		}
 	}
 
-	var tabname = getCookie("tabname");
-	backup_name = document.title;
-	if (tabname) {
-		document.title = tabname;
+	// Handle icon efficiently
+	var targetIcon = icon || getCookie("tabicon");
+	if (targetIcon) {
+		// Use cached element or create once
+		if (!cloakIconElement) {
+			// Remove existing icon links efficiently
+			const existingIcons = document.querySelectorAll("link[rel~='icon'], link[rel~='shortcut icon']");
+			if (existingIcons.length > 0 && !backup_icon) {
+				backup_icon = existingIcons[0].cloneNode(true);
+			}
+			existingIcons.forEach(el => el.remove());
+			
+			// Create single icon element
+			cloakIconElement = document.createElement("link");
+			cloakIconElement.rel = "icon";
+			document.head.appendChild(cloakIconElement);
+		}
+		// Update href (fast operation)
+		cloakIconElement.href = targetIcon;
 	}
-	if (name) {
-		document.title = name;
-	}
+
 	panicMode();
 }
 if (getCookie("debugging") == 1) {
@@ -124,6 +130,12 @@ function panicMode() {
 document.addEventListener(
 	"DOMContentLoaded",
 	() => {
+		// Set initial backups before applying cloak
+		cloakTitleBackup = document.title;
+		const existingIcon = document.querySelector("link[rel~='icon'], link[rel~='shortcut icon']");
+		if (existingIcon && !backup_icon) {
+			backup_icon = existingIcon.cloneNode(true);
+		}
 		setCloak();
 		let plausible = document.createElement("script");
 		plausible.setAttribute("event-domain", location.host)
@@ -139,36 +151,35 @@ if (location.pathname.substring(1).includes("semag") && localStorage.getItem("se
 		return "";
 	};
 }
+let visibilityTimeout = null;
 addEventListener("visibilitychange", (e) => {
 	if (localStorage.getItem("selenite.tabDisguise") == "true") {
-		if (document.visibilityState === "hidden") {
-			setCloak("Google", "https://www.google.com/favicon.ico");
-		} else {
-			if (!backup_icon) {
-				icon = document.createElement("link");
-				icon.rel = "icon";
-
-				var link = document.querySelector("link[rel~='icon']");
-				if (link) {
-					backup_icon = link;
-					while (document.querySelector("link[rel~='icon']")) {
-						document.querySelector("link[rel~='icon']").remove();
-					}
-				}
-				var link = document.querySelector("link[rel~='shortcut icon']");
-				if (link) {
-					backup_icon = link;
-					while (document.querySelector("link[rel~='shortcut icon']")) {
-						document.querySelector("link[rel~='shortcut icon']").remove();
-					}
-				}
-				document.head.appendChild(icon);
-				icon.href = location.origin + "/nova-favicon.ico";
-			} else {
-				document.head.appendChild(backup_icon);
-			}
-			document.title = backup_name;
+		// Clear any pending timeout
+		if (visibilityTimeout) {
+			clearTimeout(visibilityTimeout);
 		}
+		
+		// Use requestAnimationFrame for better performance on mobile
+		requestAnimationFrame(() => {
+			if (document.visibilityState === "hidden") {
+				setCloak("Google", "https://www.google.com/favicon.ico");
+			} else {
+				// Restore original icon efficiently
+				if (cloakIconElement) {
+					if (backup_icon) {
+						cloakIconElement.href = backup_icon.href;
+					} else {
+						cloakIconElement.href = location.origin + "/nova-favicon.ico";
+					}
+				}
+				// Restore original title
+				if (cloakTitleBackup) {
+					document.title = cloakTitleBackup;
+				} else if (backup_name) {
+					document.title = backup_name;
+				}
+			}
+		});
 	}
 });
 var polyfillScript = document.createElement("script");
