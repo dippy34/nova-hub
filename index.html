@@ -44,95 +44,38 @@
 		<script src="/js/widget.js"></script>
 		<script>
 			document.addEventListener("DOMContentLoaded", () => {
-				const terminalMessages = [
-					"Nova Hub allegedly committed several crimes (in Minecraft).",
-					"Nova Hub absolutely did NOT steal $100,000 from a bank to pay for hosting.",
-					"All funding was acquired through very legal, very cool methods.",
-					"Any resemblance to piracy is purely coincidental.",
-					"Nova Hub loves… legal boats. Very legal boats.",
-					"This site is powered by crime.",
-					"We would never steal money. Hypothetically though…",
-					"If Nova Hub was illegal, this text wouldn't exist.",
-					"All servers were paid for using monopoly money.",
-					"This website is 100% law-abiding.",
-					"Nothing suspicious happening here. Move along.",
-					"Nova Hub is funded by thoughts, prayers, and totally legitimate income.",
-					"No laws were broken in the making of this site. Probably.",
-					"The lawyers said we should add this line.",
-					"Nova Hub may or may not know a guy.",
-					"All activities here are legally ambiguous.",
-					"Allegedly.",
-					"We plead 'oops.'",
-					"Nothing here could be used against us.",
-					"Nova Hub is innocent until proven cool.",
-					"How does this still work.",
-					"Built once. Somehow still online.",
-					"It worked yesterday.",
-					"Someone pressed deploy and disappeared.",
-					"This wasn't supposed to go public.",
-					"If this loads, don't question it.",
-					"Nova approved.",
-					"Please don't refresh too fast.",
-					"We fixed one thing and broke three others.",
-					"This page exists out of spite.",
-					"No idea who's in charge here.",
-					"Still loading? Yeah, same.",
-					"We are as surprised as you are.",
-					"If it breaks, it was always broken.",
-					"Nothing here was stress-tested.",
-					"Working in production, for now.",
-					"This site refuses to die.",
-					"If you see this, it loaded.",
-					"Nothing here violates school policy (we think).",
-					"This is definitely allowed.",
-					"According to our understanding of the rules, this is fine.",
-					"Pretty sure this counts as educational.",
-					"No rules were harmed in the making of this website.",
-					"We read the policy. Skimmed it, actually.",
-					"This page complies with something.",
-					"Allowed unless proven otherwise.",
-					"This is probably permitted.",
-					"If this wasn't allowed, it wouldn't load… right?",
-					"School-approved vibes only.",
-					"This site is innocent until blocked.",
-					"Policy-compliant as of 5 minutes ago.",
-					"Still allowed. For now.",
-					"This has not been reviewed by anyone important.",
-					"Surely this is fine.",
-					"If this gets blocked, it was allowed at the time.",
-					"Trusted by students, tolerated by filters.",
-					"We swear this is for a project."
-				];
-
-				const randomquoteElement = document.getElementById("randomquote");
-				if (randomquoteElement) {
-					// Get or initialize used messages list from localStorage
-					let usedIndices = JSON.parse(localStorage.getItem('novaTerminalUsedIndices') || '[]');
-					
-					// If all messages have been used, reset the cycle
-					if (usedIndices.length >= terminalMessages.length) {
-						usedIndices = [];
-						localStorage.setItem('novaTerminalUsedIndices', JSON.stringify(usedIndices));
-					}
-					
-					// Get available indices (not yet used)
-					const availableIndices = [];
-					for (let i = 0; i < terminalMessages.length; i++) {
-						if (!usedIndices.includes(i)) {
-							availableIndices.push(i);
+				// Load terminal text from API
+				async function loadTerminalText() {
+					try {
+						const response = await fetch('/api/terminal-text');
+						const data = await response.json();
+						
+						if (data.success && data.data) {
+							// Update welcome lines
+							const welcomeContainer = document.getElementById('terminal-welcome-container');
+							if (welcomeContainer && data.data.welcomeLines) {
+								welcomeContainer.innerHTML = '';
+								data.data.welcomeLines.forEach(line => {
+									const lineDiv = document.createElement('div');
+									lineDiv.className = 'terminal-line';
+									lineDiv.innerHTML = '<span class="output">' + line.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</span>';
+									welcomeContainer.appendChild(lineDiv);
+								});
+							}
+							
+							// Update status output
+							const statusOutput = document.getElementById('terminal-status-output');
+							if (statusOutput && data.data.statusText) {
+								statusOutput.textContent = data.data.statusText;
+							}
 						}
+					} catch (error) {
+						console.error('Failed to load terminal text:', error);
+						// Keep default values if API fails
 					}
-					
-					// Pick a random message from available ones
-					const randomIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
-					
-					// Mark this message as used
-					usedIndices.push(randomIndex);
-					localStorage.setItem('novaTerminalUsedIndices', JSON.stringify(usedIndices));
-					
-					// Display the message
-					randomquoteElement.textContent = terminalMessages[randomIndex];
 				}
+				
+				loadTerminalText();
 			});
 		</script>
 
@@ -167,17 +110,19 @@
 				<div class="terminal-line">
 					<span class="prompt">nova@hub:~$</span> <span class="command">cat welcome.txt</span>
 				</div>
-				<div class="terminal-line">
-					<span class="output">Welcome to Nova Hub</span>
-				</div>
-				<div class="terminal-line">
-					<span class="output">Your ultimate gaming destination</span>
+				<div id="terminal-welcome-container">
+					<div class="terminal-line">
+						<span class="output">Welcome to Nova Hub</span>
+					</div>
+					<div class="terminal-line">
+						<span class="output">Your ultimate gaming destination</span>
+					</div>
 				</div>
 				<div class="terminal-line">
 					<span class="prompt">nova@hub:~$</span> <span class="command">status</span>
 				</div>
 				<div class="terminal-line">
-					<span class="output" id="randomquote">if you are seeing this message, please ping the owner of Nova Hub in the discord server immediately.</span>
+					<span class="output" id="terminal-status-output">If you see this, it loaded.</span>
 				</div>
 			</div>
 			
