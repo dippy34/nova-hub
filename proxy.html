@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html class="sl-theme-dark" lang="en">
+	<head>
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-4FXX69YKTS"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		  gtag('config', 'G-4FXX69YKTS');
+		</script>
+		
+		<meta property="og:title" content="Nova Hub - Admin Proxy" />
+		<meta property="description" content="Nova Hub Admin Proxy - Scramjet Web Proxy (Admin Only)" />
+		<meta content="/favicon.png" property="og:image" />
+		<meta content="#00d4ff" data-react-helmet="true" name="theme-color" />
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+
+		<script src="/js/all.min.js"></script>
+		<script src="/js/main.js"></script>
+		<script src="/js/gaming-navbar.js"></script>
+
+		<link rel="stylesheet" href="/style.css" />
+		<link rel="stylesheet" href="/css/gaming-theme.css" />
+		<link rel="manifest" href="/manifest.json" />
+
+		<title>Nova Hub - Admin Proxy</title>
+		<link rel="icon" href="/nova-favicon.ico" />
+		
+		<style>
+			.proxy-container {
+				display: flex;
+				flex-direction: column;
+				height: 100vh;
+				width: 100%;
+			}
+			
+			.proxy-iframe {
+				flex: 1;
+				width: 100%;
+				border: none;
+				background: #000;
+			}
+			
+			.proxy-loading {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				height: 100vh;
+				color: #00ff00;
+				font-family: monospace;
+			}
+			
+			.proxy-error {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				height: 100vh;
+				color: #ff0000;
+				font-family: monospace;
+				text-align: center;
+				padding: 20px;
+			}
+			
+			.proxy-error a {
+				color: #00ff00;
+				margin-top: 20px;
+			}
+		</style>
+	</head>
+	<body class="gaming-theme">
+		<div id="proxy-loading" class="proxy-loading">
+			<div>
+				<div>Verifying admin access...</div>
+			</div>
+		</div>
+		
+		<div id="proxy-error" class="proxy-error" style="display: none;">
+			<div>
+				<h1>Access Denied</h1>
+				<p>This proxy is only accessible to administrators.</p>
+				<a href="/admin.html">Go to Admin Panel</a>
+			</div>
+		</div>
+		
+		<div id="proxy-container" class="proxy-container" style="display: none;">
+			<iframe id="proxy-iframe" class="proxy-iframe" src="about:blank"></iframe>
+		</div>
+
+		<script>
+		// Admin authentication check
+		(async function() {
+			const token = localStorage.getItem('nova_admin_token');
+			
+			if (!token) {
+				showError();
+				return;
+			}
+			
+			try {
+				const response = await fetch('/api/admin/verify', {
+					headers: {
+						'Authorization': `Bearer ${token}`
+					}
+				});
+				
+				if (!response.ok) {
+					showError();
+					return;
+				}
+				
+				// Admin verified - load Scramjet proxy
+				loadScramjet();
+			} catch (error) {
+				console.error('Admin verification error:', error);
+				showError();
+			}
+		})();
+		
+		function showError() {
+			document.getElementById('proxy-loading').style.display = 'none';
+			document.getElementById('proxy-error').style.display = 'flex';
+		}
+		
+		function loadScramjet() {
+			document.getElementById('proxy-loading').style.display = 'none';
+			document.getElementById('proxy-container').style.display = 'flex';
+			
+			// Load Scramjet's index.html
+			document.getElementById('proxy-iframe').src = '/scramjet/static/index.html';
+		}
+		</script>
+	</body>
+</html>

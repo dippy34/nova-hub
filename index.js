@@ -495,6 +495,37 @@ app.post('/api/admin/save-ga-id', verifyAdminToken, (req, res) => {
   }
 });
 
+app.get('/api/admin/proxy-preference', verifyAdminToken, (req, res) => {
+  const analyticsPath = path.join(__dirname, 'data', 'analytics.json');
+  const analytics = readJsonFile(analyticsPath);
+  const proxyPreference = analytics.proxyPreference || 'scramjet';
+  res.json({ success: true, proxy: proxyPreference });
+});
+
+app.post('/api/admin/save-proxy-preference', verifyAdminToken, (req, res) => {
+  try {
+    const { proxy } = req.body;
+
+    if (!proxy || (proxy !== 'scramjet' && proxy !== 'ultraviolet')) {
+      return res.status(400).json({ success: false, message: 'proxy must be either "scramjet" or "ultraviolet"' });
+    }
+
+    const analyticsPath = path.join(__dirname, 'data', 'analytics.json');
+    const analytics = readJsonFile(analyticsPath);
+    analytics.proxyPreference = proxy;
+    analytics.proxyPreferenceLastUpdated = new Date().toISOString();
+
+    if (writeJsonFile(analyticsPath, analytics)) {
+      res.json({ success: true, message: 'Proxy preference saved successfully' });
+    } else {
+      res.status(500).json({ success: false, message: 'Failed to save proxy preference' });
+    }
+  } catch (error) {
+    console.error('Error saving proxy preference:', error);
+    res.status(500).json({ success: false, message: 'Internal server error: ' + error.message });
+  }
+});
+
 // Get all suggestions and bug reports
 app.get('/api/admin/suggestions', verifyAdminToken, (req, res) => {
   const suggestionsPath = path.join(__dirname, 'data', 'suggestions.json');
