@@ -9,10 +9,15 @@ export async function onRequest(context) {
   const targetUrl = url.searchParams.get('url');
   
   if (!targetUrl) {
-    // If no URL parameter, redirect to proxy.html
-    // Since Cloudflare Pages Functions can't easily fetch static files,
-    // we redirect to the static file
-    return Response.redirect(`${url.origin}/proxy.html`, 302);
+    // If no URL parameter, return 404 so Cloudflare Pages can serve the static file
+    // Note: Functions take precedence, so this won't actually serve the static file
+    // The proxy page should be accessed at /proxy.html instead
+    return new Response('Missing url parameter. Use /proxy.html to access the proxy page.', {
+      status: 404,
+      headers: {
+        'Content-Type': 'text/plain'
+      }
+    });
   }
   
   try {

@@ -538,6 +538,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 title = response['What game would you like me to add? BE SPECIFIC'] || 'Game Request';
                 email = response['your email so i might reach back to you if I fixed the problem NOT GARUNTEED(optional)'] || '';
             }
+
+            // Normalize email to a string to avoid "email.replace is not a function" errors
+            if (Array.isArray(email)) {
+                email = email.join(', ');
+            } else if (email == null) {
+                email = '';
+            } else if (typeof email !== 'string') {
+                email = String(email);
+            }
             
             return `
                 <div class="suggestion-item" data-index="${index}">
@@ -549,7 +558,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     ${description ? `<div class="suggestion-description">${(description || 'No description provided.').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>` : ''}
                     ${steps ? `<div class="suggestion-steps"><strong>Steps to reproduce:</strong> ${steps.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>` : ''}
                     <div class="suggestion-meta">
-                        ${email ? `<span class="suggestion-email">Email: ${email.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>` : '<span class="suggestion-email">Email: Not provided</span>'}
+                        ${email
+                            ? `<span class="suggestion-email">Email: ${email.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>`
+                            : '<span class="suggestion-email">Email: Not provided</span>'}
                     </div>
                 </div>
             `;
