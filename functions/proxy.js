@@ -9,62 +9,10 @@ export async function onRequest(context) {
   const targetUrl = url.searchParams.get('url');
   
   if (!targetUrl) {
-    // If no URL parameter, serve the proxy.html page
-    // Fetch the proxy.html file from the static assets
-    try {
-      const proxyHtmlUrl = new URL('/proxy.html', url.origin);
-      const proxyHtmlResponse = await fetch(proxyHtmlUrl.toString());
-      if (proxyHtmlResponse.ok) {
-        const html = await proxyHtmlResponse.text();
-        return new Response(html, {
-          status: 200,
-          headers: {
-            'Content-Type': 'text/html; charset=utf-8'
-          }
-        });
-      }
-    } catch (e) {
-      console.error('Error fetching proxy.html:', e);
-    }
-    
-    // Fallback error if proxy.html can't be fetched
-    return new Response(
-      `<!DOCTYPE html>
-<html>
-<head>
-  <title>Proxy Error</title>
-  <style>
-    body {
-      font-family: monospace;
-      background: #000;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .error {
-      text-align: center;
-      padding: 20px;
-    }
-    h1 { color: #ff0000; }
-  </style>
-</head>
-<body>
-  <div class="error">
-    <h1>Proxy Error</h1>
-    <p>Unable to load proxy page</p>
-  </div>
-</body>
-</html>`,
-      {
-        status: 500,
-        headers: {
-          'Content-Type': 'text/html; charset=utf-8'
-        }
-      }
-    );
+    // If no URL parameter, redirect to proxy.html
+    // Since Cloudflare Pages Functions can't easily fetch static files,
+    // we redirect to the static file
+    return Response.redirect(`${url.origin}/proxy.html`, 302);
   }
   
   try {
