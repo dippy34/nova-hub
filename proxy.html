@@ -11,7 +11,7 @@
 		</script>
 		
 		<meta property="og:title" content="Nova Hub - Admin Proxy" />
-		<meta property="description" content="Nova Hub Admin Proxy - Scramjet Web Proxy (Admin Only)" />
+		<meta property="description" content="Nova Hub Admin Proxy - Web Proxy (Admin Only)" />
 		<meta content="/favicon.png" property="og:image" />
 		<meta content="#00d4ff" data-react-helmet="true" name="theme-color" />
 		
@@ -30,52 +30,175 @@
 		<link rel="icon" href="/nova-favicon.ico" />
 		
 		<style>
-			.proxy-container {
+			.proxy-main {
 				display: flex;
 				flex-direction: column;
-				height: 100vh;
+				height: calc(100vh - 60px);
 				width: 100%;
+				padding-top: 60px;
+				background: var(--gaming-bg);
+			}
+			
+			.proxy-toolbar {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				padding: 10px 20px;
+				background: rgba(0, 0, 0, 0.9);
+				border-bottom: 1px solid var(--gaming-border);
+				flex-wrap: wrap;
+			}
+			
+			.proxy-url-container {
+				flex: 1;
+				min-width: 200px;
+				display: flex;
+				gap: 10px;
+				align-items: center;
+			}
+			
+			.proxy-url-input {
+				flex: 1;
+				padding: 10px 15px;
+				background: #1a1a1a;
+				color: #00ff00;
+				border: 1px solid var(--gaming-border);
+				border-radius: 4px;
+				font-family: monospace;
+				font-size: 14px;
+			}
+			
+			.proxy-url-input:focus {
+				outline: none;
+				border-color: var(--gaming-accent);
+				box-shadow: 0 0 10px var(--gaming-glow);
+			}
+			
+			.proxy-button {
+				padding: 10px 20px;
+				background: var(--gaming-accent);
+				color: #000;
+				border: none;
+				border-radius: 4px;
+				font-weight: bold;
+				cursor: pointer;
+				font-family: monospace;
+				white-space: nowrap;
+			}
+			
+			.proxy-button:hover {
+				background: var(--gaming-accent-secondary);
+				box-shadow: 0 0 10px var(--gaming-glow);
+			}
+			
+			.proxy-button:active {
+				transform: scale(0.95);
+			}
+			
+			.proxy-tabs {
+				display: flex;
+				gap: 5px;
+				padding: 0 20px;
+				background: rgba(0, 0, 0, 0.8);
+				border-bottom: 1px solid var(--gaming-border);
+				align-items: center;
+			}
+			
+			.proxy-tab {
+				padding: 10px 20px;
+				background: transparent;
+				color: var(--gaming-text-dim);
+				border: none;
+				border-bottom: 2px solid transparent;
+				cursor: pointer;
+				font-family: monospace;
+				transition: all 0.3s;
+				max-width: 200px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			
+			.proxy-tab:hover {
+				color: var(--gaming-text);
+				background: rgba(0, 255, 0, 0.1);
+			}
+			
+			.proxy-tab.active {
+				color: var(--gaming-accent);
+				border-bottom-color: var(--gaming-accent);
+				background: rgba(0, 255, 0, 0.1);
+			}
+			
+			.proxy-new-tab-button {
+				padding: 10px 15px;
+				background: transparent;
+				color: var(--gaming-text-dim);
+				border: none;
+				cursor: pointer;
+				font-family: monospace;
+				font-size: 18px;
+				transition: all 0.3s;
+				margin-left: 5px;
+			}
+			
+			.proxy-new-tab-button:hover {
+				color: var(--gaming-accent);
+				background: rgba(0, 255, 0, 0.1);
+			}
+			
+			.proxy-iframe-container {
+				flex: 1;
+				width: 100%;
+				position: relative;
+				background: #000;
 			}
 			
 			.proxy-iframe {
-				flex: 1;
 				width: 100%;
+				height: 100%;
 				border: none;
 				background: #000;
 			}
 			
-			.proxy-loading {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				height: 100vh;
-				color: #00ff00;
-				font-family: monospace;
-			}
-			
-			.proxy-error {
+			.proxy-loading, .proxy-error {
 				display: flex;
 				flex-direction: column;
 				align-items: center;
 				justify-content: center;
-				height: 100vh;
-				color: #ff0000;
+				height: 100%;
+				color: var(--gaming-text);
 				font-family: monospace;
 				text-align: center;
 				padding: 20px;
 			}
 			
+			.proxy-error {
+				color: #ff0000;
+			}
+			
 			.proxy-error a {
-				color: #00ff00;
+				color: var(--gaming-accent);
 				margin-top: 20px;
+			}
+			
+			body.fullscreen .proxy-main {
+				padding-top: 0;
+				height: 100vh;
+			}
+			
+			body.fullscreen .gaming-navbar {
+				display: none;
+			}
+			
+			body.fullscreen #gaming-nav-toggle {
+				display: none;
 			}
 		</style>
 	</head>
 	<body class="gaming-theme">
-		<div id="proxy-loading" class="proxy-loading">
-			<div>
-				<div>Verifying admin access...</div>
-			</div>
+		<div id="proxy-loading" class="proxy-loading" style="display: none;">
+			<div>Loading...</div>
 		</div>
 		
 		<div id="proxy-error" class="proxy-error" style="display: none;">
@@ -86,8 +209,29 @@
 			</div>
 		</div>
 		
-		<div id="proxy-container" class="proxy-container" style="display: none;">
-			<iframe id="proxy-iframe" class="proxy-iframe" src="about:blank"></iframe>
+		<div id="proxy-main" class="proxy-main" style="display: none;">
+			<div class="proxy-toolbar">
+				<div class="proxy-url-container">
+					<input 
+						type="text" 
+						id="proxy-url-input" 
+						class="proxy-url-input" 
+						placeholder="Enter URL or search query..." 
+						autocomplete="off"
+					/>
+					<button id="proxy-go-button" class="proxy-button">Go</button>
+					<button id="proxy-refresh-button" class="proxy-button" title="Refresh">↻</button>
+					<button id="proxy-fullscreen-button" class="proxy-button" title="Toggle Fullscreen">⛶</button>
+				</div>
+			</div>
+			
+			<div class="proxy-tabs" id="proxy-tabs">
+				<!-- Tabs will be generated here -->
+			</div>
+			
+			<div class="proxy-iframe-container" id="proxy-iframe-container">
+				<!-- Iframes will be generated here -->
+			</div>
 		</div>
 
 		<script>
@@ -112,25 +256,254 @@
 					return;
 				}
 				
-				// Admin verified - load Scramjet proxy
-				loadScramjet();
+				// Admin verified - show proxy interface
+				showProxy();
 			} catch (error) {
 				console.error('Admin verification error:', error);
 				showError();
 			}
 		})();
 		
+		let tabs = [];
+		let activeTabId = null;
+		let tabIdCounter = 0;
+		let isFullscreen = false;
+		
 		function showError() {
 			document.getElementById('proxy-loading').style.display = 'none';
+			document.getElementById('proxy-main').style.display = 'none';
 			document.getElementById('proxy-error').style.display = 'flex';
 		}
 		
-		function loadScramjet() {
+		function showProxy() {
 			document.getElementById('proxy-loading').style.display = 'none';
-			document.getElementById('proxy-container').style.display = 'flex';
+			document.getElementById('proxy-error').style.display = 'none';
+			document.getElementById('proxy-main').style.display = 'flex';
 			
-			// Load Scramjet's index.html
-			document.getElementById('proxy-iframe').src = '/scramjet/static/index.html';
+			setupEventListeners();
+			
+			// Create initial tab with Google
+			createNewTab('https://www.google.com');
+		}
+		
+		function setupEventListeners() {
+			const urlInput = document.getElementById('proxy-url-input');
+			const goButton = document.getElementById('proxy-go-button');
+			const refreshButton = document.getElementById('proxy-refresh-button');
+			const fullscreenButton = document.getElementById('proxy-fullscreen-button');
+			
+			goButton.addEventListener('click', handleGo);
+			refreshButton.addEventListener('click', handleRefresh);
+			fullscreenButton.addEventListener('click', toggleFullscreen);
+			
+			urlInput.addEventListener('keypress', (e) => {
+				if (e.key === 'Enter') {
+					handleGo();
+				}
+			});
+		}
+		
+		function createNewTab(url = 'about:blank') {
+			const tabId = 'tab-' + (++tabIdCounter);
+			const tab = {
+				id: tabId,
+				url: url,
+				title: 'New Tab',
+				iframe: null
+			};
+			
+			tabs.push(tab);
+			activeTabId = tabId;
+			
+			renderTabs();
+			createTabIframe(tabId);
+			
+			if (url !== 'about:blank') {
+				loadUrlInTab(tabId, url);
+			}
+		}
+		
+		function createTabIframe(tabId) {
+			const container = document.getElementById('proxy-iframe-container');
+			const iframe = document.createElement('iframe');
+			iframe.id = 'proxy-iframe-' + tabId;
+			iframe.className = 'proxy-iframe';
+			iframe.src = 'about:blank';
+			iframe.style.display = 'none';
+			
+			// Update tab title when iframe loads
+			iframe.addEventListener('load', () => {
+				try {
+					const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+					const title = iframeDoc.title || new URL(iframe.src).hostname || 'New Tab';
+					updateTabTitle(tabId, title);
+				} catch (e) {
+					// Cross-origin - try to get title from URL
+					try {
+						const url = new URL(iframe.src.split('url=')[1] || '');
+						updateTabTitle(tabId, url.hostname.replace('www.', ''));
+					} catch (e2) {
+						updateTabTitle(tabId, 'New Tab');
+					}
+				}
+			});
+			
+			container.appendChild(iframe);
+			
+			const tab = tabs.find(t => t.id === tabId);
+			if (tab) {
+				tab.iframe = iframe;
+			}
+			
+			showTab(tabId);
+		}
+		
+		function renderTabs() {
+			const tabsContainer = document.getElementById('proxy-tabs');
+			tabsContainer.innerHTML = '';
+			
+			tabs.forEach(tab => {
+				const tabButton = document.createElement('button');
+				tabButton.className = 'proxy-tab' + (tab.id === activeTabId ? ' active' : '');
+				tabButton.textContent = tab.title;
+				tabButton.setAttribute('data-tab-id', tab.id);
+				tabButton.addEventListener('click', () => switchTab(tab.id));
+				tabsContainer.appendChild(tabButton);
+			});
+			
+			// Add new tab button
+			const newTabButton = document.createElement('button');
+			newTabButton.className = 'proxy-new-tab-button';
+			newTabButton.textContent = '+';
+			newTabButton.title = 'New Tab';
+			newTabButton.addEventListener('click', () => createNewTab());
+			tabsContainer.appendChild(newTabButton);
+		}
+		
+		function switchTab(tabId) {
+			activeTabId = tabId;
+			showTab(tabId);
+			renderTabs();
+			
+			const tab = tabs.find(t => t.id === tabId);
+			if (tab) {
+				document.getElementById('proxy-url-input').value = tab.url;
+			}
+		}
+		
+		function showTab(tabId) {
+			tabs.forEach(tab => {
+				if (tab.iframe) {
+					tab.iframe.style.display = tab.id === tabId ? 'block' : 'none';
+				}
+			});
+		}
+		
+		function updateTabTitle(tabId, title) {
+			const tab = tabs.find(t => t.id === tabId);
+			if (tab) {
+				tab.title = title || 'New Tab';
+				renderTabs();
+			}
+		}
+		
+		function handleGo() {
+			const input = document.getElementById('proxy-url-input');
+			const query = input.value.trim();
+			
+			if (!query) return;
+			
+			// Check if it's a URL
+			let url;
+			if (isValidUrl(query)) {
+				url = query;
+			} else {
+				// It's a search query - use Google search
+				url = 'https://www.google.com/search?q=' + encodeURIComponent(query);
+			}
+			
+			if (activeTabId) {
+				loadUrlInTab(activeTabId, url);
+			} else {
+				createNewTab(url);
+			}
+		}
+		
+		function handleRefresh() {
+			if (activeTabId) {
+				const tab = tabs.find(t => t.id === activeTabId);
+				if (tab && tab.url) {
+					loadUrlInTab(activeTabId, tab.url);
+				}
+			}
+		}
+		
+		function toggleFullscreen() {
+			isFullscreen = !isFullscreen;
+			if (isFullscreen) {
+				document.body.classList.add('fullscreen');
+				if (document.documentElement.requestFullscreen) {
+					document.documentElement.requestFullscreen();
+				} else if (document.documentElement.mozRequestFullScreen) {
+					document.documentElement.mozRequestFullScreen();
+				} else if (document.documentElement.webkitRequestFullscreen) {
+					document.documentElement.webkitRequestFullscreen();
+				} else if (document.documentElement.msRequestFullscreen) {
+					document.documentElement.msRequestFullscreen();
+				}
+			} else {
+				document.body.classList.remove('fullscreen');
+				if (document.exitFullscreen) {
+					document.exitFullscreen();
+				} else if (document.mozCancelFullScreen) {
+					document.mozCancelFullScreen();
+				} else if (document.webkitExitFullscreen) {
+					document.webkitExitFullscreen();
+				} else if (document.msExitFullscreen) {
+					document.msExitFullscreen();
+				}
+			}
+		}
+		
+		function isValidUrl(string) {
+			try {
+				const url = new URL(string);
+				return url.protocol === 'http:' || url.protocol === 'https:';
+			} catch (_) {
+				// Try adding https://
+				try {
+					const url = new URL('https://' + string);
+					return true;
+				} catch (_) {
+					return false;
+				}
+			}
+		}
+		
+		function loadUrlInTab(tabId, url) {
+			// Normalize URL
+			if (!url.startsWith('http://') && !url.startsWith('https://') && url !== 'about:blank') {
+				url = 'https://' + url;
+			}
+			
+			const tab = tabs.find(t => t.id === tabId);
+			if (!tab || !tab.iframe) return;
+			
+			tab.url = url;
+			document.getElementById('proxy-url-input').value = url;
+			
+			if (url === 'about:blank') {
+				tab.iframe.src = 'about:blank';
+				updateTabTitle(tabId, 'New Tab');
+				return;
+			}
+			
+			// Use Cloudflare Workers proxy endpoint
+			const proxyUrl = '/proxy?url=' + encodeURIComponent(url);
+			
+			// Load the proxied URL directly in the iframe
+			// The proxy function will handle URL rewriting
+			tab.iframe.src = proxyUrl;
 		}
 		</script>
 	</body>

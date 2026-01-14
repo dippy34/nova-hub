@@ -133,6 +133,287 @@ app.post('/api/submit-suggestion', (req, res) => {
   }
 });
 
+// Proxy endpoint for Scramjet (localhost only)
+app.get('/scramjet/proxy', (req, res) => {
+  const http = require('http');
+  const https = require('https');
+  const targetUrl = req.query.url;
+  
+  if (!targetUrl) {
+    return res.status(400).send('Missing url parameter');
+  }
+  
+  try {
+    const url = new URL(targetUrl);
+    const client = url.protocol === 'https:' ? https : http;
+    
+    const options = {
+      hostname: url.hostname,
+      port: url.port || (url.protocol === 'https:' ? 443 : 80),
+      path: url.pathname + url.search,
+      method: 'GET',
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.5',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Connection': 'keep-alive',
+        'Upgrade-Insecure-Requests': '1'
+      }
+    };
+    
+    const proxyReq = client.request(options, (proxyRes) => {
+      let html = '';
+      
+      // Handle compressed responses
+      let stream = proxyRes;
+      if (proxyRes.headers['content-encoding'] === 'gzip') {
+        const zlib = require('zlib');
+        stream = proxyRes.pipe(zlib.createGunzip());
+      } else if (proxyRes.headers['content-encoding'] === 'deflate') {
+        const zlib = require('zlib');
+        stream = proxyRes.pipe(zlib.createInflate());
+      }
+      
+      stream.on('data', (chunk) => {
+        html += chunk.toString();
+      });
+      
+      stream.on('end', () => {
+        // Rewrite URLs to go through proxy
+        const proxyBase = req.protocol + '://' + req.get('host') + '/scramjet/proxy?url=';
+        
+        // Rewrite links
+        html = html.replace(/href=["']([^"']+)["']/gi, (match, url) => {
+          if (url.startsWith('javascript:') || url.startsWith('mailto:') || url.startsWith('#')) {
+            return match;
+          }
+          try {
+            const absoluteUrl = new URL(url, targetUrl).href;
+            return `href="${proxyBase}${encodeURIComponent(absoluteUrl)}"`;
+          } catch (e) {
+            return match;
+          }
+        });
+        
+        // Rewrite form actions
+        html = html.replace(/action=["']([^"']+)["']/gi, (match, url) => {
+          if (url.startsWith('javascript:') || url.startsWith('#')) {
+            return match;
+          }
+          try {
+            const absoluteUrl = new URL(url, targetUrl).href;
+            return `action="${proxyBase}${encodeURIComponent(absoluteUrl)}"`;
+          } catch (e) {
+            return match;
+          }
+        });
+        
+        // Rewrite src attributes (images, scripts, etc.)
+        html = html.replace(/src=["']([^"']+)["']/gi, (match, url) => {
+          if (url.startsWith('data:') || url.startsWith('javascript:')) {
+            return match;
+          }
+          try {
+            const absoluteUrl = new URL(url, targetUrl).href;
+            return `src="${proxyBase}${encodeURIComponent(absoluteUrl)}"`;
+          } catch (e) {
+            return match;
+          }
+        });
+        
+        // Inject script to handle link clicks
+        const proxyScript = `
+          <script>
+            (function() {
+              document.addEventListener('click', function(e) {
+                const link = e.target.closest('a');
+                if (link && link.href && !link.target && !e.ctrlKey && !e.metaKey) {
+                  e.preventDefault();
+                  window.location.href = link.href;
+                }
+              });
+              
+              // Prevent links from opening in new tabs
+              document.addEventListener('click', function(e) {
+                const link = e.target.closest('a[target="_blank"]');
+                if (link && link.href && !e.ctrlKey && !e.metaKey) {
+                  e.preventDefault();
+                  link.removeAttribute('target');
+                  window.location.href = link.href;
+                }
+              }, true);
+            })();
+          </script>
+        `;
+        
+        html = html.replace('</head>', proxyScript + '</head>');
+        
+        res.setHeader('Content-Type', proxyRes.headers['content-type'] || 'text/html');
+        res.send(html);
+      });
+      
+      stream.on('error', (error) => {
+        console.error('Stream error:', error);
+        res.status(500).send(`Proxy error: ${error.message}`);
+      });
+    });
+    
+    proxyReq.on('error', (error) => {
+      console.error('Proxy error:', error);
+      res.status(500).send(`Proxy error: ${error.message}`);
+    });
+    
+    proxyReq.end();
+  } catch (error) {
+    console.error('Proxy error:', error);
+    res.status(500).send(`Proxy error: ${error.message}`);
+  }
+});
+
+// Proxy endpoint for Cloudflare Workers compatibility (localhost only)
+app.get('/proxy', (req, res) => {
+  const http = require('http');
+  const https = require('https');
+  const zlib = require('zlib');
+  const targetUrl = req.query.url;
+  
+  if (!targetUrl) {
+    return res.status(400).send('Missing url parameter');
+  }
+  
+  try {
+    const url = new URL(targetUrl);
+    const client = url.protocol === 'https:' ? https : http;
+    
+    const options = {
+      hostname: url.hostname,
+      port: url.port || (url.protocol === 'https:' ? 443 : 80),
+      path: url.pathname + url.search,
+      method: 'GET',
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Referer': targetUrl,
+        'Origin': url.origin,
+        'Connection': 'keep-alive',
+        'Upgrade-Insecure-Requests': '1'
+      }
+    };
+    
+    const proxyReq = client.request(options, (proxyRes) => {
+      const contentType = proxyRes.headers['content-type'] || '';
+      const isHtml = contentType.includes('text/html');
+      
+      // Handle compressed responses
+      let stream = proxyRes;
+      if (proxyRes.headers['content-encoding'] === 'gzip') {
+        stream = proxyRes.pipe(zlib.createGunzip());
+      } else if (proxyRes.headers['content-encoding'] === 'deflate') {
+        stream = proxyRes.pipe(zlib.createInflate());
+      }
+      
+      // For non-HTML content, stream directly
+      if (!isHtml) {
+        res.setHeader('Content-Type', contentType);
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Cache-Control', 'public, max-age=3600');
+        stream.pipe(res);
+        return;
+      }
+      
+      // For HTML content, rewrite URLs
+      let html = '';
+      
+      stream.on('data', (chunk) => {
+        html += chunk.toString();
+      });
+      
+      stream.on('end', () => {
+        // Rewrite URLs to go through proxy
+        const proxyBase = req.protocol + '://' + req.get('host') + '/proxy?url=';
+        
+        // Rewrite href attributes
+        html = html.replace(/href=["']([^"']+)["']/gi, (match, urlPath) => {
+          if (urlPath.startsWith('javascript:') || urlPath.startsWith('mailto:') || urlPath.startsWith('#') || urlPath.startsWith('data:')) {
+            return match;
+          }
+          try {
+            const absoluteUrl = new URL(urlPath, targetUrl).href;
+            return `href="${proxyBase}${encodeURIComponent(absoluteUrl)}"`;
+          } catch (e) {
+            return match;
+          }
+        });
+        
+        // Rewrite src attributes
+        html = html.replace(/src=["']([^"']+)["']/gi, (match, urlPath) => {
+          if (urlPath.startsWith('data:')) {
+            return match;
+          }
+          try {
+            const absoluteUrl = new URL(urlPath, targetUrl).href;
+            return `src="${proxyBase}${encodeURIComponent(absoluteUrl)}"`;
+          } catch (e) {
+            return match;
+          }
+        });
+        
+        // Rewrite action attributes
+        html = html.replace(/action=["']([^"']+)["']/gi, (match, urlPath) => {
+          try {
+            const absoluteUrl = new URL(urlPath, targetUrl).href;
+            return `action="${proxyBase}${encodeURIComponent(absoluteUrl)}"`;
+          } catch (e) {
+            return match;
+          }
+        });
+        
+        // Rewrite CSS url() references
+        html = html.replace(/url\(["']?([^"')]+)["']?\)/gi, (match, urlPath) => {
+          if (urlPath.startsWith('data:') || urlPath.startsWith('#')) {
+            return match;
+          }
+          try {
+            const absoluteUrl = new URL(urlPath, targetUrl).href;
+            return `url("${proxyBase}${encodeURIComponent(absoluteUrl)}")`;
+          } catch (e) {
+            return match;
+          }
+        });
+        
+        // Inject base tag to help with relative URLs
+        html = html.replace(
+          /<head[^>]*>/i,
+          `<head><base href="${targetUrl}">`
+        );
+        
+        res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Cache-Control', 'no-cache');
+        res.send(html);
+      });
+      
+      stream.on('error', (error) => {
+        console.error('Stream error:', error);
+        res.status(500).send(`Proxy error: ${error.message}`);
+      });
+    });
+    
+    proxyReq.on('error', (error) => {
+      console.error('Proxy error:', error);
+      res.status(500).send(`Proxy error: ${error.message}`);
+    });
+    
+    proxyReq.end();
+  } catch (error) {
+    console.error('Proxy error:', error);
+    res.status(500).send(`Proxy error: ${error.message}`);
+  }
+});
+
 // Static file serving (must be after API routes)
 // Configure to pass through to next handler if file doesn't exist
 app.use(express.static(__dirname, { fallthrough: true }));
