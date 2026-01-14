@@ -638,6 +638,243 @@ export async function onRequest(context) {
       `<head><base href="${targetUrl}">`
     );
     
+    // Inject proxy interceptor script before closing head or body
+    const proxyScript = `
+<script>
+(function() {
+  const PROXY_BASE = '${url.origin}/proxy?url=';
+  const TARGET_ORIGIN = '${targetUrlObj.origin}';
+  
+  // Helper to resolve and check if URL should be proxied
+  function shouldProxy(url) {
+    if (!url || url === '' || url === '#') return false;
+    try {
+      // Resolve relative URLs
+      const urlObj = new URL(url, window.location.href);
+      // Don't proxy data:, javascript:, mailto:, #, or same-origin requests
+      if (urlObj.protocol === 'data:' || 
+          urlObj.protocol === 'javascript:' || 
+          urlObj.protocol === 'mailto:' ||
+          url.startsWith('#') ||
+          urlObj.origin === window.location.origin) {
+        return false;
+      }
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+  
+  // Helper to proxy a URL
+  function proxyUrl(url) {
+    if (!url || url === '' || url === '#') return url;
+    if (!shouldProxy(url)) return url;
+    try {
+      // Resolve relative URLs to absolute
+      const absoluteUrl = new URL(url, window.location.href).href;
+      return PROXY_BASE + encodeURIComponent(absoluteUrl);
+    } catch (e) {
+      return url;
+    }
+  }
+  
+  // Intercept fetch API
+  const originalFetch = window.fetch;
+  window.fetch = function(...args) {
+    const url = args[0];
+    if (typeof url === 'string' && shouldProxy(url)) {
+      args[0] = proxyUrl(url);
+    } else if (url instanceof Request && shouldProxy(url.url)) {
+      // Create new Request with proxied URL, preserving all options
+      const proxiedUrl = proxyUrl(url.url);
+      args[0] = new Request(proxiedUrl, {
+        method: url.method,
+        headers: url.headers,
+        body: url.body,
+        mode: url.mode,
+        credentials: url.credentials,
+        cache: url.cache,
+        redirect: url.redirect,
+        referrer: url.referrer,
+        integrity: url.integrity
+      });
+    }
+    return originalFetch.apply(this, args);
+  };
+  
+  // Intercept XMLHttpRequest
+  const originalXHROpen = XMLHttpRequest.prototype.open;
+  XMLHttpRequest.prototype.open = function(method, url, ...rest) {
+    if (shouldProxy(url)) {
+      url = proxyUrl(url);
+    }
+    return originalXHROpen.call(this, method, url, ...rest);
+  };
+  
+  // Intercept form submissions
+  document.addEventListener('submit', function(e) {
+    const form = e.target;
+    if (form.tagName === 'FORM') {
+      let action = form.getAttribute('action') || form.action || window.location.href;
+      // Handle empty or relative actions
+      if (!action || action === '#' || action === '') {
+        action = window.location.href;
+      }
+      
+      if (shouldProxy(action)) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        
+        const formData = new FormData(form);
+        const method = (form.method || 'GET').toUpperCase();
+        
+        if (method === 'GET') {
+          const params = new URLSearchParams(formData);
+          // Append form params to the original URL before proxying
+          let finalUrl = action;
+          if (params.toString()) {
+            const separator = action.includes('?') ? '&' : '?';
+            finalUrl = action + separator + params.toString();
+          }
+          window.location.href = proxyUrl(finalUrl);
+        } else {
+          // For POST and other methods, create a hidden form
+          const hiddenForm = document.createElement('form');
+          hiddenForm.method = form.method || 'POST';
+          hiddenForm.action = proxyUrl(action);
+          hiddenForm.enctype = form.enctype || 'application/x-www-form-urlencoded';
+          hiddenForm.style.display = 'none';
+          
+          // Copy all form fields
+          for (const [key, value] of formData.entries()) {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = value;
+            hiddenForm.appendChild(input);
+          }
+          
+          // Copy file inputs if any
+          const fileInputs = form.querySelectorAll('input[type="file"]');
+          fileInputs.forEach(fileInput => {
+            if (fileInput.files && fileInput.files.length > 0) {
+              const newFileInput = document.createElement('input');
+              newFileInput.type = 'file';
+              newFileInput.name = fileInput.name;
+              newFileInput.files = fileInput.files;
+              hiddenForm.appendChild(newFileInput);
+            }
+          });
+          
+          document.body.appendChild(hiddenForm);
+          hiddenForm.submit();
+        }
+        return false;
+      }
+    }
+  }, true);
+  
+  // Intercept window.location changes
+  let locationProxy = new Proxy(window.location, {
+    set: function(target, property, value) {
+      if (property === 'href' && shouldProxy(value)) {
+        target.href = proxyUrl(value);
+        return true;
+      }
+      return Reflect.set(target, property, value);
+    }
+  });
+  
+  // Intercept window.open
+  const originalOpen = window.open;
+  window.open = function(url, ...rest) {
+    if (url && shouldProxy(url)) {
+      url = proxyUrl(url);
+    }
+    return originalOpen.call(this, url, ...rest);
+  };
+  
+  // Intercept anchor clicks
+  document.addEventListener('click', function(e) {
+    const anchor = e.target.closest('a');
+    if (anchor && anchor.href && shouldProxy(anchor.href)) {
+      e.preventDefault();
+      window.location.href = proxyUrl(anchor.href);
+    }
+  }, true);
+  
+  // Intercept programmatic form submissions
+  const originalFormSubmit = HTMLFormElement.prototype.submit;
+  HTMLFormElement.prototype.submit = function() {
+    const form = this;
+    let action = form.getAttribute('action') || form.action || window.location.href;
+    if (!action || action === '#' || action === '') {
+      action = window.location.href;
+    }
+    
+    if (shouldProxy(action)) {
+      const formData = new FormData(form);
+      const method = (form.method || 'GET').toUpperCase();
+      
+      if (method === 'GET') {
+        const params = new URLSearchParams(formData);
+        // Append form params to the original URL before proxying
+        let finalUrl = action;
+        if (params.toString()) {
+          const separator = action.includes('?') ? '&' : '?';
+          finalUrl = action + separator + params.toString();
+        }
+        window.location.href = proxyUrl(finalUrl);
+      } else {
+        const hiddenForm = document.createElement('form');
+        hiddenForm.method = form.method || 'POST';
+        hiddenForm.action = proxyUrl(action);
+        hiddenForm.enctype = form.enctype || 'application/x-www-form-urlencoded';
+        hiddenForm.style.display = 'none';
+        
+        for (const [key, value] of formData.entries()) {
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = key;
+          input.value = value;
+          hiddenForm.appendChild(input);
+        }
+        
+        document.body.appendChild(hiddenForm);
+        originalFormSubmit.call(hiddenForm);
+      }
+      return;
+    }
+    
+    return originalFormSubmit.call(this);
+  };
+  
+  // Intercept window.location.assign and replace
+  const originalAssign = window.location.assign;
+  window.location.assign = function(url) {
+    return originalAssign.call(this, shouldProxy(url) ? proxyUrl(url) : url);
+  };
+  
+  const originalReplace = window.location.replace;
+  window.location.replace = function(url) {
+    return originalReplace.call(this, shouldProxy(url) ? proxyUrl(url) : url);
+  };
+  
+  console.log('Proxy interceptor loaded');
+})();
+</script>`;
+    
+    // Inject script before closing head or at start of body
+    if (modifiedHtml.includes('</head>')) {
+      modifiedHtml = modifiedHtml.replace('</head>', proxyScript + '</head>');
+    } else if (modifiedHtml.includes('<body')) {
+      modifiedHtml = modifiedHtml.replace(/<body[^>]*>/i, '$&' + proxyScript);
+    } else {
+      // Fallback: inject at the beginning
+      modifiedHtml = proxyScript + modifiedHtml;
+    }
+    
     // Return the modified HTML
     return new Response(modifiedHtml, {
       status: response.status,
