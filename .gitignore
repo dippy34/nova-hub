@@ -39,4 +39,4 @@ test.sh
 *~
 /semag/
 ga-service-account.json
-
+.env

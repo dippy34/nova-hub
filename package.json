@@ -5,6 +5,7 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "dotenv": "^17.2.3",
     "express": "^4.17.1",
     "googleapis": "^128.0.0"
   }

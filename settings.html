@@ -54,12 +54,21 @@ function savePanicSettings() {
             finalUrl = 'https://' + finalUrl;
         }
         
-        // Save to both localStorage and cookie for compatibility
-        localStorage.setItem('novahub.panicUrl', finalUrl);
-        document.cookie = `panicurl=${finalUrl}; path=/`;
+        // Save to cookie instead of localStorage
+        setCookie('novahub.panicUrl', finalUrl);
+        // Also save to legacy panicurl cookie for backwards compatibility
+        setCookie('panicurl', finalUrl);
+        // Migration: remove from localStorage if it exists
+        if (localStorage.getItem('novahub.panicUrl')) {
+            localStorage.removeItem('novahub.panicUrl');
+        }
     }
     
-    localStorage.setItem('novahub.panicEnabled', panicEnabled ? 'true' : 'false');
+    setCookie('novahub.panicEnabled', panicEnabled ? 'true' : 'false');
+    // Migration: remove from localStorage if it exists
+    if (localStorage.getItem('novahub.panicEnabled')) {
+        localStorage.removeItem('novahub.panicEnabled');
+    }
     
     // Show/hide panic button (from gaming-navbar.js)
     if (typeof window.updatePanicButton === 'function') {
@@ -79,8 +88,15 @@ function getCookie(name) {
 
 // Load saved settings on page load
 document.addEventListener('DOMContentLoaded', function() {
-    // Load saved URL
-    const savedUrl = localStorage.getItem('novahub.panicUrl') || getCookie('panicurl') || '';
+    // Load saved URL - Migration: check localStorage first, then cookie
+    let savedUrl = localStorage.getItem('novahub.panicUrl');
+    if (savedUrl) {
+        setCookie('novahub.panicUrl', savedUrl);
+        setCookie('panicurl', savedUrl);
+        localStorage.removeItem('novahub.panicUrl');
+    } else {
+        savedUrl = getCookie('novahub.panicUrl') || getCookie('panicurl') || '';
+    }
     if (savedUrl) {
         document.getElementById('panicUrl').value = savedUrl;
         // Check if it matches any preset
@@ -93,8 +109,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Load enabled state
-    const enabled = localStorage.getItem('novahub.panicEnabled') === 'true';
+    // Load enabled state - Migration: check localStorage first, then cookie
+    let enabled = localStorage.getItem('novahub.panicEnabled') === 'true';
+    if (enabled) {
+        setCookie('novahub.panicEnabled', 'true');
+        localStorage.removeItem('novahub.panicEnabled');
+    } else {
+        enabled = getCookie('novahub.panicEnabled') === 'true';
+    }
     document.getElementById('panicEnabled').checked = enabled;
     
     // Update panic button visibility (will be called from gaming-navbar.js)

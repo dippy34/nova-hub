@@ -28,7 +28,14 @@
 // 		}
 // 	}
 // }
-if(localStorage.getItem("selenite.password") && !location.hash) {
+// Migration: check cookie first, then localStorage
+let passwordFromStorage = getCookie("selenite.password");
+if (!passwordFromStorage && localStorage.getItem("selenite.password")) {
+	passwordFromStorage = localStorage.getItem("selenite.password");
+	setCookie("selenite.password", passwordFromStorage);
+	localStorage.removeItem("selenite.password");
+}
+if(passwordFromStorage && !location.hash) {
 	alert("password, but no hash");
 }
 if (location.hash) {
@@ -44,12 +51,19 @@ if (location.hash) {
 	}
 	function tryPass(password) {
 		let passAttempt = prompt("Type your Selenite password:");
-		if(localStorage.getItem("selenite.password")) {
+		// Migration: check cookie first, then localStorage
+		let storedPassword = getCookie("selenite.password");
+		if (!storedPassword && localStorage.getItem("selenite.password")) {
+			storedPassword = localStorage.getItem("selenite.password");
+			setCookie("selenite.password", storedPassword);
+			localStorage.removeItem("selenite.password");
+		}
+		if(storedPassword) {
 			if(passAttempt == password) {
 				return false;
 			}
 		} else {
-			localStorage.setItem("selenite.password", enc.encode(password));
+			setCookie("selenite.password", enc.encode(password));
 			return true;
 		}
 	}

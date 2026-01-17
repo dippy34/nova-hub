@@ -56,7 +56,14 @@ window.toggleGamingNav = toggleGamingNav;
 
 // Panic Button Functions (for all pages)
 window.updatePanicButton = function() {
-    const enabled = localStorage.getItem('novahub.panicEnabled') === 'true';
+    // Migration: check localStorage first, then cookie
+    let enabled = localStorage.getItem('novahub.panicEnabled') === 'true';
+    if (enabled) {
+        setCookie('novahub.panicEnabled', 'true');
+        localStorage.removeItem('novahub.panicEnabled');
+    } else {
+        enabled = getCookie('novahub.panicEnabled') === 'true';
+    }
     
     if (enabled) {
         // Check if button already exists
@@ -82,14 +89,14 @@ window.updatePanicButton = function() {
 };
 
 window.activatePanic = function() {
-    function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-        return null;
+    // Migration: check localStorage first, then cookie
+    let panicUrl = localStorage.getItem('novahub.panicUrl');
+    if (panicUrl) {
+        setCookie('novahub.panicUrl', panicUrl);
+        localStorage.removeItem('novahub.panicUrl');
+    } else {
+        panicUrl = getCookie('novahub.panicUrl') || getCookie('panicurl') || 'https://google.com';
     }
-    
-    const panicUrl = localStorage.getItem('novahub.panicUrl') || getCookie('panicurl') || 'https://google.com';
     window.location.href = panicUrl;
 };
 

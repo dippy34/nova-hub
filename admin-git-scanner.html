@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html class="sl-theme-dark" lang="en">
+	<head>
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-4FXX69YKTS"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-4FXX69YKTS');
+		</script>
+		<meta property="og:title" content="Nova Hub - Git Scanner" />
+		<meta property="description" content="Nova Hub Git Scanner - Browse and scan GitHub/GitLab repositories." />
+		<meta content="/favicon.png" property="og:image" />
+		<meta content="#00d4ff" data-react-helmet="true" name="theme-color" />
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+
+		<script src="/js/all.min.js"></script>
+		<script src="/js/main.js"></script>
+		<script src="/js/widget.js"></script>
+		<script src="/js/gaming-navbar.js"></script>
+		<script src="/js/github-scanner.js"></script>
+
+		<link rel="stylesheet" href="/style.css" />
+		<link rel="stylesheet" href="/css/gaming-theme.css" />
+		<link rel="manifest" href="/manifest.json" />
+
+		<title>Nova Hub - Git Scanner</title>
+		<link rel="icon" href="/nova-favicon.ico" />
+		<style>
+			.git-scanner-container {
+				max-width: 1400px;
+				margin: 0 auto;
+				padding: 20px;
+			}
+
+			.search-section {
+				background: #1a1a1a;
+				border: 1px solid #333;
+				border-radius: 8px;
+				padding: 20px;
+				margin-bottom: 20px;
+			}
+
+			.search-input-group {
+				display: flex;
+				gap: 10px;
+				margin-bottom: 15px;
+				flex-wrap: wrap;
+			}
+
+			.search-input-group input,
+			.search-input-group select {
+				flex: 1;
+				min-width: 200px;
+				padding: 10px;
+				background: #2a2a2a;
+				color: #00ff00;
+				border: 1px solid #444;
+				border-radius: 4px;
+				font-family: monospace;
+			}
+
+			.search-input-group button {
+				padding: 10px 20px;
+				background: #00ff00;
+				color: #000;
+				border: none;
+				border-radius: 4px;
+				font-weight: bold;
+				cursor: pointer;
+			}
+
+			.search-input-group button:hover {
+				background: #00cc00;
+			}
+
+			.search-input-group button:disabled {
+				background: #555;
+				cursor: not-allowed;
+			}
+
+			.file-browser {
+				background: #1a1a1a;
+				border: 1px solid #333;
+				border-radius: 8px;
+				padding: 20px;
+				margin-bottom: 20px;
+				max-height: 500px;
+				overflow-y: auto;
+			}
+
+			.file-item {
+				padding: 8px;
+				margin: 4px 0;
+				background: #2a2a2a;
+				border-radius: 4px;
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				gap: 10px;
+			}
+
+			.file-item:hover {
+				background: #333;
+			}
+
+			.file-item.directory {
+				color: #00ffff;
+			}
+
+			.file-item.file {
+				color: #00ff00;
+			}
+
+			.file-content-viewer {
+				background: #1a1a1a;
+				border: 1px solid #333;
+				border-radius: 8px;
+				padding: 20px;
+				margin-top: 20px;
+			}
+
+			.file-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 15px;
+				padding-bottom: 10px;
+				border-bottom: 1px solid #333;
+			}
+
+			.file-content {
+				background: #0a0a0a;
+				border: 1px solid #444;
+				border-radius: 4px;
+				padding: 15px;
+				font-family: 'Courier New', monospace;
+				font-size: 13px;
+				color: #00ff00;
+				white-space: pre-wrap;
+				word-wrap: break-word;
+				max-height: 600px;
+				overflow-y: auto;
+			}
+
+			.copy-all-btn {
+				padding: 8px 16px;
+				background: #00ff00;
+				color: #000;
+				border: none;
+				border-radius: 4px;
+				font-weight: bold;
+				cursor: pointer;
+			}
+
+			.copy-all-btn:hover {
+				background: #00cc00;
+			}
+
+			.status-message {
+				padding: 10px;
+				margin: 10px 0;
+				border-radius: 4px;
+				display: none;
+			}
+
+			.status-message.success {
+				background: #004400;
+				color: #00ff00;
+				border: 1px solid #00aa00;
+			}
+
+			.status-message.error {
+				background: #440000;
+				color: #ff0000;
+				border: 1px solid #aa0000;
+			}
+
+			.loading {
+				text-align: center;
+				padding: 20px;
+				color: #00ff00;
+			}
+
+			.format-check-result {
+				margin-top: 15px;
+				padding: 15px;
+				background: #2a2a2a;
+				border-radius: 4px;
+				border-left: 4px solid #00ff00;
+			}
+
+			.format-check-result.no-match {
+				border-left-color: #ff0000;
+			}
+
+			.breadcrumb {
+				margin-bottom: 15px;
+				color: #aaa;
+				font-family: monospace;
+			}
+
+			.breadcrumb span {
+				cursor: pointer;
+				color: #00ffff;
+			}
+
+			.breadcrumb span:hover {
+				text-decoration: underline;
+			}
+
+			.search-results-item {
+				padding: 15px;
+				margin-bottom: 10px;
+				background: #2a2a2a;
+				border: 1px solid #444;
+				border-radius: 4px;
+				cursor: pointer;
+				transition: background 0.2s, border-color 0.2s;
+			}
+
+			.search-results-item:hover {
+				background: #333;
+				border-color: #00ff00;
+			}
+
+			.search-results-item strong {
+				color: #00ff00;
+				font-size: 16px;
+				display: block;
+				margin-bottom: 8px;
+			}
+
+			.search-results-item p {
+				color: #aaa;
+				margin: 8px 0;
+				font-size: 14px;
+				line-height: 1.4;
+			}
+
+			.search-results-item .repo-meta {
+				color: #777;
+				font-size: 12px;
+				margin-top: 8px;
+			}
+		</style>
+	</head>
+	<body class="gaming-theme">
+		<!-- Login Screen -->
+		<div id="login-screen" class="login-container">
+			<div class="admin-login-wrapper">
+				<div class="terminal-container admin-terminal">
+					<div class="terminal-header">
+						<div class="terminal-dot"></div>
+						<div class="terminal-dot"></div>
+						<div class="terminal-dot"></div>
+					</div>
+					<div class="terminal-line">
+						<span class="prompt">admin@nova:~$</span> <span class="command">login</span>
+					</div>
+					<div class="terminal-line">
+						<span class="output">Nova Hub Git Scanner</span>
+					</div>
+					<div class="terminal-line">
+						<span class="output">Please authenticate to continue</span>
+					</div>
+				</div>
+
+				<form id="login-form" class="admin-form">
+					<input type="password" id="login-password" placeholder="Password" required autocomplete="current-password" />
+					<button type="submit">Login</button>
+					<div id="login-error" class="error-message"></div>
+				</form>
+			</div>
+		</div>
+
+		<!-- Git Scanner Dashboard (hidden until login) -->
+		<main id="scanner-dashboard" style="display: none;">
+			<div class="terminal-container">
+				<div class="terminal-header">
+					<div class="terminal-dot"></div>
+					<div class="terminal-dot"></div>
+					<div class="terminal-dot"></div>
+				</div>
+				<div class="terminal-line">
+					<span class="prompt">admin@nova:~$</span> <span class="command">git-scanner</span>
+				</div>
+				<div class="terminal-line">
+					<span class="output">Git Repository Scanner Active</span>
+				</div>
+			</div>
+
+			<button id="logout-btn" class="logout-button">Logout</button>
+			<a href="/admin.html" class="logout-button" style="margin-left: 10px; text-decoration: none; display: inline-block;">Back to Admin</a>
+
+			<div class="git-scanner-container">
+				<!-- Search Section -->
+				<div class="search-section">
+					<h1 class="gaming-page-title">Git Repository Scanner</h1>
+					<p>Search and browse GitHub or GitLab repositories</p>
+					
+					<div class="search-input-group">
+						<select id="git-provider">
+							<option value="github">GitHub</option>
+							<option value="gitlab">GitLab</option>
+						</select>
+						<input type="text" id="repo-search" placeholder="Search repositories..." />
+						<button id="search-btn">Search</button>
+					</div>
+
+					<div id="search-status" class="status-message"></div>
+					
+					<!-- Search Results -->
+					<div id="search-results" style="display: none; margin-top: 20px;">
+						<h3>Search Results</h3>
+						<div id="search-results-list" style="max-height: 400px; overflow-y: auto; margin-top: 10px;"></div>
+					</div>
+				</div>
+
+				<!-- File Browser -->
+				<div id="file-browser-container" style="display: none;">
+					<div class="file-browser">
+						<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+							<h2 style="margin: 0;">Repository Files</h2>
+							<button id="check-folder-format-btn" class="copy-all-btn" style="background: #0066ff;">Check Folder Format</button>
+						</div>
+						<div id="breadcrumb" class="breadcrumb"></div>
+						<div id="file-list"></div>
+					</div>
+				</div>
+
+				<!-- Format Check Result -->
+				<div id="format-check-result" style="display: none;"></div>
+
+				<!-- File Content Viewer -->
+				<div id="file-content-container" style="display: none;">
+					<div class="file-content-viewer">
+					<div class="file-header">
+						<h3 id="file-name"></h3>
+						<div style="display: flex; gap: 10px;">
+							<button id="check-format-btn" class="copy-all-btn" style="background: #0066ff;">Check Format</button>
+							<button id="copy-all-btn" class="copy-all-btn">Copy All</button>
+						</div>
+					</div>
+						<div id="file-content" class="file-content"></div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</body>
+</html>

@@ -83,20 +83,34 @@
 			if (document.location.hash) {
 				try {
 					gameData = JSON.parse(decodeURIComponent(atob(document.location.hash.substring(1))));
-					localStorage.setItem("selenite.lastGame", document.location.hash.substring(1));
+					// Save to cookie instead of localStorage
+					setCookie("selenite.lastGame", document.location.hash.substring(1));
 					// Don't clear hash immediately - let it stay for navigation
 					return gameData;
 				} catch (e) {
 					console.error("Error parsing game data:", e);
 					return null;
 				}
-			} else if(localStorage.getItem("selenite.lastGame")) {
-				try {
-					gameData = JSON.parse(decodeURIComponent(atob(localStorage.getItem("selenite.lastGame"))));
-					return gameData;
-				} catch (e) {
-					console.error("Error loading last game:", e);
-					return null;
+			} else {
+				// Try cookie first, then fallback to localStorage for migration
+				let lastGameHash = getCookie("selenite.lastGame");
+				if (!lastGameHash) {
+					// Migration: check localStorage and move to cookie
+					const localStorageGame = localStorage.getItem("selenite.lastGame");
+					if (localStorageGame) {
+						lastGameHash = localStorageGame;
+						setCookie("selenite.lastGame", lastGameHash);
+						localStorage.removeItem("selenite.lastGame"); // Remove after migration
+					}
+				}
+				if (lastGameHash) {
+					try {
+						gameData = JSON.parse(decodeURIComponent(atob(lastGameHash)));
+						return gameData;
+					} catch (e) {
+						console.error("Error loading last game:", e);
+						return null;
+					}
 				}
 			}
 			return null;

@@ -2,8 +2,8 @@ var interval;
 
 // Define setTheme globally before DOMContentLoaded
 function setTheme(theme) {
-	// Save theme to localStorage first
-	localStorage.setItem("selenite.theme", theme);
+	// Save theme to cookie instead of localStorage
+	setCookie("selenite.theme", theme);
 	
 	// Remove all theme classes first
 	document.body.classList.remove("gaming-theme", "cyberpunk-theme", "ocean-theme", "sunset-theme", "purple-theme");
@@ -47,15 +47,21 @@ function setTheme(theme) {
 window.setTheme = setTheme;
 
 document.addEventListener("DOMContentLoaded", function () {
+	// Migration: Move old localStorage theme to cookie if it exists
 	if (localStorage.getItem("theme")) {
-		localStorage.setItem("selenite.theme", localStorage.getItem("theme"));
+		setCookie("selenite.theme", localStorage.getItem("theme"));
 		localStorage.removeItem("theme");
 	}
+	if (localStorage.getItem("selenite.theme")) {
+		setCookie("selenite.theme", localStorage.getItem("selenite.theme"));
+		localStorage.removeItem("selenite.theme");
+	}
+	
 	// Always remove all theme classes first to ensure clean state
 	document.body.classList.remove("gaming-theme", "cyberpunk-theme", "ocean-theme", "sunset-theme", "purple-theme");
 	
-	if (localStorage.getItem("selenite.theme")) {
-		const savedTheme = localStorage.getItem("selenite.theme");
+	let savedTheme = getCookie("selenite.theme");
+	if (savedTheme) {
 		if (savedTheme === "code" || savedTheme === "default") {
 			document.body.classList.add("gaming-theme");
 			document.body.removeAttribute("theme");
@@ -72,17 +78,23 @@ document.addEventListener("DOMContentLoaded", function () {
 			// Legacy theme support - default to code
 			document.body.classList.add("gaming-theme");
 			document.body.removeAttribute("theme");
-			localStorage.setItem("selenite.theme", "code");
+			setCookie("selenite.theme", "code");
 		}
 	} else {
 		// Default to code theme (gaming-theme)
 		document.body.classList.add("gaming-theme");
 		document.body.removeAttribute("theme");
-		localStorage.setItem("selenite.theme", "code");
+		setCookie("selenite.theme", "code");
 	}
 	if (document.querySelectorAll("[id=adcontainer]")) {
 		for (let i = 0; i < document.querySelectorAll("[id=adcontainer]").length; i++) {
-			if (Math.random() < 0.5 || localStorage.getItem("selenite.adblock") == "true") document.querySelectorAll("[id=adcontainer]")[i].innerHTML = "";
+			const adblockEnabled = getCookie("selenite.adblock") == "true";
+			// Migration: check localStorage too
+			if (localStorage.getItem("selenite.adblock") == "true") {
+				setCookie("selenite.adblock", "true");
+				localStorage.removeItem("selenite.adblock");
+			}
+			if (Math.random() < 0.5 || adblockEnabled) document.querySelectorAll("[id=adcontainer]")[i].innerHTML = "";
 		}
 	}
 	const iconSetting = document.querySelector("input#discordIcon");
@@ -96,28 +108,43 @@ document.addEventListener("DOMContentLoaded", function () {
 	// 	}
 	// }
 	if (document.querySelector("input#discordIcon")) {
+		// Migration: check localStorage first
 		if (localStorage.getItem("selenite.discordIcon") == "true") {
+			setCookie("selenite.discordIcon", "true");
+			localStorage.removeItem("selenite.discordIcon");
+			iconSetting.checked = true;
+		} else if (getCookie("selenite.discordIcon") == "true") {
 			iconSetting.checked = true;
 		}
 		iconSetting.addEventListener("click", () => {
-			localStorage.setItem("selenite.discordIcon", iconSetting.checked);
+			setCookie("selenite.discordIcon", iconSetting.checked ? "true" : "false");
 		});
 	}
 	if (document.querySelector("input#blockClose")) {
+		// Migration: check localStorage first
 		if (localStorage.getItem("selenite.blockClose") == "true") {
+			setCookie("selenite.blockClose", "true");
+			localStorage.removeItem("selenite.blockClose");
+			blockClose.checked = true;
+		} else if (getCookie("selenite.blockClose") == "true") {
 			blockClose.checked = true;
 		}
 		blockClose.addEventListener("click", () => {
-			localStorage.setItem("selenite.blockClose", blockClose.checked);
+			setCookie("selenite.blockClose", blockClose.checked ? "true" : "false");
 		});
 	}
 	const tabDisguise = document.querySelector("input#tabDisguise");
 	if (tabDisguise) {
+		// Migration: check localStorage first
 		if (localStorage.getItem("selenite.tabDisguise") == "true") {
+			setCookie("selenite.tabDisguise", "true");
+			localStorage.removeItem("selenite.tabDisguise");
+			tabDisguise.checked = true;
+		} else if (getCookie("selenite.tabDisguise") == "true") {
 			tabDisguise.checked = true;
 		}
 		tabDisguise.addEventListener("click", () => {
-			localStorage.setItem("selenite.tabDisguise", tabDisguise.checked);
+			setCookie("selenite.tabDisguise", tabDisguise.checked ? "true" : "false");
 		});
 	}
 	if (bgTheme) {
@@ -173,12 +200,12 @@ function setCloakCookie() {
 	document.cookie = "panicurl=" + $("#panic").val();
 }
 function setPassword() {
-	localStorage.setItem("selenite.password", enc.encode(document.getElementById("pass").value));
+	setCookie("selenite.password", enc.encode(document.getElementById("pass").value));
 }
 function delPassword() {
 	location.hash = "";
-	localStorage.removeItem("selenite.passwordAtt");
-	localStorage.removeItem("selenite.password");
+	removeCookie("selenite.passwordAtt");
+	removeCookie("selenite.password");
 }
 
 if (typeof $ !== 'undefined') {

@@ -1,5 +1,5 @@
 function customTheme() {
-	localStorage.setItem("selenite.theme", "custom");
+	setCookie("selenite.theme", "custom");
 	document.body.classList.remove("gaming-theme");
 	document.body.setAttribute("theme", "custom");
 	if (document.getElementById("customMenu")) {
@@ -10,7 +10,12 @@ function customTheme() {
 }
 document.addEventListener("DOMContentLoaded", () => {
 	loadTheme();
-    if(localStorage.getItem("selenite.theme") == "custom"){
+	// Migration: check localStorage first
+	if (localStorage.getItem("selenite.theme") == "custom") {
+		setCookie("selenite.theme", "custom");
+		localStorage.removeItem("selenite.theme");
+	}
+    if(getCookie("selenite.theme") == "custom"){
         const customMenu = document.getElementById("customMenu");
         if (customMenu) {
             customMenu.style.display = "block";
@@ -74,10 +79,26 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 });
 function loadTheme() {
-	if (localStorage.getItem("selenite.theme") == "custom") {
-		let theme = localStorage.getItem("selenite.customTheme");
+	// Migration: check localStorage first
+	if (localStorage.getItem("selenite.theme") == "custom" || getCookie("selenite.theme") == "custom") {
+		let theme = getCookie("selenite.customTheme");
+		// Migration: check localStorage
+		if (!theme && localStorage.getItem("selenite.customTheme")) {
+			theme = localStorage.getItem("selenite.customTheme");
+			setCookie("selenite.customTheme", theme);
+			localStorage.removeItem("selenite.customTheme");
+		}
 		if (theme) {
-			theme = JSON.parse(theme);
+			try {
+				theme = JSON.parse(theme);
+			} catch (e) {
+				// If parsing fails, try decodeURIComponent
+				try {
+					theme = JSON.parse(decodeURIComponent(theme));
+				} catch (e2) {
+					return;
+				}
+			}
 			for (let i = 0; i < Object.keys(theme).length; i++) {
 				document.body.style.setProperty(`--${Object.keys(theme)[i]}`, eval(`theme.${Object.keys(theme)[i]}   `));
 			}
@@ -89,16 +110,30 @@ function changeTheme(name, value) {
     if(isValidHttpUrl(value)){
         value = `url(${value})`;
     }
-	ogStyle = localStorage.getItem("selenite.customTheme");
+	// Migration: check localStorage first
+	ogStyle = getCookie("selenite.customTheme");
+	if (!ogStyle && localStorage.getItem("selenite.customTheme")) {
+		ogStyle = localStorage.getItem("selenite.customTheme");
+		setCookie("selenite.customTheme", ogStyle);
+		localStorage.removeItem("selenite.customTheme");
+	}
 	if (ogStyle) {
-		ogStyle = JSON.parse(ogStyle);
+		try {
+			ogStyle = JSON.parse(decodeURIComponent(ogStyle));
+		} catch (e) {
+			try {
+				ogStyle = JSON.parse(ogStyle);
+			} catch (e2) {
+				ogStyle = {};
+			}
+		}
 		ogStyle[name] = value;
-		localStorage.setItem("selenite.customTheme", JSON.stringify(ogStyle));
+		setCookie("selenite.customTheme", encodeURIComponent(JSON.stringify(ogStyle)));
 		loadTheme();
 	} else {
 		ogStyle = {};
 		ogStyle[name] = value;
-		localStorage.setItem("selenite.customTheme", JSON.stringify(ogStyle));
+		setCookie("selenite.customTheme", encodeURIComponent(JSON.stringify(ogStyle)));
 		loadTheme();
 	}
 }

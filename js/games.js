@@ -19,7 +19,16 @@ function loadGames(data) {
 	if (!starredgames) {
 		starredgames = [];
 	} else {
-		starredgames = JSON.parse(decodeURIComponent(getCookie("starred")));
+		try {
+			starredgames = JSON.parse(decodeURIComponent(getCookie("starred")));
+		} catch (e) {
+			// Fallback: try parsing without decodeURIComponent
+			try {
+				starredgames = JSON.parse(getCookie("starred"));
+			} catch (e2) {
+				starredgames = [];
+			}
+		}
 	}
 	$("#gamesearch").prop({
 		placeholder: "Click here to search through our " + data.length + " games!",
@@ -96,9 +105,17 @@ function loadGames(data) {
 			if (!$(event.target).attr("id")) {
 				$(event.target).prop({ id: "starred" });
 				$(event.target).prop({ src: "img/star-fill.svg" });
-				starred = Cookies.get("starred");
+				starred = getCookie("starred");
 				if (starred) {
-					starred = JSON.parse(starred);
+					try {
+						starred = JSON.parse(decodeURIComponent(starred));
+					} catch (e) {
+						try {
+							starred = JSON.parse(starred);
+						} catch (e2) {
+							starred = [];
+						}
+					}
 				} else {
 					starred = [];
 				}
@@ -106,7 +123,7 @@ function loadGames(data) {
 				// Only add if not already starred
 				if (!starred.includes(gameId)) {
 					starred.push(gameId);
-					Cookies.set("starred", JSON.stringify(starred));
+					setCookie("starred", encodeURIComponent(JSON.stringify(starred)));
 				}
 				$("#pinnedmessage").hide();
 				// Rebuild pinned section from DOM to avoid duplicates
@@ -154,11 +171,19 @@ function loadGames(data) {
 				$(event.target).attr("src", "img/star.svg");
 				$thisdiv = "#" + $(this).attr("id");
 				$thisdiv = $thisdiv.replace(".", "\\.");
-				starred = Cookies.get("starred");
-				starred = JSON.parse(starred);
+				starred = getCookie("starred");
+				try {
+					starred = JSON.parse(decodeURIComponent(starred));
+				} catch (e) {
+					try {
+						starred = JSON.parse(starred);
+					} catch (e2) {
+						starred = [];
+					}
+				}
 				ourindex = starred.indexOf($(this).attr("id"));
 				starred.splice(ourindex, 1);
-				Cookies.set("starred", JSON.stringify(starred));
+				setCookie("starred", encodeURIComponent(JSON.stringify(starred)));
 				$("#pinned " + $thisdiv).remove();
 				if ($("#pinned").is(":empty")) {
 					$("#pinnedmessage").show();

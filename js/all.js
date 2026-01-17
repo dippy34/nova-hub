@@ -123,6 +123,7 @@ if (getCookie("debugging") == 1) {
 	debugscript.setAttribute("src", "/js/debug.js");
 	document.head.append(debugscript);
 }
+// Unified Cookie Utility Functions
 function getCookie(cname) {
 	let name = cname + "=";
 	let decodedCookie = decodeURIComponent(document.cookie);
@@ -138,6 +139,24 @@ function getCookie(cname) {
 	}
 	return "";
 }
+
+// Set cookie with optional expiration (default 365 days)
+function setCookie(cname, cvalue, exdays = 365) {
+	const d = new Date();
+	d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+	const expires = "expires=" + d.toUTCString();
+	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+// Remove cookie
+function removeCookie(cname) {
+	document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+
+// Make functions globally available for backwards compatibility
+window.getCookie = getCookie;
+window.setCookie = setCookie;
+window.removeCookie = removeCookie;
 let listofchars = "";
 document.addEventListener("keydown", (e) => {
 	listofchars = listofchars + e.key;
@@ -186,14 +205,28 @@ document.addEventListener(
 	},
 	false
 );
-if (location.pathname.substring(1).includes("semag") && localStorage.getItem("selenite.blockClose") == "true") {
+// Migration: check both cookie and localStorage for blockClose
+let blockCloseEnabled = getCookie("selenite.blockClose") == "true";
+if (localStorage.getItem("selenite.blockClose") == "true") {
+	setCookie("selenite.blockClose", "true");
+	localStorage.removeItem("selenite.blockClose");
+	blockCloseEnabled = true;
+}
+if (location.pathname.substring(1).includes("semag") && blockCloseEnabled) {
 	window.onbeforeunload = function () {
 		return "";
 	};
 }
 let visibilityTimeout = null;
 addEventListener("visibilitychange", (e) => {
+	// Migration: check both cookie and localStorage for tabDisguise
+	let tabDisguiseEnabled = getCookie("selenite.tabDisguise") == "true";
 	if (localStorage.getItem("selenite.tabDisguise") == "true") {
+		setCookie("selenite.tabDisguise", "true");
+		localStorage.removeItem("selenite.tabDisguise");
+		tabDisguiseEnabled = true;
+	}
+	if (tabDisguiseEnabled) {
 		// Clear any pending timeout
 		if (visibilityTimeout) {
 			clearTimeout(visibilityTimeout);
@@ -235,12 +268,19 @@ function fps() {
 			requestAnimationFrame(loop);
 		});
 
-		localStorage.setItem("fps", true);
+		setCookie("fps", "true");
 	};
 	script.src = "https://cdn.jsdelivr.net/gh/mrdoob/stats.js@master/build/stats.min.js";
 	document.head.appendChild(script);
 }
 
+// Migration: check both cookie and localStorage for fps
+let fpsEnabled = getCookie("fps") == "true";
 if (localStorage.getItem("fps")) {
+	setCookie("fps", "true");
+	localStorage.removeItem("fps");
+	fpsEnabled = true;
+}
+if (fpsEnabled) {
 	fps();
 }
