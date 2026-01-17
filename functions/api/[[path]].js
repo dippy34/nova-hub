@@ -446,43 +446,6 @@ export async function onRequest(context) {
       }
     }
 
-    // Route: GET /api/admin/proxy-preference
-    if (pathname === '/api/admin/proxy-preference' && method === 'GET') {
-      const auth = await verifyAdminToken(request, env);
-      if (!auth.valid) {
-        return jsonResponse({ success: false, message: 'Invalid token' }, 401);
-      }
-
-      const analytics = await readKV(env.ANALYTICS_KV, 'analytics', {});
-      const proxyPreference = analytics.proxyPreference || 'scramjet';
-      return jsonResponse({ success: true, proxy: proxyPreference });
-    }
-
-    // Route: POST /api/admin/save-proxy-preference
-    if (pathname === '/api/admin/save-proxy-preference' && method === 'POST') {
-      const auth = await verifyAdminToken(request, env);
-      if (!auth.valid) {
-        return jsonResponse({ success: false, message: 'Invalid token' }, 401);
-      }
-
-      const body = await request.json();
-      const { proxy } = body;
-
-      if (!proxy || (proxy !== 'scramjet' && proxy !== 'ultraviolet')) {
-        return jsonResponse({ success: false, message: 'proxy must be either "scramjet" or "ultraviolet"' }, 400);
-      }
-
-      const analytics = await readKV(env.ANALYTICS_KV, 'analytics', {});
-      analytics.proxyPreference = proxy;
-      analytics.proxyPreferenceLastUpdated = new Date().toISOString();
-
-      if (await writeKV(env.ANALYTICS_KV, 'analytics', analytics)) {
-        return jsonResponse({ success: true, message: 'Proxy preference saved successfully' });
-      } else {
-        return jsonResponse({ success: false, message: 'Failed to save proxy preference' }, 500);
-      }
-    }
-
     // Route not found
     return jsonResponse({ success: false, message: 'Not found' }, 404);
 
