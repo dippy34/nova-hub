@@ -1,0 +1,162 @@
+<!DOCTYPE html><html lang="en-us"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="game.css">
+ 
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500&amp;display=swap" rel="stylesheet">
+  <title>Escape Road City</title>
+  <meta name="description" content="Escape Road City is a thrilling car chase game on the streets! Control your car, overcome all obstacles and escape from the police chase.
+ ">
+  <style type="text/css">
+    .jss1:before {
+      top: 0;
+      width: 100%;
+      filter: blur(16px);
+      height: 100%;
+      content: "";
+      display: block;
+      opacity: .5;
+      z-index: 0;
+      position: absolute;
+      background-size: cover;
+      background-image: url("loading.png")
+    }
+  </style> 
+  <!-- CUSTOM HEAD --> 
+  <meta name="version" content="24121201">
+  
+  <!--END: CUSTOM HEAD --> 
+  <!----GAMECONFIG-->
+	<script id="gmsoft_build_config">
+		var buildUrl = "Build";
+		var loaderUrl = buildUrl + "/escape-road-city-v24121201.loader.js";
+		var config = {
+			dataUrl: buildUrl + "/escape-road-city-v24121201.data.unityweb",
+			frameworkUrl: buildUrl + "/escape-road-city-v24121201.framework.js.unityweb",
+			codeUrl: buildUrl + "/escape-road-city-v24121201.wasm.unityweb",
+					streamingAssetsUrl: "StreamingAssets",
+			companyName: "azgames.io",
+			productName: "Escape Road City",
+			productVersion: "24121201",
+            pubId: ""
+		};
+		config.gameId = "escape-road-city";
+	</script>
+	<!----ENDGAMECONFIG-->
+<script id="gmsoft-jssdk" src="gmsoftsdk_v5-renamed-so-it-cant-fetch.js"></script></head>
+
+<body>
+<div id="unity-container" style="display: none;">
+	<canvas id="unity-canvas"></canvas> 
+</div>
+<div id="loadingBlock" style="">
+  <div class="jss31 jss34 jss1">
+	<div style="position: absolute; font-family: Arial, Helvetica, sans-serif;  bottom: 10px; right: 10px; font-size: 18px; color: #ffffff; opacity: 0.5;">24121201</div>
+    <div class="spinner"></div>
+    <div class="jss31 jss34 jss48" style="flex: 1 1 0%;">
+      <div class="jss32">
+        <div class="jss7 jss9 jss20 jss3">
+          <div class="jss125">
+            <div class="jss123">
+             <img src="logo.png">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="jss31 jss34" style="flex: 3 1 0%;">
+      <div class="jss32">
+        <div class="jss31 jss34 jss39 jss50 gameloader">
+          <div class="jss32">
+            <div class="gameloader-game-name">Escape Road City</div>
+          </div>
+          <div class="jss32">
+            <div class="jss32 gameloader-logo">
+              <img id="game-logo" src="loading.png">
+            </div>
+          </div>
+          <div class="jss32">
+            <div>
+              <div class="gameloader-progressbar">
+                <div class="gameloader-progressbar-progress" id="progress_fill" style="width: 0%;"></div>
+              </div>
+              <div class="gameloader-progress-info">Game Loading...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+	<script> 
+		var progressElement = document.getElementById('progress_fill');
+		var container =  document.getElementById("unity-container");
+		var canvas =  document.getElementById("unity-canvas");
+		var loadingBar = document.querySelector("#loadingBlock");
+		var progressBarFull = document.querySelector("#progress_fill");
+		var progress_text = document.querySelector(".gameloader-progress-info");
+		let text_percent = "";
+		var script = document.createElement("script");
+		script.src = loaderUrl;
+		script.onload = () => {
+		createUnityInstance(canvas, config, (progress) => {
+		  progressElement.style.width = 100 * progress + "%";
+			text_percent = "Downloading file: " + Math.round(progress*100) + "%";
+			progress_text.innerText = text_percent;
+			if (progress >= 99) {
+			  progress_text.innerText = "Game Loading ...";
+			}
+		}).then((unityInstance) => {
+		  window.unityInstance = unityInstance;
+		  setTimeout(function() {
+				loadingBar.style.display = "none";
+			}, 2000);
+		  container.style.display = "block";
+		}).catch((message) => {
+		  alert(message);
+		});
+		};
+		document.body.appendChild(script);
+	</script>
+	
+	<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-analytics-compat.js"></script>
+	<script type="module">
+	  // Import the functions you need from the SDKs you need
+	  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+	  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-analytics.js";
+	  import { getAuth  } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+	  // TODO: Add SDKs for Firebase products that you want to use
+	  // https://firebase.google.com/docs/web/setup#available-libraries
+
+	  // Your web app's Firebase configuration
+	  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+	  const firebaseConfig = {
+	  apiKey: "AIzaSyC6GFq04M6ozRPZEH-WTKcu1lpWFp8UYp4",
+	  authDomain: "smashy-road-f60ea.firebaseapp.com",
+	  projectId: "smashy-road-f60ea",
+	  storageBucket: "smashy-road-f60ea.appspot.com",
+	  messagingSenderId: "731814317541",
+	  appId: "1:731814317541:web:f85188f4a5be85149ff30c",
+	  measurementId: "G-1H7ZZ16PN7"
+	};
+	window.dataLayer = window.dataLayer || [];
+	window.gtag = function(){dataLayer.push(arguments);}
+
+	window.gtag("config", firebaseConfig.measurementId, {
+		cookie_domain: location.hostname,
+		cookie_flags: "SameSite=None;Secure",
+	});
+	  // Initialize Firebase
+
+	  const app = firebase.initializeApp(firebaseConfig);
+	  const auth = getAuth(app);
+	</script>
+	
+  
+
+
+</body></html>

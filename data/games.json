@@ -2139,5 +2139,35 @@
 		"directory": "Cubes2048.io",
 		"image": "logo.png",
 		"source": "non-semag"
+	},
+	{
+		"name": "Escape Road",
+		"directory": "EscapeRoad",
+		"image": "25011401/loading.png",
+		"source": "non-semag"
+	},
+	{
+		"name": "Escape Road 2",
+		"directory": "EscapeRoad2",
+		"image": "25010602/loading.png",
+		"source": "non-semag"
+	},
+	{
+		"name": "Escape Road City",
+		"directory": "EscapeRoadCity",
+		"image": "loading.png",
+		"source": "non-semag"
+	},
+	{
+		"name": "Escape Road City 2",
+		"directory": "EscapeRoadCity2",
+		"image": "25030706/loading.png",
+		"source": "non-semag"
+	},
+	{
+		"name": "Ragdoll Archers",
+		"directory": "RagdollArchers",
+		"image": "logo.jpeg",
+		"source": "non-semag"
 	}
 ]
