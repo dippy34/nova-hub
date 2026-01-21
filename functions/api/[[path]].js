@@ -199,6 +199,23 @@ export async function onRequest(context) {
       return jsonResponse({ success: true });
     }
 
+    // Route: POST /api/admin/emergency-reset
+    // ⚠️ TEMPORARY: Remove this endpoint after resetting your password!
+    // This resets the admin password to the default: 'nova_admin_aarav_matthew'
+    if (pathname === '/api/admin/emergency-reset' && method === 'POST') {
+      const defaultPassword = 'nova_admin_aarav_matthew';
+      const hashedDefaultPassword = await hashPassword(defaultPassword);
+      
+      if (await writeKV(env.ADMIN_CREDENTIALS_KV, 'admin_password', hashedDefaultPassword)) {
+        return jsonResponse({ 
+          success: true, 
+          message: 'Password reset to default. Default password: nova_admin_aarav_matthew. Please change it immediately after logging in and REMOVE THIS ENDPOINT!' 
+        });
+      } else {
+        return jsonResponse({ success: false, message: 'Failed to reset password' }, 500);
+      }
+    }
+
     // Route: POST /api/admin/change-password
     if (pathname === '/api/admin/change-password' && method === 'POST') {
       const auth = await verifyAdminToken(request, env);
@@ -207,33 +224,17 @@ export async function onRequest(context) {
       }
 
       const body = await request.json();
-      const { currentPassword, newPassword } = body;
+      const { newPassword } = body;
 
-      if (!currentPassword || !newPassword) {
-        return jsonResponse({ success: false, message: 'Current password and new password are required' }, 400);
+      if (!newPassword) {
+        return jsonResponse({ success: false, message: 'New password is required' }, 400);
       }
 
       if (newPassword.length < 8) {
         return jsonResponse({ success: false, message: 'New password must be at least 8 characters long' }, 400);
       }
 
-      // Verify current password
-      let storedPasswordHash = await readKV(env.ADMIN_CREDENTIALS_KV, 'admin_password', null);
-      
-      // If no password is set, initialize with default password hash
-      if (!storedPasswordHash) {
-        const defaultPassword = 'nova_admin_aarav_matthew';
-        storedPasswordHash = await hashPassword(defaultPassword);
-        await writeKV(env.ADMIN_CREDENTIALS_KV, 'admin_password', storedPasswordHash);
-      }
-
-      const hashedCurrentPassword = await hashPassword(currentPassword);
-
-      if (hashedCurrentPassword !== storedPasswordHash) {
-        return jsonResponse({ success: false, message: 'Current password is incorrect' }, 401);
-      }
-
-      // Set new password
+      // Set new password (no need to verify old password since user is already authenticated)
       const hashedNewPassword = await hashPassword(newPassword);
       
       if (await writeKV(env.ADMIN_CREDENTIALS_KV, 'admin_password', hashedNewPassword)) {
