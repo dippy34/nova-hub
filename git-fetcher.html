@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html class="sl-theme-dark" lang="en">
+	<head>
+		<meta property="og:title" content="Nova Hub - Git Fetcher" />
+		<meta property="description" content="Nova Hub Git Fetcher - Admin Only" />
+		<meta content="/favicon.png" property="og:image" />
+		<meta content="#00d4ff" data-react-helmet="true" name="theme-color" />
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+
+		<script src="/js/all.min.js"></script>
+		<script src="/js/main.js"></script>
+		<script src="/js/widget.js"></script>
+		<script src="/js/gaming-navbar.js"></script>
+
+		<link rel="stylesheet" href="/style.css" />
+		<link rel="stylesheet" href="/css/gaming-theme.css" />
+		<link rel="manifest" href="/manifest.json" />
+
+		<title>Nova Hub - Git Fetcher</title>
+		<link rel="icon" href="/nova-favicon.ico" />
+		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1196675595992085" crossorigin="anonymous"></script>
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+				height: 100vh;
+			}
+
+			#loading-screen {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: #0a0a0a;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				color: #00ff00;
+				font-family: monospace;
+				z-index: 9999;
+			}
+
+			#loading-screen.hidden {
+				display: none;
+			}
+
+			#embed-container {
+				width: 100vw;
+				height: 100vh;
+				border: none;
+				margin: 0;
+				padding: 0;
+			}
+
+			#embed-container iframe {
+				width: 100%;
+				height: 100%;
+				border: none;
+			}
+
+			.loading-spinner {
+				border: 4px solid #333;
+				border-top: 4px solid #00ff00;
+				border-radius: 50%;
+				width: 40px;
+				height: 40px;
+				animation: spin 1s linear infinite;
+				margin-bottom: 20px;
+			}
+
+			@keyframes spin {
+				0% { transform: rotate(0deg); }
+				100% { transform: rotate(360deg); }
+			}
+		</style>
+	</head>
+	<body class="gaming-theme">
+		<div id="loading-screen">
+			<div style="text-align: center;">
+				<div class="loading-spinner"></div>
+				<div>Verifying admin access...</div>
+			</div>
+		</div>
+
+		<div id="embed-container" style="display: none;">
+			<iframe 
+				src="https://git-fetcher-thisnamisalreadyusedsoimusingthis.lovable.app"
+				title="Git Fetcher"
+				allowfullscreen
+				style="width: 100%; height: 100%; border: none;">
+			</iframe>
+		</div>
+
+		<script>
+			// Get stored token
+			function getToken() {
+				return localStorage.getItem('nova_admin_token');
+			}
+
+			// Remove token (on logout)
+			function removeToken() {
+				localStorage.removeItem('nova_admin_token');
+			}
+
+			// Check if running in local development
+			function isLocalDev() {
+				return window.location.hostname === 'localhost' || 
+					   window.location.hostname === '127.0.0.1' || 
+					   window.location.port === '3000' ||
+					   window.location.hostname.includes('localhost');
+			}
+
+			// Verify admin authentication
+			async function verifyAuth() {
+				const token = getToken();
+				
+				if (!token) {
+					// No token, redirect to admin login
+					window.location.href = '/admin.html';
+					return;
+				}
+
+				try {
+					// Verify token is still valid with retry for KV eventual consistency
+					let verified = false;
+					for (let i = 0; i < 2; i++) {
+						const response = await fetch('/api/admin/verify', {
+							headers: {
+								'Authorization': `Bearer ${token}`
+							}
+						});
+
+						if (response.ok) {
+							verified = true;
+							// Show embed
+							document.getElementById('loading-screen').classList.add('hidden');
+							document.getElementById('embed-container').style.display = 'block';
+							return;
+						}
+						
+						// If 401 and first attempt, wait a bit and retry (KV might be eventually consistent)
+						if (response.status === 401 && i === 0) {
+							await new Promise(resolve => setTimeout(resolve, 500));
+						} else if (response.status === 401) {
+							// Token is invalid, remove it and redirect
+							break;
+						}
+					}
+					
+					// If verification failed after retries, token is invalid
+					if (!verified) {
+						removeToken();
+						window.location.href = '/admin.html';
+					}
+				} catch (error) {
+					// Error during verification - redirect to admin login
+					console.error('Token verification failed:', error);
+					removeToken();
+					window.location.href = '/admin.html';
+				}
+			}
+
+			// Initialize on page load
+			document.addEventListener('DOMContentLoaded', () => {
+				verifyAuth();
+			});
+		</script>
+	</body>
+</html>

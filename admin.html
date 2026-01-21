@@ -120,9 +120,6 @@
 				<div id="terminal-text-status" class="status-message"></div>
 			</div>
 
-<<<<<<< HEAD
-		<!-- Google Forms Results Section -->
-=======
 			<!-- Proxy Access Section -->
 			<div class="admin-section">
 				<h1 class="gaming-page-title">Proxy Access</h1>
@@ -130,8 +127,27 @@
 				<a href="/proxy.html" id="proxy-link" target="_blank" style="display: inline-block; padding: 10px 20px; background: #00ff00; color: #000; text-decoration: none; border-radius: 4px; font-weight: bold; margin-top: 10px;">Open Proxy</a>
 			</div>
 
+			<!-- Git Fetcher Section -->
+			<div class="admin-section">
+				<h1 class="gaming-page-title">Git Fetcher</h1>
+				<p>Access the Git Fetcher tool (admin-only)</p>
+				<a href="/git-fetcher.html" target="_blank" style="display: inline-block; padding: 10px 20px; background: #00ff00; color: #000; text-decoration: none; border-radius: 4px; font-weight: bold; margin-top: 10px;">Open Git Fetcher</a>
+			</div>
+
+			<!-- Change Password Section -->
+			<div class="admin-section">
+				<h1 class="gaming-page-title">Change Password</h1>
+				<p>Update your admin password</p>
+				<form id="change-password-form" class="admin-form">
+					<input type="password" id="current-password" placeholder="Current Password" required autocomplete="current-password" />
+					<input type="password" id="new-password" placeholder="New Password" required autocomplete="new-password" />
+					<input type="password" id="confirm-password" placeholder="Confirm New Password" required autocomplete="new-password" />
+					<button type="submit">Change Password</button>
+					<div id="change-password-status" class="status-message"></div>
+				</form>
+			</div>
+
 			<!-- Google Forms Results Section -->
->>>>>>> 8107985b97265ad240f288cf09662c3d47440226
 			<div class="admin-section">
 				<h1 class="gaming-page-title">Google Forms Results</h1>
 				<button id="refresh-forms-btn" style="margin-bottom: 20px;">Refresh Forms Data</button>
