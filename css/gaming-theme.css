@@ -1861,53 +1861,63 @@ body.purple-theme {
     background: #cc0000;
 }
 
-/* Game Loader Page Styles - 2025 Modern Design */
+/* Game Loader Page Styles - Complete Rewrite - Simple Viewport-Based Layout */
+/* Step 1: Lock document root to viewport */
+html body#noscroll,
+html body#noscroll.gaming-theme,
+html body#noscroll.ocean-theme,
+html body#noscroll.sunset-theme,
+html body#noscroll.purple-theme {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    overflow: hidden !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+}
+
+/* Step 2: Main container - fills remaining space after header */
 body.gaming-theme .game-loader-main,
 body.ocean-theme .game-loader-main,
 body.sunset-theme .game-loader-main,
 body.purple-theme .game-loader-main,
 .game-loader-main {
+    position: absolute !important;
+    top: 70px !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: calc(100vh - 70px) !important;
+    max-height: calc(100vh - 70px) !important;
+    margin: 0 !important;
     padding: 24px !important;
     padding-right: 0 !important;
-    margin-top: 70px !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    margin-bottom: 0 !important;
-    height: calc(100vh - 70px) !important;
-    min-height: calc(100vh - 70px) !important;
-    max-height: calc(100vh - 70px) !important;
+    box-sizing: border-box !important;
     display: flex !important;
     flex-direction: row !important;
     align-items: stretch !important;
-    justify-content: flex-start !important;
-    background: linear-gradient(135deg, var(--gaming-bg) 0%, var(--gaming-bg-secondary) 50%, var(--gaming-bg) 100%) !important;
-    position: relative !important;
-    overflow: hidden !important;
     gap: 0 !important;
-    box-sizing: border-box !important;
-    width: 100% !important;
-    flex-wrap: nowrap !important;
-    animation: none !important;
+    overflow: hidden !important;
+    background: linear-gradient(135deg, var(--gaming-bg) 0%, var(--gaming-bg-secondary) 50%, var(--gaming-bg) 100%) !important;
 }
 
-/* Game Preview Container - Clean Modern Display */
+/* Step 3: Game container - fills available space */
 .game-preview-container {
     position: relative !important;
-    flex: 1 1 auto !important;
-    flex-grow: 1 !important;
-    flex-shrink: 1 !important;
-    flex-basis: calc(100% - 532px) !important; /* 340px recommended + 160px ads + 32px margins = 532px */
+    flex: 1 1 0 !important;
     min-width: 400px !important;
-    min-height: 400px !important;
     height: 100% !important;
-    width: auto !important;
-    max-width: calc(100% - 532px) !important;
-    margin-right: 16px;
+    max-height: 100% !important;
+    margin-right: 16px !important;
     background: var(--gaming-bg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    overflow: hidden;
+    overflow: hidden !important;
     border-radius: 24px;
     border: 3px solid var(--gaming-border);
     box-shadow: 
@@ -1918,21 +1928,24 @@ body.purple-theme .game-loader-main,
         inset 0 -4px 8px rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(20px) saturate(150%);
     -webkit-backdrop-filter: blur(20px) saturate(150%);
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
+    box-sizing: border-box !important;
 }
 
-/* Game iframe - full screen within container */
+/* Step 4: Iframe - absolutely positioned to fill container */
 .game-preview-iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-    background: var(--gaming-bg);
-    z-index: 1;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    border: none !important;
+    background: var(--gaming-bg) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    z-index: 1 !important;
     opacity: 0;
     transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -2324,51 +2337,41 @@ body.purple-theme .game-loader-main,
     z-index: 1;
 }
 
-/* Fullscreen Mode - Browser native fullscreen */
+/* Fullscreen Mode - Simple override */
 body.gaming-theme.fullscreen-mode .game-loader-main,
 body.ocean-theme.fullscreen-mode .game-loader-main,
 body.sunset-theme.fullscreen-mode .game-loader-main,
 body.purple-theme.fullscreen-mode .game-loader-main {
-    padding: 0;
-    margin-top: 0;
-    height: 100vh;
+    top: 0 !important;
+    height: 100vh !important;
+    padding: 0 !important;
 }
 
 body.gaming-theme.fullscreen-mode .game-preview-container {
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
-    border-radius: 0;
-    border: none;
-}
-
-body.gaming-theme.fullscreen-mode .recommended-games-section {
-    display: none;
-}
-
-body.gaming-theme.fullscreen-mode .game-ads-container {
-    display: none !important;
-}
-
-body.gaming-theme.fullscreen-mode .game-ad-space {
-    display: none !important;
-}
-
-body.gaming-theme.fullscreen-mode .game-bottom-bar {
-    display: none;
-}
-
-body.gaming-theme.fullscreen-mode .game-blur-overlay {
-    display: none;
-}
-
-body.gaming-theme.fullscreen-mode .game-play-overlay {
-    display: none;
+    width: 100vw !important;
+    height: 100vh !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    border: none !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
 }
 
 body.gaming-theme.fullscreen-mode .game-preview-iframe {
-    width: 100vw;
-    height: 100vh;
+    width: 100vw !important;
+    height: 100vh !important;
+}
+
+body.gaming-theme.fullscreen-mode .recommended-games-section,
+body.gaming-theme.fullscreen-mode .game-ads-container,
+body.gaming-theme.fullscreen-mode .game-ad-space,
+body.gaming-theme.fullscreen-mode .game-bottom-bar,
+body.gaming-theme.fullscreen-mode .game-blur-overlay,
+body.gaming-theme.fullscreen-mode .game-play-overlay {
+    display: none !important;
 }
 
 /* Fullscreen button active state */

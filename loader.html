@@ -137,6 +137,9 @@
 				previewContainer.classList.remove("playing");
 			}
 			
+			// Remove playing class from body
+			document.body.classList.remove("game-playing");
+			
 			// Show overlays again
 			const blurOverlay = document.querySelector(".game-blur-overlay");
 			const playOverlay = document.querySelector(".game-play-overlay");
@@ -291,6 +294,8 @@
 				
 				// Add playing class to container for CSS targeting
 				previewContainer.classList.add("playing");
+				// Add playing class to body to lock document height
+				document.body.classList.add("game-playing");
 				
 				// Remove background image and blur overlay with smooth transition
 				previewContainer.style.backgroundImage = "none";
