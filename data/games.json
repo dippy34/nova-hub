@@ -2169,5 +2169,11 @@
 		"directory": "RagdollArchers",
 		"image": "logo.jpeg",
 		"source": "non-semag"
+	},
+	{
+		"name": "Football Bros",
+		"directory": "football-bros.github.io",
+		"image": "favicon.png",
+		"source": "non-semag"
 	}
 ]

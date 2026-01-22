@@ -315,7 +315,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         changePasswordForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const currentPassword = document.getElementById('current-password').value;
             const newPassword = document.getElementById('new-password').value;
             const confirmPassword = document.getElementById('confirm-password').value;
             const statusDiv = document.getElementById('change-password-status');
@@ -342,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const response = await apiRequest('/api/admin/change-password', {
                     method: 'POST',
-                    body: JSON.stringify({ currentPassword, newPassword })
+                    body: JSON.stringify({ newPassword })
                 });
 
                 if (response.success) {
@@ -351,7 +350,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     statusDiv.style.display = 'block';
                     
                     // Clear form
-                    document.getElementById('current-password').value = '';
                     document.getElementById('new-password').value = '';
                     document.getElementById('confirm-password').value = '';
                 } else {
