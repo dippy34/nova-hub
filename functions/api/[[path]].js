@@ -203,13 +203,13 @@ export async function onRequest(context) {
     // ⚠️ TEMPORARY: Remove this endpoint after resetting your password!
     // This resets the admin password to the default: 'nova_admin_aarav_matthew'
     if (pathname === '/api/admin/emergency-reset' && method === 'POST') {
-      const defaultPassword = 'nova_admin_aarav_matthew';
+      const defaultPassword = 'adminnova';
       const hashedDefaultPassword = await hashPassword(defaultPassword);
       
       if (await writeKV(env.ADMIN_CREDENTIALS_KV, 'admin_password', hashedDefaultPassword)) {
         return jsonResponse({ 
           success: true, 
-          message: 'Password reset to default. Default password: nova_admin_aarav_matthew. Please change it immediately after logging in and REMOVE THIS ENDPOINT!' 
+          message: 'Password reset to default. Default password: adminnova. Please change it immediately after logging in and REMOVE THIS ENDPOINT!' 
         });
       } else {
         return jsonResponse({ success: false, message: 'Failed to reset password' }, 500);
