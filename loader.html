@@ -35,7 +35,7 @@
 		
 		<main class="game-loader-main">
 			<div class="game-preview-container">
-				<iframe id="gameFrame" class="game-preview-iframe" allow="fullscreen" sandbox="allow-downloads allow-forms allow-modals allow-pointer-lock allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-top-navigation allow-top-navigation-by-user-activation"></iframe>
+				<iframe id="gameFrame" class="game-preview-iframe" allow="fullscreen" sandbox="allow-downloads allow-forms allow-modals allow-pointer-lock allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
 				<div class="game-blur-overlay"></div>
 				
 				<!-- Centered Play Button -->
@@ -179,27 +179,69 @@
 			}
 		}
 		
+		function clearHashWithoutEvent() {
+			// Use replaceState so we don't fire hashchange (which would re-run initializeGame and kick the user)
+			const clean = window.location.pathname + (window.location.search || '');
+			if (window.history.replaceState) {
+				window.history.replaceState(null, '', clean);
+			}
+		}
+		
 		document.addEventListener("DOMContentLoaded", () => {
-			// Parse game data from hash
+			// Parse game data from hash or cookie
 			gameData = parseGameFromHash();
+			
+			// If no game data found, try to keep the last game from cookie one more time
+			// This prevents redirect loop when cookie exists but parse failed
 			if (!gameData) {
-				window.location.href = "/projects.html";
+				const lastGameHash = getCookie("selenite.lastGame");
+				if (lastGameHash) {
+					try {
+						gameData = JSON.parse(decodeURIComponent(atob(lastGameHash)));
+						console.log("Loaded game from cookie:", gameData);
+					} catch (e) {
+						console.error("Error loading last game from cookie:", e);
+						// Cookie might be corrupted, clear it
+						removeCookie("selenite.lastGame");
+					}
+				}
+			}
+			
+			// Only redirect if we truly have no game data
+			// Don't redirect if we're already on the loader page and have game state
+			if (!gameData) {
+				console.log("No game data found, redirecting to /projects.html");
+				// Small delay to avoid redirect loops during navigation
+				setTimeout(() => {
+					if (!gameData) {
+						window.location.href = "/projects.html";
+					}
+				}, 100);
 				return;
 			}
 			
-			// Clear hash after reading
-			document.location.hash = '';
+			// Ensure cookie is set even if we loaded from hash (for next time)
+			if (document.location.hash) {
+				setCookie("selenite.lastGame", document.location.hash.substring(1));
+			}
+			
+			// Clear hash without firing hashchange (avoids double init / kick)
+			clearHashWithoutEvent();
 			
 			initializeGame();
 			
-			// Listen for hash changes (when clicking recommended games)
+			// Listen for hash changes (only when user clicks a recommended game)
 			window.addEventListener("hashchange", () => {
+				// Ignore empty hash – often set by same-origin games or other scripts; would re-run init and kick the user
+				const h = document.location.hash;
+				if (!h || h === "#") return;
 				const newGameData = parseGameFromHash();
-				if (newGameData) {
-					gameData = newGameData; // Update gameData with new game
-					document.location.hash = ''; // Clear hash after reading
-					initializeGame(); // Re-initialize with new game
-				}
+				if (!newGameData) return;
+				// Only init when switching to a different game; same game = avoid pointless reload/kick
+				if (gameData && newGameData[0] === gameData[0]) return;
+				gameData = newGameData;
+				clearHashWithoutEvent();
+				initializeGame();
 			});
 			
 			// Play button - starts the game
@@ -221,8 +263,13 @@
 		
 		function loadGame(game) {
 			const source = game[3] || "semag";
-			const gameUrl = GAMES_BASE_URL + "/" + source + "/" + game[0] + "/index.html";
-			const gameImageUrl = GAMES_BASE_URL + "/" + source + "/" + game[0] + "/" + decodeURIComponent(game[1]);
+			// semag uses hardcoded external URL, non-semag uses local paths for local development
+			const gameUrl = source === "non-semag"
+				? "/" + source + "/" + game[0] + "/index.html"
+				: GAMES_BASE_URL + "/" + source + "/" + game[0] + "/index.html";
+			const gameImageUrl = source === "non-semag"
+				? "/" + source + "/" + game[0] + "/" + decodeURIComponent(game[1])
+				: GAMES_BASE_URL + "/" + source + "/" + game[0] + "/" + decodeURIComponent(game[1]);
 			const gameName = game[2];
 			
 			// Set game info
@@ -250,7 +297,10 @@
 			
 			recommended.forEach(game => {
 				const source = game.source || "semag";
-				const gameUrl = GAMES_BASE_URL + "/" + source + "/" + game.directory + "/" + game.image;
+				// semag uses hardcoded external URL, non-semag uses local paths for local development
+				const gameUrl = source === "non-semag"
+					? "/" + source + "/" + game.directory + "/" + game.image
+					: GAMES_BASE_URL + "/" + source + "/" + game.directory + "/" + game.image;
 				const gameLink = "/loader.html#" + btoa(encodeURIComponent(JSON.stringify([game.directory, game.image, game.name, source])));
 				
 				const gameCard = document.createElement("a");
@@ -272,14 +322,10 @@
 				const blurOverlay = document.querySelector(".game-blur-overlay");
 				const playOverlay = document.querySelector(".game-play-overlay");
 				
-				// Load the game iframe now - always reload to ensure we get the current game
+				// Load the game iframe – set src directly to avoid clear+delay that can cause extra reloads/kicks
 				const src = gameFrame.getAttribute("data-src");
 				if (src) {
-					// Clear old src first, then set new one to force reload
-					gameFrame.src = '';
-					setTimeout(() => {
-						gameFrame.src = src;
-					}, 10);
+					gameFrame.src = src;
 				}
 				
 				// Add playing class to container for CSS targeting

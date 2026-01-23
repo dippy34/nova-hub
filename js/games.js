@@ -36,7 +36,10 @@ function loadGames(data) {
 	gamelist = data;
 	for (let i = 0; i < data.length; i++) {
 		const source = data[i].source || "semag";
-		const imagePath = GAMES_BASE_URL + "/" + source + "/" + data[i].directory + "/" + data[i].image;
+		// semag uses hardcoded external URL, non-semag uses local paths for local development
+		const imagePath = source === "non-semag"
+			? "/" + source + "/" + data[i].directory + "/" + data[i].image
+			: GAMES_BASE_URL + "/" + source + "/" + data[i].directory + "/" + data[i].image;
 		
 		let $element = $("<a>")
 			.attr({
