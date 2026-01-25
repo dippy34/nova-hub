@@ -481,18 +481,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // Setup banner handlers
     function setupBannerHandlers() {
         const saveBtn = document.getElementById('save-banner-btn');
-        if (!saveBtn) return;
-        saveBtn.addEventListener('click', async () => {
+        const statusDiv = document.getElementById('banner-status');
+        if (!saveBtn || !statusDiv) return;
+        saveBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
             const enabledCheck = document.getElementById('banner-enabled');
             const textInput = document.getElementById('banner-text');
-            const statusDiv = document.getElementById('banner-status');
-            if (!enabledCheck || !textInput || !statusDiv) return;
-            statusDiv.textContent = '';
-            statusDiv.style.display = 'none';
+            if (!enabledCheck || !textInput) return;
+            // Show immediate feedback so the user sees something
+            statusDiv.textContent = 'Saving…';
+            statusDiv.style.color = '#aaa';
+            statusDiv.style.display = 'block';
+            statusDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             if (isLocalDev()) {
                 statusDiv.textContent = 'Banner API is not available in local development.';
                 statusDiv.style.color = '#ffaa00';
-                statusDiv.style.display = 'block';
                 return;
             }
             try {
@@ -503,16 +506,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response && response.success) {
                     statusDiv.textContent = 'Banner saved successfully!';
                     statusDiv.style.color = '#00ff00';
-                    statusDiv.style.display = 'block';
                 } else {
                     statusDiv.textContent = response?.message || 'Failed to save banner.';
                     statusDiv.style.color = '#ff0000';
-                    statusDiv.style.display = 'block';
                 }
             } catch (error) {
                 statusDiv.textContent = error.message || 'Failed to save banner.';
                 statusDiv.style.color = '#ff0000';
-                statusDiv.style.display = 'block';
             }
         });
     }
