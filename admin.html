@@ -120,6 +120,21 @@
 				<div id="terminal-text-status" class="status-message"></div>
 			</div>
 
+			<!-- Banner Section -->
+			<div class="admin-section">
+				<h1 class="gaming-page-title">Site Banner</h1>
+				<p>Show a message at the top of the site. It does not cover content.</p>
+				<div class="admin-section">
+					<label style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+						<input type="checkbox" id="banner-enabled" />
+						<span>Enable banner</span>
+					</label>
+					<input type="text" id="banner-text" placeholder="Banner text (e.g. Site maintenance Saturday 2–4pm)" style="width: 100%; font-family: inherit; padding: 10px; background: #1a1a1a; color: #00ff00; border: 1px solid #333; border-radius: 4px;" />
+				</div>
+				<button type="button" id="save-banner-btn">Save Banner</button>
+				<div id="banner-status" class="status-message" role="status" aria-live="polite"></div>
+			</div>
+
 			<!-- Proxy Access Section -->
 			<div class="admin-section">
 				<h1 class="gaming-page-title">Proxy Access</h1>

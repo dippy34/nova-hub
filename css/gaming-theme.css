@@ -2912,3 +2912,32 @@ body.gaming-theme.fullscreen-mode .game-play-overlay {
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
 }
 
+/* Site banner (admin-controlled, top of page, does not overlap content) */
+.nova-site-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    padding: 8px 12px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.4;
+    background: var(--gaming-accent, #00ff00);
+    color: #000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+body.nova-site-banner-visible {
+    padding-top: 40px;
+}
+
+/* Hide banner and reclaim space when in game fullscreen (loader.html) */
+body.fullscreen-mode .nova-site-banner,
+body.game-playing .nova-site-banner {
+    display: none !important;
+}
+body.fullscreen-mode.nova-site-banner-visible,
+body.game-playing.nova-site-banner-visible {
+    padding-top: 0 !important;
+}
+

@@ -397,9 +397,9 @@ export async function onRequest(context) {
       return jsonResponse({ success: true });
     }
 
-    // Route: GET /api/terminal-text (public endpoint)
+    // Route: GET /api/terminal-text (public endpoint) — same KV as admin (ADMIN_CREDENTIALS_KV)
     if (pathname === '/api/terminal-text' && method === 'GET') {
-      const terminalText = await readKV(env.ANALYTICS_KV, 'terminal-text', {
+      const terminalText = await readKV(env.ADMIN_CREDENTIALS_KV, 'terminal_text', {
         welcomeLines: ['Welcome to Nova Hub', 'Your ultimate gaming destination'],
         statusText: 'If you see this, it loaded.'
       });
@@ -413,7 +413,7 @@ export async function onRequest(context) {
         return jsonResponse({ success: false, message: 'Invalid token' }, 401);
       }
 
-      const terminalText = await readKV(env.ANALYTICS_KV, 'terminal-text', {
+      const terminalText = await readKV(env.ADMIN_CREDENTIALS_KV, 'terminal_text', {
         welcomeLines: ['Welcome to Nova Hub', 'Your ultimate gaming destination'],
         statusText: 'If you see this, it loaded.'
       });
@@ -440,10 +440,52 @@ export async function onRequest(context) {
         lastUpdated: new Date().toISOString()
       };
 
-      if (await writeKV(env.ANALYTICS_KV, 'terminal-text', terminalText)) {
+      if (await writeKV(env.ADMIN_CREDENTIALS_KV, 'terminal_text', terminalText)) {
         return jsonResponse({ success: true, message: 'Terminal text saved successfully' });
       } else {
         return jsonResponse({ success: false, message: 'Failed to save terminal text' }, 500);
+      }
+    }
+
+    // Route: GET /api/banner (public) — same KV as admin (ADMIN_CREDENTIALS_KV)
+    if (pathname === '/api/banner' && method === 'GET') {
+      const banner = await readKV(env.ADMIN_CREDENTIALS_KV, 'banner', {
+        enabled: false,
+        text: ''
+      });
+      return jsonResponse({ success: true, data: banner });
+    }
+
+    // Route: GET /api/admin/banner
+    if (pathname === '/api/admin/banner' && method === 'GET') {
+      const auth = await verifyAdminToken(request, env);
+      if (!auth.valid) {
+        return jsonResponse({ success: false, message: 'Invalid token' }, 401);
+      }
+      const banner = await readKV(env.ADMIN_CREDENTIALS_KV, 'banner', {
+        enabled: false,
+        text: ''
+      });
+      return jsonResponse({ success: true, data: banner });
+    }
+
+    // Route: POST /api/admin/save-banner
+    if (pathname === '/api/admin/save-banner' && method === 'POST') {
+      const auth = await verifyAdminToken(request, env);
+      if (!auth.valid) {
+        return jsonResponse({ success: false, message: 'Invalid token' }, 401);
+      }
+      const body = await request.json();
+      const { enabled, text } = body;
+      const banner = {
+        enabled: !!enabled,
+        text: typeof text === 'string' ? text : '',
+        lastUpdated: new Date().toISOString()
+      };
+      if (await writeKV(env.ADMIN_CREDENTIALS_KV, 'banner', banner)) {
+        return jsonResponse({ success: true, message: 'Banner saved successfully' });
+      } else {
+        return jsonResponse({ success: false, message: 'Failed to save banner' }, 500);
       }
     }
 

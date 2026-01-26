@@ -175,6 +175,19 @@ document.addEventListener("DOMContentLoaded", function () {
 			$(".caraxle").prop({ href: `javascript:${encodeURI(data)}` });
 		});
 	}
+
+	// Load site banner from API (same KV as terminal text)
+	fetch('/api/banner').then(function (r) { return r.json(); }).then(function (data) {
+		if (!data || !data.success || !data.data || !data.data.enabled || !String(data.data.text).trim()) return;
+		var el = document.getElementById('nova-site-banner');
+		if (el) return;
+		el = document.createElement('div');
+		el.id = 'nova-site-banner';
+		el.className = 'nova-site-banner';
+		el.textContent = data.data.text;
+		document.body.insertBefore(el, document.body.firstChild);
+		document.body.classList.add('nova-site-banner-visible');
+	}).catch(function () {});
 });
 
 function setPanicMode() {
