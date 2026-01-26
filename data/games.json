@@ -1282,7 +1282,8 @@
 	{
 		"name": "Five Nights at Freddy's",
 		"directory": "fnaf",
-		"image": "splash.jpg"
+		"image": "favicon.ico",
+		"imagePath": "/img/fnaf-favicons/fnaf1.ico"
 	},
 	{
 		"name": "Burrito Bison",
@@ -1437,17 +1438,44 @@
 	{
 		"name": "Five Nights at Freddy's 2",
 		"directory": "fnaf2",
-		"image": "project/splash.webp"
+		"image": "favicon.ico",
+		"imagePath": "/img/fnaf-favicons/fnaf2.ico"
 	},
 	{
 		"name": "Five Nights at Freddy's 3",
 		"directory": "fnaf3",
-		"image": "project/splash.webp"
+		"image": "favicon.ico",
+		"imagePath": "/img/fnaf-favicons/fnaf3.ico"
 	},
 	{
 		"name": "Five Nights at Freddy's 4",
 		"directory": "fnaf4",
-		"image": "project/splash.webp"
+		"image": "favicon.ico",
+		"imagePath": "/img/fnaf-favicons/fnaf4.ico"
+	},
+	{
+		"name": "Five Nights at Freddy's World",
+		"directory": "fnaf-world",
+		"image": "favicon.ico",
+		"imagePath": "/img/fnaf-favicons/fnaf-world.ico"
+	},
+	{
+		"name": "Five Nights at Freddy's: Sister Location",
+		"directory": "fnaf-sl",
+		"image": "favicon.ico",
+		"imagePath": "/img/fnaf-favicons/fnaf-sl.ico"
+	},
+	{
+		"name": "Five Nights at Freddy's: Pizzeria Simulator",
+		"directory": "fnaf-ps",
+		"image": "favicon.ico",
+		"imagePath": "/img/fnaf-favicons/fnaf-ps.ico"
+	},
+	{
+		"name": "Five Nights at Freddy's: Ultimate Custom Night",
+		"directory": "fnaf-ucn",
+		"image": "favicon.ico",
+		"imagePath": "/img/fnaf-favicons/fnaf-ucn.ico"
 	},
 	{
 		"name": "Temple Run 2",

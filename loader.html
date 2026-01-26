@@ -267,9 +267,16 @@
 			const gameUrl = source === "non-semag"
 				? "/" + source + "/" + game[0] + "/index.html"
 				: GAMES_BASE_URL + "/" + source + "/" + game[0] + "/index.html";
-			const gameImageUrl = source === "non-semag"
-				? "/" + source + "/" + game[0] + "/" + decodeURIComponent(game[1])
-				: GAMES_BASE_URL + "/" + source + "/" + game[0] + "/" + decodeURIComponent(game[1]);
+			// Check if game data has custom imagePath (from games.json)
+			// game[4] contains the full game object if available
+			let gameImageUrl;
+			if (game[4] && game[4].imagePath) {
+				gameImageUrl = game[4].imagePath;
+			} else {
+				gameImageUrl = source === "non-semag"
+					? "/" + source + "/" + game[0] + "/" + decodeURIComponent(game[1])
+					: GAMES_BASE_URL + "/" + source + "/" + game[0] + "/" + decodeURIComponent(game[1]);
+			}
 			const gameName = game[2];
 			
 			// Set game info
@@ -298,10 +305,14 @@
 			recommended.forEach(game => {
 				const source = game.source || "semag";
 				// semag uses hardcoded external URL, non-semag uses local paths for local development
-				const gameUrl = source === "non-semag"
-					? "/" + source + "/" + game.directory + "/" + game.image
-					: GAMES_BASE_URL + "/" + source + "/" + game.directory + "/" + game.image;
-				const gameLink = "/loader.html#" + btoa(encodeURIComponent(JSON.stringify([game.directory, game.image, game.name, source])));
+				// Check for custom imagePath first
+				let gameUrl = game.imagePath;
+				if (!gameUrl) {
+					gameUrl = source === "non-semag"
+						? "/" + source + "/" + game.directory + "/" + game.image
+						: GAMES_BASE_URL + "/" + source + "/" + game.directory + "/" + game.image;
+				}
+				const gameLink = "/loader.html#" + btoa(encodeURIComponent(JSON.stringify([game.directory, game.image, game.name, source, game])));
 				
 				const gameCard = document.createElement("a");
 				gameCard.href = gameLink;
