@@ -1879,6 +1879,27 @@ html body#noscroll.purple-theme {
     left: 0 !important;
 }
 
+/* Allow scrolling on touch devices (like iPads) where fullscreen button may be hidden */
+@media (hover: none) and (pointer: coarse) {
+    html body#noscroll,
+    html body#noscroll.gaming-theme,
+    html body#noscroll.ocean-theme,
+    html body#noscroll.sunset-theme,
+    html body#noscroll.purple-theme {
+        overflow: auto !important;
+        position: relative !important;
+        height: auto !important;
+        max-height: none !important;
+    }
+    
+    /* Ensure main container can scroll on touch devices */
+    body.gaming-theme .game-loader-main {
+        overflow-y: auto !important;
+        height: auto !important;
+        min-height: 100vh !important;
+    }
+}
+
 /* Step 2: Main container - fills remaining space after header */
 body.gaming-theme .game-loader-main,
 body.ocean-theme .game-loader-main,

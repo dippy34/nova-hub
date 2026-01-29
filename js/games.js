@@ -37,16 +37,20 @@ function loadGames(data) {
 	for (let i = 0; i < data.length; i++) {
 		const source = data[i].source || "semag";
 		// semag uses hardcoded external URL, non-semag uses local paths for local development
-		const imagePath = source === "non-semag"
-			? "/" + source + "/" + data[i].directory + "/" + data[i].image
-			: GAMES_BASE_URL + "/" + source + "/" + data[i].directory + "/" + data[i].image;
+		// Check for custom imagePath first (for local favicons, etc.)
+		let imagePath = data[i].imagePath;
+		if (!imagePath) {
+			imagePath = source === "non-semag"
+				? "/" + source + "/" + data[i].directory + "/" + data[i].image
+				: GAMES_BASE_URL + "/" + source + "/" + data[i].directory + "/" + data[i].image;
+		}
 		
 		let $element = $("<a>")
 			.attr({
 				class: "game",
 				id: data[i].directory,
 				recommended: data[i].recommended,
-				href: "loader.html#" + btoa(encodeURIComponent(JSON.stringify([data[i].directory, data[i].image, data[i].name, source]))),
+				href: "loader.html#" + btoa(encodeURIComponent(JSON.stringify([data[i].directory, data[i].image, data[i].name, source, data[i]]))),
 			})
 			.data("recommended", data[i].recommended)
 			.append(

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Stickman Destruction 3 Heroes</title>
+    <link rel="stylesheet" href="game.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            overflow: hidden;
+        }
+        #unity-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #unity-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        #loading-bar {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 20px;
+            background: #333;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        #loading-progress {
+            height: 100%;
+            background: #4CAF50;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        #loading-text {
+            position: absolute;
+            left: 50%;
+            top: calc(50% + 30px);
+            transform: translateX(-50%);
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="unity-container">
+        <div id="loading-bar">
+            <div id="loading-progress"></div>
+        </div>
+        <div id="loading-text">Loading game...</div>
+        <canvas id="unity-canvas"></canvas>
+    </div>
+
+    <script>
+        // Unity WebGL configuration
+        const buildUrl = "./";
+        const loaderUrl = buildUrl + "bl3.loader.js";
+        const config = {
+            dataUrl: buildUrl + "bl3.data.br",
+            frameworkUrl: buildUrl + "bl3.framework.js.br",
+            codeUrl: buildUrl + "bl3.wasm.br",
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "Sergey Mezhakov",
+            productName: "Stickman Destruction 3 Heroes",
+            productVersion: "1.0",
+        };
+
+        const container = document.querySelector("#unity-container");
+        const canvas = document.querySelector("#unity-canvas");
+        const loadingBar = document.querySelector("#loading-bar");
+        const loadingProgress = document.querySelector("#loading-progress");
+        const loadingText = document.querySelector("#loading-text");
+
+        // Loading progress callback
+        function progress(progress) {
+            loadingProgress.style.width = (progress * 100) + "%";
+            loadingText.textContent = "Loading game... " + Math.round(progress * 100) + "%";
+        }
+
+        // Load Unity loader script
+        const script = document.createElement("script");
+        script.src = loaderUrl;
+        script.onload = () => {
+            if (typeof createUnityInstance !== "undefined") {
+                createUnityInstance(canvas, config, progress)
+                    .then((unityInstance) => {
+                        loadingBar.style.display = "none";
+                        loadingText.style.display = "none";
+                        console.log("Unity game loaded successfully");
+                    })
+                    .catch((error) => {
+                        console.error("Error loading Unity game:", error);
+                        loadingText.textContent = "Error loading game. Please check the console.";
+                    });
+            } else {
+                console.error("Unity loader not found");
+                loadingText.textContent = "Error: Unity loader not found";
+            }
+        };
+        script.onerror = () => {
+            console.error("Failed to load Unity loader script");
+            loadingText.textContent = "Error: Failed to load game files";
+        };
+        document.body.appendChild(script);
+    </script>
+</body>
+</html>
+

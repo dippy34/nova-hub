@@ -322,3 +322,22 @@
  TAB ...................................... Complete filename & cycle.
  SHIFT-TAB ...................... ESC-TAB   Complete filename & reverse cycle.
  ctrl-L ................................... Complete filename, list all.
+ .gitignore                       |   88 [32m+[m[31m-[m
+ CLOUDFLARE_SETUP.md              |  216 [32m+[m[31m-[m
+ admin.html                       |   15 [32m+[m
+ css/gaming-theme.css             |   29 [32m+[m
+ data/games.json                  | 4384 [32m+++++++++++++++++++[m[31m-------------------[m
+ functions/api/[[path]].js        |   50 [32m+[m[31m-[m
+ img/fnaf-favicons/fnaf-ps.ico    |  Bin [31m322286[m -> [32m0[m bytes
+ img/fnaf-favicons/fnaf-sl.ico    |  Bin [31m163410[m -> [32m0[m bytes
+ img/fnaf-favicons/fnaf-ucn.ico   |  Bin [31m366888[m -> [32m0[m bytes
+ img/fnaf-favicons/fnaf-world.ico |  Bin [31m338722[m -> [32m0[m bytes
+ img/fnaf-favicons/fnaf1.ico      |  Bin [31m391533[m -> [32m0[m bytes
+ img/fnaf-favicons/fnaf2.ico      |  Bin [31m365623[m -> [32m0[m bytes
+ img/fnaf-favicons/fnaf3.ico      |  Bin [31m368072[m -> [32m0[m bytes
+ img/fnaf-favicons/fnaf4.ico      |  Bin [31m382031[m -> [32m0[m bytes
+ js/admin.js                      |   58 [32m+[m
+ js/games.js                      |   12 [32m+[m[31m-[m
+ js/main.js                       |   13 [32m+[m
+ loader.html                      |   25 [32m+[m[31m-[m
+ 18 files changed, 2502 insertions(+), 2388 deletions(-)

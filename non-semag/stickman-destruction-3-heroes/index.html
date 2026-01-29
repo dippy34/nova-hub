@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Stickman Destruction 3 Heroes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        #unity-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        #unity-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        #loading-bar {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 20px;
+            background: #333;
+            border-radius: 10px;
+            overflow: hidden;
+            z-index: 10;
+        }
+        #loading-progress {
+            height: 100%;
+            background: #4CAF50;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        #loading-text {
+            position: absolute;
+            left: 50%;
+            top: calc(50% + 40px);
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 16px;
+            z-index: 10;
+        }
+        #error-text {
+            position: absolute;
+            left: 50%;
+            top: calc(50% + 80px);
+            transform: translateX(-50%);
+            color: #ff4444;
+            font-size: 14px;
+            z-index: 10;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="unity-container">
+        <div id="loading-bar">
+            <div id="loading-progress"></div>
+        </div>
+        <div id="loading-text">Loading game...</div>
+        <div id="error-text"></div>
+        <canvas id="unity-canvas"></canvas>
+    </div>
+
+    <script>
+        // Unity WebGL configuration
+        const buildUrl = "./";
+        const loaderUrl = buildUrl + "bl3.loader.js";
+        
+        const config = {
+            dataUrl: buildUrl + "bl3.data",
+            frameworkUrl: buildUrl + "bl3.framework.js",
+            codeUrl: buildUrl + "bl3.wasm",
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "Sergey Mezhakov",
+            productName: "Stickman Destruction 3 Heroes",
+            productVersion: "1.0",
+        };
+
+        const container = document.querySelector("#unity-container");
+        const canvas = document.querySelector("#unity-canvas");
+        const loadingBar = document.querySelector("#loading-bar");
+        const loadingProgress = document.querySelector("#loading-progress");
+        const loadingText = document.querySelector("#loading-text");
+        const errorText = document.querySelector("#error-text");
+
+        // Loading progress callback
+        function progress(progressValue) {
+            if (progressValue >= 0 && progressValue <= 1) {
+                loadingProgress.style.width = (progressValue * 100) + "%";
+                loadingText.textContent = "Loading game... " + Math.round(progressValue * 100) + "%";
+            }
+        }
+
+        // Show error
+        function showError(message) {
+            loadingBar.style.display = "none";
+            loadingText.style.display = "none";
+            errorText.textContent = "Error: " + message;
+            errorText.style.display = "block";
+            console.error("Unity Load Error:", message);
+        }
+
+        // Load Unity loader script
+        const script = document.createElement("script");
+        script.src = loaderUrl;
+        script.async = true;
+        
+        script.onload = () => {
+            console.log("Loader script loaded, checking for Unity functions...");
+            
+            // Wait a moment for the loader to initialize
+            setTimeout(() => {
+                console.log("Available globals:", Object.keys(window).filter(k => 
+                    k.toLowerCase().includes("unity") || 
+                    k.toLowerCase().includes("loader") ||
+                    k === "createUnityInstance"
+                ));
+                
+                if (typeof createUnityInstance !== "undefined") {
+                    console.log("Found createUnityInstance, initializing Unity...");
+                    createUnityInstance(canvas, config, progress)
+                        .then((unityInstance) => {
+                            console.log("Unity game loaded successfully!");
+                            loadingBar.style.display = "none";
+                            loadingText.style.display = "none";
+                            window.unityInstance = unityInstance;
+                        })
+                        .catch((error) => {
+                            console.error("Error creating Unity instance:", error);
+                            showError(error.message || "Failed to initialize Unity game");
+                        });
+                } else if (typeof UnityLoader !== "undefined") {
+                    console.log("Found UnityLoader (old format), initializing...");
+                    try {
+                        UnityLoader.instantiate(canvas, config, {
+                            onProgress: (unityInstance, progressValue) => {
+                                progress(progressValue);
+                            }
+                        });
+                    } catch (error) {
+                        console.error("Error with UnityLoader:", error);
+                        showError(error.message || "Failed to load with UnityLoader");
+                    }
+                } else {
+                    console.error("No Unity loader found!");
+                    showError("Unity loader not found. Check console for details.");
+                }
+            }, 200);
+        };
+        
+        script.onerror = (error) => {
+            console.error("Failed to load loader script:", error);
+            showError("Failed to load game files. Please check that all files are present.");
+        };
+        
+        document.body.appendChild(script);
+    </script>
+</body>
+</html>
