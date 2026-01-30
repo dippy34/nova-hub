@@ -2673,13 +2673,6 @@
 		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/121.png"
 	},
 	{
-		"name": "Survival Race",
-		"directory": "survival-race",
-		"image": "cover.png",
-		"source": "non-semag",
-		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/122.png"
-	},
-	{
 		"name": "Poly Track",
 		"directory": "poly-track",
 		"image": "cover.png",
@@ -3359,20 +3352,6 @@
 		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/263.png"
 	},
 	{
-		"name": "Escape Road",
-		"directory": "escape-road",
-		"image": "cover.png",
-		"source": "non-semag",
-		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/264.png"
-	},
-	{
-		"name": "Escape Road 2",
-		"directory": "escape-road-2",
-		"image": "cover.png",
-		"source": "non-semag",
-		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/265.png"
-	},
-	{
 		"name": "Speed Stars",
 		"directory": "speed-stars",
 		"image": "cover.png",
@@ -3896,5 +3875,1426 @@
 		"image": "cover.png",
 		"source": "non-semag",
 		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/669.png"
+	},
+	{
+		"name": "Escape Road",
+		"directory": "escape-road",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/264.png"
+	},
+	{
+		"name": "Escape Road 2",
+		"directory": "escape-road-2",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/265.png"
+	},
+	{
+		"name": "Survival Race",
+		"directory": "survival-race",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/122.png"
+	},
+	{
+		"name": "Ragdoll Hit",
+		"directory": "ragdoll-hit",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/44.png"
+	},
+	{
+		"name": "Binding of Issac: Wrath of the Lamb",
+		"directory": "binding-of-issac-wrath-of-the-lamb",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/350.png"
+	},
+	{
+		"name": "Happy Sheepies",
+		"directory": "happy-sheepies",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/351.png"
+	},
+	{
+		"name": "DON'T YOU LECTURE ME",
+		"directory": "don-t-you-lecture-me",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/352.png"
+	},
+	{
+		"name": "Blumgi Rocket",
+		"directory": "blumgi-rocket",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/353.png"
+	},
+	{
+		"name": "Adventure Capatalist",
+		"directory": "adventure-capatalist",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/354.png"
+	},
+	{
+		"name": "Dadish 3D",
+		"directory": "dadish-3d",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/358.png"
+	},
+	{
+		"name": "Daily Dadish",
+		"directory": "daily-dadish",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/359.png"
+	},
+	{
+		"name": "EvoWars.io",
+		"directory": "evowars-io",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/360.png"
+	},
+	{
+		"name": "Google Feud",
+		"directory": "google-feud",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/361.png"
+	},
+	{
+		"name": "Idle Lumber Inc",
+		"directory": "idle-lumber-inc",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/363.png"
+	},
+	{
+		"name": "Idle Mining Empire",
+		"directory": "idle-mining-empire",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/364.png"
+	},
+	{
+		"name": "Merge Harvest",
+		"directory": "merge-harvest",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/366.png"
+	},
+	{
+		"name": "Parking Fury 3D",
+		"directory": "parking-fury-3d",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/367.png"
+	},
+	{
+		"name": "Slowroads",
+		"directory": "slowroads",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/369.png"
+	},
+	{
+		"name": "Smash Karts",
+		"directory": "smash-karts",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/370.png"
+	},
+	{
+		"name": "Stickman Fight Ragdoll",
+		"directory": "stickman-fight-ragdoll",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/371.png"
+	},
+	{
+		"name": "2048 Merge Run",
+		"directory": "2048-merge-run",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/375.png"
+	},
+	{
+		"name": "Build a Big Army",
+		"directory": "build-a-big-army",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/376.png"
+	},
+	{
+		"name": "Build a Plane",
+		"directory": "build-a-plane",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/377.png"
+	},
+	{
+		"name": "Camouflage and Sniper",
+		"directory": "camouflage-and-sniper",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/378.png"
+	},
+	{
+		"name": "Car Survival 3D",
+		"directory": "car-survival-3d",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/379.png"
+	},
+	{
+		"name": "City Defense",
+		"directory": "city-defense",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/380.png"
+	},
+	{
+		"name": "Clothing Shop 3D",
+		"directory": "clothing-shop-3d",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/381.png"
+	},
+	{
+		"name": "Cool Cars Run 3D",
+		"directory": "cool-cars-run-3d",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/382.png"
+	},
+	{
+		"name": "Crush Cars 3D",
+		"directory": "crush-cars-3d",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/383.png"
+	},
+	{
+		"name": "Destiny Run 3D",
+		"directory": "destiny-run-3d",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/384.png"
+	},
+	{
+		"name": "Destroy The Car 3D",
+		"directory": "destroy-the-car-3d",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/385.png"
+	},
+	{
+		"name": "Diamond Seeker",
+		"directory": "diamond-seeker",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/386.png"
+	},
+	{
+		"name": "Draw Joust",
+		"directory": "draw-joust",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/387.png"
+	},
+	{
+		"name": "Evolving Bombs 3D",
+		"directory": "evolving-bombs-3d",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/388.png"
+	},
+	{
+		"name": "Fire and Frost Master",
+		"directory": "fire-and-frost-master",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/389.png"
+	},
+	{
+		"name": "Fitness Empire",
+		"directory": "fitness-empire",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/390.png"
+	},
+	{
+		"name": "Flick Goal",
+		"directory": "flick-goal",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/391.png"
+	},
+	{
+		"name": "Flip Master",
+		"directory": "flip-master",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/392.png"
+	},
+	{
+		"name": "Giant Wanted",
+		"directory": "giant-wanted",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/393.png"
+	},
+	{
+		"name": "Gun Clone",
+		"directory": "gun-clone",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/394.png"
+	},
+	{
+		"name": "Gun Runner",
+		"directory": "gun-runner",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/395.png"
+	},
+	{
+		"name": "Kaji Run",
+		"directory": "kaji-run",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/396.png"
+	},
+	{
+		"name": "Make a SuperBoat",
+		"directory": "make-a-superboat",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/397.png"
+	},
+	{
+		"name": "Makeover Run",
+		"directory": "makeover-run",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/398.png"
+	},
+	{
+		"name": "Mega Car Jumps",
+		"directory": "mega-car-jumps",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/399.png"
+	},
+	{
+		"name": "Money Rush",
+		"directory": "money-rush",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/400.png"
+	},
+	{
+		"name": "Monster Box 3D",
+		"directory": "monster-box-3d",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/401.png"
+	},
+	{
+		"name": "Office Fight",
+		"directory": "office-fight",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/402.png"
+	},
+	{
+		"name": "Robot Invasion",
+		"directory": "robot-invasion",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/403.png"
+	},
+	{
+		"name": "Seat Jam 3D",
+		"directory": "seat-jam-3d",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/404.png"
+	},
+	{
+		"name": "Shooting Master",
+		"directory": "shooting-master",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/405.png"
+	},
+	{
+		"name": "Supermarket 3D",
+		"directory": "supermarket-3d",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/406.png"
+	},
+	{
+		"name": "Survive to Victory",
+		"directory": "survive-to-victory",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/407.png"
+	},
+	{
+		"name": "Telekinesis Attack",
+		"directory": "telekinesis-attack",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/408.png"
+	},
+	{
+		"name": "Telekinesis Car",
+		"directory": "telekinesis-car",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/409.png"
+	},
+	{
+		"name": "Telekinesis Drive",
+		"directory": "telekinesis-drive",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/410.png"
+	},
+	{
+		"name": "Telekinesis",
+		"directory": "telekinesis",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/411.png"
+	},
+	{
+		"name": "Tug of War with Cars",
+		"directory": "tug-of-war-with-cars",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/413.png"
+	},
+	{
+		"name": "Twerk Race 3D",
+		"directory": "twerk-race-3d",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/414.png"
+	},
+	{
+		"name": "Twisted Rope 3D",
+		"directory": "twisted-rope-3d",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/415.png"
+	},
+	{
+		"name": "Wall Crawler",
+		"directory": "wall-crawler",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/416.png"
+	},
+	{
+		"name": "War Regions",
+		"directory": "war-regions",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/417.png"
+	},
+	{
+		"name": "Weapon Craft Run",
+		"directory": "weapon-craft-run",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/418.png"
+	},
+	{
+		"name": "Weapon Upgrade Rush",
+		"directory": "weapon-upgrade-rush",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/419.png"
+	},
+	{
+		"name": "Weapon Scale",
+		"directory": "weapon-scale",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/420.png"
+	},
+	{
+		"name": "Rich Run 3D",
+		"directory": "rich-run-3d",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/421.png"
+	},
+	{
+		"name": "High Heels",
+		"directory": "high-heels",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/422.png"
+	},
+	{
+		"name": "Andy's Apple Farm",
+		"directory": "andy-s-apple-farm",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/426.png"
+	},
+	{
+		"name": "Five Nights at Freddy's 4: Halloween",
+		"directory": "five-nights-at-freddy-s-4-halloween",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/428.png"
+	},
+	{
+		"name": "Code Editor",
+		"directory": "code-editor",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/429.png"
+	},
+	{
+		"name": "99 Balls",
+		"directory": "99-balls",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/431.png"
+	},
+	{
+		"name": "Abandoned",
+		"directory": "abandoned",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/432.png"
+	},
+	{
+		"name": "God's Flesh",
+		"directory": "god-s-flesh",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/434.png"
+	},
+	{
+		"name": "A Small World Cup",
+		"directory": "a-small-world-cup",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/435.png"
+	},
+	{
+		"name": "Bouncemasters",
+		"directory": "bouncemasters",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/437.png"
+	},
+	{
+		"name": "Awesome Tanks 2",
+		"directory": "awesome-tanks-2",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/438.png"
+	},
+	{
+		"name": "Bank Robbery 2",
+		"directory": "bank-robbery-2",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/439.png"
+	},
+	{
+		"name": "Celeste PICO",
+		"directory": "celeste-pico",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/440.png"
+	},
+	{
+		"name": "Kitty Toy",
+		"directory": "kitty-toy",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/441.png"
+	},
+	{
+		"name": "Infinimoes",
+		"directory": "infinimoes",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/442.png"
+	},
+	{
+		"name": "Adventure Drivers",
+		"directory": "adventure-drivers",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/443.png"
+	},
+	{
+		"name": "Ages of Conflict",
+		"directory": "ages-of-conflict",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/444.png"
+	},
+	{
+		"name": "Nijika's Ahoge",
+		"directory": "nijika-s-ahoge",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/447.png"
+	},
+	{
+		"name": "Aquapark.io",
+		"directory": "aquapark-io",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/448.png"
+	},
+	{
+		"name": "City Smash",
+		"directory": "city-smash",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/449.png"
+	},
+	{
+		"name": "Amanda the Adventurer",
+		"directory": "amanda-the-adventurer",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/450.png"
+	},
+	{
+		"name": "Slender: The 8 Pages",
+		"directory": "slender-the-8-pages",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/451.png"
+	},
+	{
+		"name": "Station 141",
+		"directory": "station-141",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/452.png"
+	},
+	{
+		"name": "Station Saturn",
+		"directory": "station-saturn",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/453.png"
+	},
+	{
+		"name": "BLOODMONEY!",
+		"directory": "bloodmoney",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/454.png"
+	},
+	{
+		"name": "BERGENTRUCK 201x",
+		"directory": "bergentruck-201x",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/455.png"
+	},
+	{
+		"name": "Undertale Yellow",
+		"directory": "undertale-yellow",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/456.png"
+	},
+	{
+		"name": "Raft",
+		"directory": "raft",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/457.png"
+	},
+	{
+		"name": "The Deadseat",
+		"directory": "the-deadseat",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/458.png"
+	},
+	{
+		"name": "The Man In The Window",
+		"directory": "the-man-in-the-window",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/459.png"
+	},
+	{
+		"name": "Fears to Fathom: Home Alone",
+		"directory": "fears-to-fathom-home-alone",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/460.png"
+	},
+	{
+		"name": "Slither.io",
+		"directory": "slither-io",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/461.png"
+	},
+	{
+		"name": "DEAD PLATE",
+		"directory": "dead-plate",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/462.png"
+	},
+	{
+		"name": "Lacey's Flash Games",
+		"directory": "lacey-s-flash-games",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/463.png"
+	},
+	{
+		"name": "Choppy Orc",
+		"directory": "choppy-orc",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/464.png"
+	},
+	{
+		"name": "Baldi's Basics Classic Remastered",
+		"directory": "baldi-s-basics-classic-remastered",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/466.png"
+	},
+	{
+		"name": "sandstone",
+		"directory": "sandstone",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/469.png"
+	},
+	{
+		"name": "Madness Combat: Project Nexus (classic)",
+		"directory": "madness-combat-project-nexus-classic",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/471.png"
+	},
+	{
+		"name": "Spacebar Clicker",
+		"directory": "spacebar-clicker",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/473.png"
+	},
+	{
+		"name": "Friday Night Funkin': V.S. Whitty",
+		"directory": "friday-night-funkin-v-s-whitty",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/474.png"
+	},
+	{
+		"name": "Friday Night Funkin': B-Sides",
+		"directory": "friday-night-funkin-b-sides",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/475.png"
+	},
+	{
+		"name": "Friday Night Funkin': Vs. Hex",
+		"directory": "friday-night-funkin-vs-hex",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/476.png"
+	},
+	{
+		"name": "Friday Night Funkin': Vs. Hatsune Miku",
+		"directory": "friday-night-funkin-vs-hatsune-miku",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/477.png"
+	},
+	{
+		"name": "Friday Night Funkin': Neo",
+		"directory": "friday-night-funkin-neo",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/478.png"
+	},
+	{
+		"name": "Steal A Brainrot",
+		"directory": "steal-a-brainrot",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/479.png"
+	},
+	{
+		"name": "Friday Night Funkin': Sarvente's Mid-Fight Masses",
+		"directory": "friday-night-funkin-sarvente-s-mid-fight-masses",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/480.png"
+	},
+	{
+		"name": "Friday Night Funkin': vs. Tricky",
+		"directory": "friday-night-funkin-vs-tricky",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/481.png"
+	},
+	{
+		"name": "Human Expenditure Program",
+		"directory": "human-expenditure-program",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/482.png"
+	},
+	{
+		"name": "Friday Night Funkin': Hit Single Real",
+		"directory": "friday-night-funkin-hit-single-real",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/483.png"
+	},
+	{
+		"name": "Friday Night Funkin': Creepypasta JP",
+		"directory": "friday-night-funkin-creepypasta-jp",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/484.png"
+	},
+	{
+		"name": "Friday Night Funkin': vs. Garcello",
+		"directory": "friday-night-funkin-vs-garcello",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/485.png"
+	},
+	{
+		"name": "Friday Night Funkin': Sonic Legacy",
+		"directory": "friday-night-funkin-sonic-legacy",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/486.png"
+	},
+	{
+		"name": "Friday Night Funkin': vs. QT",
+		"directory": "friday-night-funkin-vs-qt",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/487.png"
+	},
+	{
+		"name": "Friday Night Funkin': Mistful Crimson Morning Reboot",
+		"directory": "friday-night-funkin-mistful-crimson-morning-reboot",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/488.png"
+	},
+	{
+		"name": "Friday Night Funkin': Indie Cross",
+		"directory": "friday-night-funkin-indie-cross",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/489.png"
+	},
+	{
+		"name": "I woke up next to you again.",
+		"directory": "i-woke-up-next-to-you-again",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/491.png"
+	},
+	{
+		"name": "UNDERWHEELS",
+		"directory": "underwheels",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/492.png"
+	},
+	{
+		"name": "RigBMX",
+		"directory": "rigbmx",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/493.png"
+	},
+	{
+		"name": "RigBMX 2",
+		"directory": "rigbmx-2",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/494.png"
+	},
+	{
+		"name": "groon groon, babey!",
+		"directory": "groon-groon-babey",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/495.png"
+	},
+	{
+		"name": "Friday Night Funkin': Jeffy's Endless Aethos",
+		"directory": "friday-night-funkin-jeffy-s-endless-aethos",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/496.png"
+	},
+	{
+		"name": "Friday Night Funkin': vs. BOPCITY",
+		"directory": "friday-night-funkin-vs-bopcity",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/497.png"
+	},
+	{
+		"name": "Friday Night Funkin': 17 Bucks: Floor 1",
+		"directory": "friday-night-funkin-17-bucks-floor-1",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/498.png"
+	},
+	{
+		"name": "Friday Night Funkin': FIRE IN THE HOLE: Lobotomy Dash Funkin'",
+		"directory": "friday-night-funkin-fire-in-the-hole-lobotomy-dash-funkin",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/499.png"
+	},
+	{
+		"name": "Friday Night Funkin': TWIDDLEFINGER",
+		"directory": "friday-night-funkin-twiddlefinger",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/500.png"
+	},
+	{
+		"name": "Kindergarten 3",
+		"directory": "kindergarten-3",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/501.png"
+	},
+	{
+		"name": "Stick With It",
+		"directory": "stick-with-it",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/502.png"
+	},
+	{
+		"name": "Five Nights at Candy's",
+		"directory": "five-nights-at-candy-s",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/503.png"
+	},
+	{
+		"name": "Five Nights at Candy's 2",
+		"directory": "five-nights-at-candy-s-2",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/504.png"
+	},
+	{
+		"name": "Pokemon Red",
+		"directory": "pokemon-red",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/505.png"
+	},
+	{
+		"name": "Pokemon Emerald",
+		"directory": "pokemon-emerald",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/506.png"
+	},
+	{
+		"name": "Super Mario Bros",
+		"directory": "super-mario-bros",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/508.png"
+	},
+	{
+		"name": "Friday Night Funkin’ Soft",
+		"directory": "friday-night-funkin-soft",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/509.png"
+	},
+	{
+		"name": "Tomodachi Collection",
+		"directory": "tomodachi-collection",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/510.png"
+	},
+	{
+		"name": "Final Earth 2",
+		"directory": "final-earth-2",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/512.png"
+	},
+	{
+		"name": "Swordfight!!",
+		"directory": "swordfight",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/513.png"
+	},
+	{
+		"name": "PortaBoy+",
+		"directory": "portaboy",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/514.png"
+	},
+	{
+		"name": "PacMan (Horror)",
+		"directory": "pacman-horror",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/515.png"
+	},
+	{
+		"name": "Oshi Oshi Punch!",
+		"directory": "oshi-oshi-punch",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/516.png"
+	},
+	{
+		"name": "Nubby's Number Factory",
+		"directory": "nubby-s-number-factory",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/517.png"
+	},
+	{
+		"name": "Touhou: Luminous Strike",
+		"directory": "touhou-luminous-strike",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/518.png"
+	},
+	{
+		"name": "Generic Fighter Maybe",
+		"directory": "generic-fighter-maybe",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/519.png"
+	},
+	{
+		"name": "Dan The Man",
+		"directory": "dan-the-man",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/520.png"
+	},
+	{
+		"name": "Bust a Loop",
+		"directory": "bust-a-loop",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/521.png"
+	},
+	{
+		"name": "Bad Monday Simulator",
+		"directory": "bad-monday-simulator",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/522.png"
+	},
+	{
+		"name": "Touhou Mother",
+		"directory": "touhou-mother",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/523.png"
+	},
+	{
+		"name": "Parappa The Rapper",
+		"directory": "parappa-the-rapper",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/524.png"
+	},
+	{
+		"name": "Friday Night Funkin': Darkness Takeover",
+		"directory": "friday-night-funkin-darkness-takeover",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/525.png"
+	},
+	{
+		"name": "SpongeBob SquarePants: Land Ho!",
+		"directory": "spongebob-squarepants-land-ho",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/526.png"
+	},
+	{
+		"name": "SpongeBob SquarePants: SpongeBob Run",
+		"directory": "spongebob-squarepants-spongebob-run",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/527.png"
+	},
+	{
+		"name": "SpongeBob SquarePants: Squidward's Sizzlin' Scare",
+		"directory": "spongebob-squarepants-squidward-s-sizzlin-scare",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/528.png"
+	},
+	{
+		"name": "SpongeBob SquarePants: Sandy's Sponge Stacker",
+		"directory": "spongebob-squarepants-sandy-s-sponge-stacker",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/529.png"
+	},
+	{
+		"name": "SpongeBob SquarePants: Tasty Pastry Party",
+		"directory": "spongebob-squarepants-tasty-pastry-party",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/530.png"
+	},
+	{
+		"name": "SpongeBob SquarePants: The Kah-Ray-Tay Squid",
+		"directory": "spongebob-squarepants-the-kah-ray-tay-squid",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/531.png"
+	},
+	{
+		"name": "SpongeBob SquarePants: WereSquirrel",
+		"directory": "spongebob-squarepants-weresquirrel",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/532.png"
+	},
+	{
+		"name": "SpongeBob SquarePants: Krabby Katch",
+		"directory": "spongebob-squarepants-krabby-katch",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/533.png"
+	},
+	{
+		"name": "Teen Titans GO!: Jump Jousts",
+		"directory": "teen-titans-go-jump-jousts",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/534.png"
+	},
+	{
+		"name": "Teen Titans GO!: Jump Jousts 2",
+		"directory": "teen-titans-go-jump-jousts-2",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/535.png"
+	},
+	{
+		"name": "Cat Connection",
+		"directory": "cat-connection",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/536.png"
+	},
+	{
+		"name": "Cat Gunner: Super Zombie Shoot",
+		"directory": "cat-gunner-super-zombie-shoot",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/537.png"
+	},
+	{
+		"name": "Love Letters",
+		"directory": "love-letters",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/538.png"
+	},
+	{
+		"name": "Chiikawa Puzzle",
+		"directory": "chiikawa-puzzle",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/539.png"
+	},
+	{
+		"name": "myTeardrop",
+		"directory": "myteardrop",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/540.png"
+	},
+	{
+		"name": "Friday Night Funkin': Pibby: Apocalypse",
+		"directory": "friday-night-funkin-pibby-apocalypse",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/541.png"
+	},
+	{
+		"name": "Plinko",
+		"directory": "plinko",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/544.png"
+	},
+	{
+		"name": "Clash Of Vikings",
+		"directory": "clash-of-vikings",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/545.png"
+	},
+	{
+		"name": "Baseball Bros",
+		"directory": "baseball-bros",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/547.png"
+	},
+	{
+		"name": "Football Bros",
+		"directory": "football-bros",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/548.png"
+	},
+	{
+		"name": "Sonic the Hedgehog 2: Community's Cut",
+		"directory": "sonic-the-hedgehog-2-community-s-cut",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/549.png"
+	},
+	{
+		"name": "Sonic the Hedgehog 3: Angel Island Remastered",
+		"directory": "sonic-the-hedgehog-3-angel-island-remastered",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/550.png"
+	},
+	{
+		"name": "Hypper Sandbox",
+		"directory": "hypper-sandbox",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/551.png"
+	},
+	{
+		"name": "Aviamasters",
+		"directory": "aviamasters",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/552.png"
+	},
+	{
+		"name": "Rolling Sky",
+		"directory": "rolling-sky",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/553.png"
+	},
+	{
+		"name": "Yandere Simulator",
+		"directory": "yandere-simulator",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/554.png"
+	},
+	{
+		"name": "Friday Night Funkin VS. KAPI",
+		"directory": "friday-night-funkin-vs-kapi",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/555.png"
+	},
+	{
+		"name": "Friday Night Funkin VS. Sky",
+		"directory": "friday-night-funkin-vs-sky",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/556.png"
+	},
+	{
+		"name": "Getting Over It with Bennett Foddy",
+		"directory": "getting-over-it-with-bennett-foddy",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/557.png"
+	},
+	{
+		"name": "Friday Night Funkin Vs. Cyber Sensation",
+		"directory": "friday-night-funkin-vs-cyber-sensation",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/558.png"
+	},
+	{
+		"name": "Friday Night Funkin vs Shaggy",
+		"directory": "friday-night-funkin-vs-shaggy",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/559.png"
+	},
+	{
+		"name": "Deltatraveler",
+		"directory": "deltatraveler",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/560.png"
+	},
+	{
+		"name": "BitGun.io",
+		"directory": "bitgun-io",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/561.png"
+	},
+	{
+		"name": "Boom Slingers: Reboom",
+		"directory": "boom-slingers-reboom",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/562.png"
+	},
+	{
+		"name": "CG FC 25",
+		"directory": "cg-fc-25",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/563.png"
+	},
+	{
+		"name": "Count Masters: Stickman Games",
+		"directory": "count-masters-stickman-games",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/564.png"
+	},
+	{
+		"name": "Dalgona Candy Honeycomb Cookie",
+		"directory": "dalgona-candy-honeycomb-cookie",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/565.png"
+	},
+	{
+		"name": "Highway Racer",
+		"directory": "highway-racer",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/567.png"
+	},
+	{
+		"name": "Highway Racer 2 REMASTERED",
+		"directory": "highway-racer-2-remastered",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/568.png"
+	},
+	{
+		"name": "Hula Hoop Race",
+		"directory": "hula-hoop-race",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/569.png"
+	},
+	{
+		"name": "Jelly Restaurant",
+		"directory": "jelly-restaurant",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/570.png"
+	},
+	{
+		"name": "Layers Roll",
+		"directory": "layers-roll",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/571.png"
+	},
+	{
+		"name": "Lazy Jumper",
+		"directory": "lazy-jumper",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/572.png"
+	},
+	{
+		"name": "Man Runner 2048",
+		"directory": "man-runner-2048",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/573.png"
+	},
+	{
+		"name": "Pottery Master",
+		"directory": "pottery-master",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/574.png"
+	},
+	{
+		"name": "Shovel 3D",
+		"directory": "shovel-3d",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/575.png"
+	},
+	{
+		"name": "Sky Riders",
+		"directory": "sky-riders",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/576.png"
+	},
+	{
+		"name": "Steal Brainrot Online",
+		"directory": "steal-brainrot-online",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/577.png"
+	},
+	{
+		"name": "Stickman and Guns",
+		"directory": "stickman-and-guns",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/578.png"
+	},
+	{
+		"name": "Super Star Car",
+		"directory": "super-star-car",
+		"image": "cover.png",
+		"source": "non-semag",
+		"imagePath": "https://cdn.jsdelivr.net/gh/gn-math/covers@main/579.png"
 	}
 ]
