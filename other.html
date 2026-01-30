@@ -3,16 +3,13 @@
 	<head>
 		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1196675595992085"
      crossorigin="anonymous"></script>
-		<!-- initialize theme vars
-    https://coolors.co/10002b-240046-3c096c-5a189a-7b2cbf-9d4edd-c77dff-e0aaff -->
+		<!-- initialize theme vars -->
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 		<script src=" https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js "></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 		<!-- initialize my stuff -->
 		<script src="/js/all.min.js"></script>
-		<script src="/js/apps.js"></script>
-		<script src="/js/search.js"></script>
 		<script src="/js/main.js"></script>
 		<script src="/js/widget.js"></script>
 		<script src="/js/themes.js"></script>
@@ -25,7 +22,7 @@
 		
 
 		<!-- seo + other things -->
-		<title>Apps | Nova Hub</title>
+		<title>Other | Nova Hub</title>
 		<link rel="icon" href="/nova-favicon.ico" />
 
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -33,11 +30,56 @@
 
 		<!-- toastify -->
 		<script></script>
+		<style>
+			.ai-section {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				min-height: 60vh;
+				gap: 30px;
+				padding: 40px 20px;
+			}
+			.ai-button {
+				background: linear-gradient(135deg, #7b2cbf 0%, #c77dff 100%);
+				color: white;
+				border: none;
+				padding: 20px 50px;
+				font-size: 18px;
+				font-weight: bold;
+				border-radius: 10px;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				box-shadow: 0 8px 20px rgba(123, 44, 191, 0.3);
+			}
+			.ai-button:hover {
+				transform: translateY(-3px);
+				box-shadow: 0 12px 30px rgba(123, 44, 191, 0.5);
+				background: linear-gradient(135deg, #9d4edd 0%, #e0aaff 100%);
+			}
+			.ai-button:active {
+				transform: translateY(-1px);
+			}
+			.ai-title {
+				font-size: 36px;
+				font-weight: bold;
+				color: #c77dff;
+				text-align: center;
+				margin: 0;
+			}
+			.ai-description {
+				font-size: 16px;
+				color: #b0a0c0;
+				text-align: center;
+				max-width: 500px;
+				line-height: 1.6;
+			}
+		</style>
 	</head>
 	<body class="gaming-theme">
 		<header style="display: none;">
 			<a href="/index.html">Home</a>
-			<a href="/bookmarklets.html">Bookmarklets</a>
+			<a href="/about.html">Hacks</a>
 			<a href="/projects.html">Games</a>
 			<a href="/apps.html">Apps</a>
 			<a href="/settings.html">Settings</a>
@@ -47,34 +89,16 @@
 
 		</header>
 		<main>
-			<h3 id="popunder" style="display: none;">You may be redirected upon clicking on the screen. This is an ad. <a style="font-size: inherit;" href="ad.html">Learn more.</a></h3>
-			<input class="hiddenUpload" type="file" accept=".save" hidden />
-
-			<input type="text" class="searchbar" id="gamesearch" placeholder="Type here to search.." />
-			<div class="samerow">
-				<sl-tooltip content="Remember to download your save, so you don't lose your progress." trigger="manual" class="manual-tooltip">
-					<button onclick="downloadMainSave()">Download Save</button>
-				</sl-tooltip>
-				<button id="upload" onclick="uploadMainSave()">Upload Save</button>
+			<div class="ai-section">
+				<h1 class="ai-title">Unrestricted AI Assistant</h1>
+				<p class="ai-description">
+					Experience an advanced AI chatbot with no content restrictions. 
+					Chat, generate images, and explore unlimited possibilities with our unrestricted AI assistant.
+				</p>
+				<button class="ai-button" onclick="window.open('https://3000-i3ojomrzbqt0ixbfydiyw-b41da9b2.us2.manus.computer', '_blank')">
+					Launch Unrestricted AI
+				</button>
 			</div>
-			
-			<h2>Starred Apps</h2>
-			<p id="pinnedmessage">Star some apps for things to show up here!</p>
-			<div id="pinned"></div>
-
-			<h2>All Apps</h2>
-			<div id="games">
-				<a href="/suggest.html"
-					><div class="suggest">
-						<img src="img/addlink.svg" alt="Add Game logo" style="filter: invert(1) !important" />
-						<h1>Suggest a app!</h1>
-					</div></a
-				>
-				<p id="message">apps loading..</p>
-				<p id="message">apps not loading? click ctrl + shift + r</p>
-				<button id="message" onclick='$.getJSON("/data/apps.json", function (data) {loadGames(data)})'>Apps not loading? Click here.</button>
-			</div>
-			<br />
 		</main>
 
 		<footer>
