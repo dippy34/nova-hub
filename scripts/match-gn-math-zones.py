@@ -117,11 +117,37 @@ def match_games(games, zones):
                 updates.append(f"directory: '{old_dir}' -> '{correct_directory}'")
                 needs_update = True
             
+            # Update author if available
+            if 'author' in matched_zone:
+                correct_author = matched_zone.get('author', '')
+                if game.get('author') != correct_author:
+                    game['author'] = correct_author
+                    updates.append(f"author: '{game.get('author', '')}' -> '{correct_author}'")
+                    needs_update = True
+            
+            # Update authorLink if available
+            if 'authorLink' in matched_zone:
+                correct_author_link = matched_zone.get('authorLink', '')
+                if game.get('authorLink') != correct_author_link:
+                    game['authorLink'] = correct_author_link
+                    updates.append(f"authorLink: updated")
+                    needs_update = True
+            
+            # Update image field (cover.png) if it exists
+            if game.get('image') and game.get('image') != 'cover.png':
+                game['image'] = 'cover.png'
+                updates.append(f"image: updated to 'cover.png'")
+                needs_update = True
+            
             if needs_update:
                 updated_count += 1
                 print(f"  [{matched_count}] Updated: {game_name}")
                 for update in updates:
                     print(f"      - {update}")
+            else:
+                # Still count as matched even if no updates needed
+                if matched_count % 50 == 0:
+                    print(f"  [{matched_count}] Already up-to-date: {game_name}")
         else:
             # Try to find by directory name or partial name match
             if imagepath and '/gn-math/covers@main/' in imagepath:

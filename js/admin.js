@@ -240,17 +240,6 @@ document.addEventListener('DOMContentLoaded', () => {
         loginScreen.style.display = 'none';
         adminDashboard.style.display = 'block';
         
-        // Update proxy link based on environment
-        const proxyLink = document.getElementById('proxy-link');
-        if (proxyLink) {
-            // Use /proxy for production (Cloudflare Workers), proxy.html for local dev
-            if (isLocalDev()) {
-                proxyLink.href = '/proxy.html';
-            } else {
-                proxyLink.href = '/proxy';
-            }
-        }
-        
         // Load non-authenticated data immediately
         loadAnalytics();
         loadFormsData();

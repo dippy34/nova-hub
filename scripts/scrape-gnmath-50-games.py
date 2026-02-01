@@ -96,7 +96,7 @@ def download_game(zone_id, zone_data, game_dir):
     return True
 
 def main():
-    print("GN-Math.dev Game Scraper (50 games)")
+    print("GN-Math.dev Game Scraper (100 games)")
     print("=" * 60, flush=True)
     
     # Load existing games

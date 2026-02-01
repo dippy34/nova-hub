@@ -7,11 +7,11 @@ document.addEventListener('DOMContentLoaded', function() {
         <nav class="gaming-navbar">
             <a href="/index.html" class="logo">NOVA HUB</a>
             <ul class="nav-links">
-                <li><a href="/proxy.html" class="${currentPage === 'proxy.html' ? 'active' : ''}">Proxy</a></li>
                 <li><a href="/suggest.html" class="${currentPage === 'suggest.html' ? 'active' : ''}">Bug Reports & Suggestions</a></li>
                 <li><a href="/index.html" class="${currentPage === 'index.html' ? 'active' : ''}">Home</a></li>
                 <li><a href="/projects.html" class="${currentPage === 'projects.html' ? 'active' : ''}">Games</a></li>
                 <li><a href="/apps.html" class="${currentPage === 'apps.html' ? 'active' : ''}">Apps</a></li>
+                <li><a href="/other.html" class="${currentPage === 'other.html' ? 'active' : ''}">Other</a></li>
                 <li><a href="/settings.html" class="${currentPage === 'settings.html' ? 'active' : ''}">Settings</a></li>
                 <li><a href="/about.html" class="${currentPage === 'about.html' ? 'active' : ''}">Hacks</a></li>
             </ul>

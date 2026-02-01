@@ -18,7 +18,6 @@
 		
 		<link rel="stylesheet" href="/style.css" />
 		<link rel="stylesheet" href="/css/gaming-theme.css" />
-		<link rel="stylesheet" href="/css/ai-chat.css" />
 		<script src="/js/gaming-navbar.js"></script>
 		
 
@@ -32,13 +31,56 @@
 		<!-- toastify -->
 		<script></script>
 		<style>
-			.ai-section {
+			.other-section {
 				display: flex;
 				flex-direction: column;
 				align-items: center;
-				justify-content: center;
+				justify-content: flex-start;
 				min-height: 70vh;
 				padding: 40px 20px;
+				gap: 2rem;
+			}
+			.category-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+				gap: 2rem;
+				max-width: 1200px;
+				width: 100%;
+				padding: 2rem;
+			}
+			.legal-grid {
+				display: none;
+				grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+				gap: 1.5rem;
+				max-width: 1000px;
+				width: 100%;
+				padding: 2rem;
+				animation: fadeIn 0.3s ease;
+			}
+			.legal-grid.show {
+				display: grid;
+			}
+			@keyframes fadeIn {
+				from { opacity: 0; transform: translateY(-10px); }
+				to { opacity: 1; transform: translateY(0); }
+			}
+			.back-button {
+				background: rgba(0, 0, 0, 0.9);
+				border: 1px solid var(--gaming-border);
+				border-radius: 8px;
+				padding: 0.75rem 1.5rem;
+				color: var(--gaming-accent);
+				cursor: pointer;
+				font-family: 'Rajdhani', sans-serif;
+				font-size: 1rem;
+				font-weight: 600;
+				transition: all 0.3s ease;
+				margin-bottom: 1rem;
+			}
+			.back-button:hover {
+				background: rgba(0, 255, 0, 0.1);
+				border-color: var(--gaming-accent);
+				box-shadow: 0 0 15px var(--gaming-glow);
 			}
 		</style>
 	</head>
@@ -55,11 +97,48 @@
 
 		</header>
 		<main>
-			<div class="ai-section">
-				<div id="aiChatWidget" style="width: 100%; max-width: 600px; height: 600px;"></div>
+			<div class="other-section">
+				<h1 class="gaming-page-title">OTHER</h1>
+				<p style="color: var(--gaming-text-dim); margin-bottom: 2rem;">Additional features and tools</p>
+				
+				<div id="main-grid" class="category-grid">
+					<div class="category-card" onclick="showLegalStuff()">
+						<div class="card-icon">⚖️</div>
+						<h2>Legal Stuff</h2>
+						<p>Privacy policy, terms, and contact information</p>
+					</div>
+				</div>
+				
+				<div id="legal-grid" class="legal-grid">
+					<button class="back-button" onclick="hideLegalStuff()">← Back</button>
+					<div class="category-card" onclick="window.location.href='/privacy-policy.html'">
+						<div class="card-icon">🔒</div>
+						<h2>Privacy Policy</h2>
+						<p>How we handle your data and privacy</p>
+					</div>
+					<div class="category-card" onclick="window.location.href='/cookie-policy.html'">
+						<div class="card-icon">🍪</div>
+						<h2>Cookie Policy</h2>
+						<p>Information about our use of cookies</p>
+					</div>
+					<div class="category-card" onclick="window.location.href='/about.html'">
+						<div class="card-icon">ℹ️</div>
+						<h2>About</h2>
+						<p>Learn more about Nova Hub</p>
+					</div>
+					<div class="category-card" onclick="window.location.href='/contact.html'">
+						<div class="card-icon">📧</div>
+						<h2>Contact</h2>
+						<p>novahub.official.team@gmail.com</p>
+					</div>
+					<div class="category-card" onclick="window.location.href='/terms-of-service.html'">
+						<div class="card-icon">📜</div>
+						<h2>Terms of Service</h2>
+						<p>Terms and conditions for using Nova Hub</p>
+					</div>
+				</div>
 			</div>
 		</main>
-		<script src="/js/ai-chat.js"></script>
 
 		<footer>
 			<a href="https://gitlab.com/skysthelimit.dev/selenite">Source</a>
@@ -68,6 +147,16 @@
 			<a href="/about.html">About</a>
 		</footer>
 		<script>
+			function showLegalStuff() {
+				document.getElementById('main-grid').style.display = 'none';
+				document.getElementById('legal-grid').classList.add('show');
+			}
+			
+			function hideLegalStuff() {
+				document.getElementById('legal-grid').classList.remove('show');
+				document.getElementById('main-grid').style.display = 'grid';
+			}
+			
 			document.addEventListener("DOMContentLoaded", function () {
 				const adContainers = document.querySelectorAll("[id=adcontainer]");
 				if (adContainers.length > 0) {
