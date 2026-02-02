@@ -1683,11 +1683,6 @@
 		"image": "unnamed.png"
 	},
 	{
-		"name": "Doge Miner",
-		"directory": "dogeminer",
-		"image": "img/dogeminer_300x300.png"
-	},
-	{
 		"name": "Soccer Random",
 		"directory": "soccerrandom",
 		"image": "test.png"
@@ -7043,6 +7038,78 @@
 		"image": "cover.png",
 		"source": "non-semag",
 		"url": "non-semag/deadly-descent/index.html",
+		"is_local": true
+	},
+	{
+		"name": "Shell Shockers 🥚",
+		"directory": "shell_shockers__",
+		"image": "cover.png",
+		"source": "non-semag",
+		"url": "non-semag/shell_shockers__/index.html",
+		"is_local": true
+	},
+	{
+		"name": "Four Colors | Like UNO Online🃏",
+		"directory": "four_colors___like_uno_online_",
+		"image": "cover.png",
+		"source": "non-semag",
+		"url": "non-semag/four_colors___like_uno_online_/index.html",
+		"is_local": true
+	},
+	{
+		"name": "Capybara Block Shot",
+		"directory": "capybara_block_shot",
+		"image": "cover.png",
+		"source": "non-semag",
+		"url": "non-semag/capybara_block_shot/index.html",
+		"is_local": true
+	},
+	{
+		"name": "Hangman",
+		"directory": "hangman",
+		"image": "cover.png",
+		"source": "non-semag",
+		"url": "non-semag/hangman/index.html",
+		"is_local": true
+	},
+	{
+		"name": "Neon Memory: Train Your Brain",
+		"directory": "neon_memory__train_your_brain",
+		"image": "cover.png",
+		"source": "non-semag",
+		"url": "non-semag/neon_memory__train_your_brain/index.html",
+		"is_local": true
+	},
+	{
+		"name": "Words of Wonders",
+		"directory": "words_of_wonders",
+		"image": "cover.png",
+		"source": "non-semag",
+		"url": "non-semag/words_of_wonders/index.html",
+		"is_local": true
+	},
+	{
+		"name": "Sandbox City",
+		"directory": "sandbox_city",
+		"image": "cover.png",
+		"source": "non-semag",
+		"url": "non-semag/sandbox_city/index.html",
+		"is_local": true
+	},
+	{
+		"name": "Cubes 2048.io",
+		"directory": "cubes_2048.io",
+		"image": "cover.png",
+		"source": "non-semag",
+		"url": "non-semag/cubes_2048.io/index.html",
+		"is_local": true
+	},
+	{
+		"name": "Hacker Typer | 3kh0",
+		"directory": "hacker_typer___3kh0",
+		"image": "",
+		"source": "non-semag",
+		"url": "non-semag/hacker_typer___3kh0/index.html",
 		"is_local": true
 	}
 ]

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>File #4fxoxtEUnNWe - Megacloud</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="robots" content="noindex,nofollow"/>
+<meta http-equiv="content-language" content="en"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="/css/embed.css?v=0.4"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-118288579-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-118288579-1');
+</script>
+    <script nonce="puGIJuzGd1KIc0spZm78Fdg1EyEGIQ5Va1q1cqAbvD1QMVOL">/* empty nonce script */</script>
+</head>
+<body>
+<div class="mg-3mb3d">
+    <div class="mg3-player">
+        <div class="fix-area" id="megacloud-player" data-id="4fxoxtEUnNWe" data-realid="1628149">
+            <div class="content-center">
+                <div class="loading-content" id="loading">
+                    <div class="load-circle">
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="error-content" style="display: none;">
+            <div class="text">Brave browser does not support our player. Please try with other browsers such as
+                Chrome or Firefox.
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    window.playerSettings = {"time":0,"autoPlay":0};
+</script>
+<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/js/mobile-detect.min.js"></script>
+<script type="text/javascript" src="/js/jwplayer/8.38.2.js"></script>
+<script type="text/javascript" src="/js/player/m/v3/pro/embed-1.min.js?v=1769984181"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"4e4c55fe5f934ef69256f5fab809f69d","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>

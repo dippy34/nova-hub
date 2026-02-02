@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <base href="https://sandbox-city---cars-zombies-ragdolls.game-files.crazygames.com/sandbox-city---cars-zombies-ragdolls/133/">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Sandbox City 🕹️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Original head content -->
+  
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity Web Player | Sandbox City</title>
+  
+  
+  <!-- Mock CrazyGames SDK to prevent errors -->
+  <script>
+    (function() {
+      window.CrazySDK = window.CrazySDK || {};
+      
+      const mockSDK = {
+        version: '3.3.1',
+        environment: 'production',
+        initOptions: {},
+        init: function() {
+          return Promise.resolve({
+            version: '3.3.1',
+            environment: 'production',
+            initOptions: {}
+          });
+        },
+        game: {
+          gameplayStart: function() {},
+          gameplayStop: function() {},
+          happyTime: function() {}
+        },
+        ad: {
+          requestAd: function() {
+            return Promise.resolve({});
+          },
+          hasAdblock: function() {
+            return false;
+          }
+        },
+        user: {
+          getSDKVersion: function() {
+            return '3.3.1';
+          }
+        }
+      };
+      
+      if (window.CrazySDK) {
+        Object.assign(window.CrazySDK, mockSDK);
+      } else {
+        window.CrazySDK = mockSDK;
+      }
+      
+      if (typeof globalThis !== 'undefined') {
+        globalThis.CrazySDK = window.CrazySDK;
+      }
+      
+      const originalInit = window.CrazySDK.init;
+      window.CrazySDK.init = function() {
+        try {
+          return originalInit ? originalInit.call(this) : Promise.resolve(mockSDK);
+        } catch (e) {
+          return Promise.resolve(mockSDK);
+        }
+      };
+      
+      console.log('CrazyGames SDK mocked');
+    })();
+  </script>
+</head>
+<body>
+
+    <canvas id="unity-canvas" width=960 height=600 tabindex="-1" style="width: 960px; height: 600px; background: #231F20"></canvas>
+    <script src="Build/95cdeb7584e0342ee70a381ad664cebc.loader.js"></script>
+    <script>
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        // Mobile device style: fill the whole browser client area with the game canvas:
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+
+        var canvas = document.querySelector("#unity-canvas");
+        canvas.style.width = "100%";
+        canvas.style.height = "100%";
+        canvas.style.position = "fixed";
+
+        document.body.style.textAlign = "left";
+
+      }
+
+      createUnityInstance(document.querySelector("#unity-canvas"), {
+        arguments: [],
+        dataUrl: "Build/101d7924b1ca25354714791053cc1da2.data.gz",
+        frameworkUrl: "Build/0d0ea43bc37ea782c00feeb5f558f504.framework.js.gz",
+        codeUrl: "Build/7d8f928a7bb1fd344004d4724a4f753c.wasm.gz",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "Salted Caramel Games",
+        productName: "Sandbox City",
+        productVersion: "6.50",
+        // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
+        // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
+      }).then((unityInstance) => {
+      }).catch((message) => {
+        alert(message);
+      });
+    </script>
+  
+</body>
+</html>
