@@ -4,6 +4,7 @@ test.sh
 **/*.data
 **/*.wasm
 **/*.swf
+!non-semag/**/*.swf
 **/*.iso
 **/*.bin
 **/*.pak
