@@ -37,3 +37,4 @@ if result.returncode == 0:
 else:
     print("Could not access previous commit")
 
+

@@ -7025,14 +7025,6 @@
 		"is_local": true
 	},
 	{
-		"name": "Level Devil",
-		"directory": "level-devil",
-		"image": "splash.avif",
-		"source": "non-semag",
-		"url": "non-semag/level-devil/index.html",
-		"is_local": true
-	},
-	{
 		"name": "Deadly Descent",
 		"directory": "deadly-descent",
 		"image": "cover.png",
@@ -7111,5 +7103,14 @@
 		"source": "non-semag",
 		"url": "non-semag/hacker_typer___3kh0/index.html",
 		"is_local": true
+	},
+	{
+		"name": "Slice Master 🔪 Play on CrazyGames",
+		"directory": "slice-master-play-on-crazygames",
+		"image": "cover.png",
+		"source": "non-semag",
+		"url": "non-semag/slice-master-play-on-crazygames/index.html",
+		"is_local": true,
+		"description": "Slice Master is a casual one-person game whose goal is to slice everything in sight, well, almost everything."
 	}
 ]

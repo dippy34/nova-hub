@@ -93,3 +93,4 @@ with open(html_path, 'w', encoding='utf-8') as f:
 
 print("✓ Cleaned up leftover code after stub functions")
 
+

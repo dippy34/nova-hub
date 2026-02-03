@@ -34,3 +34,4 @@ if not splash_path.exists():
 else:
     print(f"\n✓ splash.avif already exists")
 
+

@@ -15,3 +15,4 @@ if game:
 games_data = games if isinstance(games, list) else {'games': games_list}
 json.dump(games_data, open(games_path, 'w', encoding='utf-8'), indent='\t', ensure_ascii=False)
 
+

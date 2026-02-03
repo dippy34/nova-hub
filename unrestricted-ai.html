@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html class="sl-theme-dark" lang="en">
+	<head>
+		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1196675595992085"
+     crossorigin="anonymous"></script>
+		<!-- initialize theme vars -->
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+		<script src=" https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js "></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+		<!-- initialize my stuff -->
+		<script src="/js/all.min.js"></script>
+		<script src="/js/main.js"></script>
+		<script src="/js/widget.js"></script>
+		<script src="/js/themes.js"></script>
+		<script src="/js/cookie.js"></script>
+
+		
+		<link rel="stylesheet" href="/style.css" />
+		<link rel="stylesheet" href="/css/gaming-theme.css" />
+		<script src="/js/gaming-navbar.js"></script>
+		
+
+		<!-- seo + other things -->
+		<title>Unrestricted AI | Nova Hub</title>
+		<link rel="icon" href="/nova-favicon.ico" />
+
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1196675595992085" crossorigin="anonymous"></script>
+
+		<style>
+			.ai-wrapper {
+				width: 100%;
+				height: calc(100vh - 150px);
+				min-height: 600px;
+				position: relative;
+				border: none;
+			}
+			.ai-container {
+				width: 100%;
+				height: 100%;
+				border: none;
+				background: var(--gaming-bg, #000);
+			}
+			.loading-message {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				color: var(--gaming-text, #fff);
+				font-size: 1.2rem;
+				z-index: 10;
+			}
+		</style>
+	</head>
+	<body class="gaming-theme">
+		<header style="display: none;">
+			<a href="/index.html">Home</a>
+			<a href="/about.html">Hacks</a>
+			<a href="/projects.html">Games</a>
+			<a href="/apps.html">Apps</a>
+			<a href="/settings.html">Settings</a>
+			<a href="/other.html">Other</a>
+			<a id="blank" href="#">Open Blank</a>
+			<a href="/u/" class="usericon"><img src="/img/user.svg"></a>
+		</header>
+		<main>
+			<div class="ai-wrapper">
+				<div class="loading-message">Loading Unrestricted AI...</div>
+				<iframe 
+					id="ai-frame" 
+					class="ai-container" 
+					src="/unrestricted-ai/index.html"
+					allow="fullscreen"
+					sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+					style="display: none;"
+				></iframe>
+			</div>
+		</main>
+
+		<footer>
+			<a href="https://gitlab.com/skysthelimit.dev/selenite">Source</a>
+			<a href="https://discord.gg/7jyufnwJNf">Discord</a>
+			<a href="/suggest.html">Suggestions & Bugs</a>
+			<a href="/about.html">About</a>
+		</footer>
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+				const frame = document.getElementById('ai-frame');
+				const loading = document.querySelector('.loading-message');
+				
+				frame.addEventListener('load', function() {
+					loading.style.display = 'none';
+					frame.style.display = 'block';
+				});
+				
+				frame.addEventListener('error', function() {
+					loading.innerHTML = 'Error loading AI. <a href="https://github.com/dippy34/dfuhfeuifererf" target="_blank">Visit GitHub repo</a>';
+				});
+				
+				// Fallback to GitHub Pages if local doesn't load
+				setTimeout(function() {
+					if (frame.style.display === 'none') {
+						frame.src = 'https://dippy34.github.io/dfuhfeuifererf/';
+					}
+				}, 3000);
+			});
+		</script>
+	</body>
+</html>
+

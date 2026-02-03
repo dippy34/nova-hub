@@ -15,3 +15,4 @@ for ep in endpoints:
     except Exception as e:
         print(f"  {ep}: Error - {e}")
 
+

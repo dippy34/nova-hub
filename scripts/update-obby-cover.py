@@ -70,3 +70,4 @@ if cover_url:
 else:
     print("✗ Could not find cover image URL")
 
+

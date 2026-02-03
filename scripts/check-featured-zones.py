@@ -63,3 +63,4 @@ for zone_id, name in missing:
     print(f"  ✗ ID {zone_id}: {name}")
 
 
+
