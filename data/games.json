@@ -7109,7 +7109,8 @@
 		"directory": "slice-master-play-on-crazygames",
 		"image": "cover.png",
 		"source": "non-semag",
-		"url": "non-semag/slice-master-play-on-crazygames/index.html",
+		"gameUrl": "https://slice-master.github.io/game/slice-master.html",
+		"imagePath": "/non-semag/slice-master-play-on-crazygames/cover.png",
 		"is_local": true,
 		"description": "Slice Master is a casual one-person game whose goal is to slice everything in sight, well, almost everything."
 	},

@@ -36,7 +36,7 @@
 		
 		<main class="game-loader-main">
 			<div class="game-preview-container">
-				<iframe id="gameFrame" class="game-preview-iframe" allow="fullscreen" sandbox="allow-downloads allow-forms allow-modals allow-pointer-lock allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+				<iframe id="gameFrame" class="game-preview-iframe" allow="fullscreen; autoplay" sandbox="allow-downloads allow-forms allow-modals allow-pointer-lock allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
 				<div class="game-blur-overlay"></div>
 				
 				<!-- Centered Play Button -->
@@ -52,6 +52,10 @@
 						<span id="gameName" class="game-title-text">Loading Game...</span>
 					</div>
 					<div class="game-controls-bar">
+						<button id="reloadGameButton" class="game-fullscreen-button" title="Reload game if it&#39;s stuck loading">
+							<span>↻</span>
+							<span>Reload</span>
+						</button>
 						<button id="fullscreenButton" class="game-fullscreen-button">
 							<span class="fullscreen-icon">⛶</span>
 							<span>Fullscreen</span>
@@ -265,6 +269,16 @@
 				startGame();
 			});
 			
+			// Reload button - reload game if stuck loading
+			document.getElementById("reloadGameButton").addEventListener("click", () => {
+				const gameFrame = document.getElementById("gameFrame");
+				const baseSrc = gameFrame.getAttribute("data-src");
+				if (baseSrc && isPlaying) {
+					const sep = baseSrc.includes("?") ? "&" : "?";
+					gameFrame.src = baseSrc + sep + "_t=" + Date.now();
+				}
+			});
+			
 			// Fullscreen button - browser fullscreen API
 			document.getElementById("fullscreenButton").addEventListener("click", () => {
 				toggleFullscreen();
@@ -354,10 +368,11 @@
 				const blurOverlay = document.querySelector(".game-blur-overlay");
 				const playOverlay = document.querySelector(".game-play-overlay");
 				
-				// Load the game iframe – set src directly to avoid clear+delay that can cause extra reloads/kicks
-				const src = gameFrame.getAttribute("data-src");
-				if (src) {
-					gameFrame.src = src;
+				// Load the game iframe – add cache-busting to avoid stuck "loading" on first load
+				const baseSrc = gameFrame.getAttribute("data-src");
+				if (baseSrc) {
+					const sep = baseSrc.includes("?") ? "&" : "?";
+					gameFrame.src = baseSrc + sep + "_t=" + Date.now();
 				}
 				
 				// Add playing class to container for CSS targeting
