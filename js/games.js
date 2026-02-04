@@ -1,4 +1,4 @@
-const GAMES_BASE_URL = "https://nova-labs.pages.dev";
+const GAMES_BASE_URL = window.location.origin;
 
 $.getJSON("/data/games.json", function (data) {
 	if (document.readyState === "complete") {

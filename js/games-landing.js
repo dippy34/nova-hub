@@ -1,5 +1,5 @@
 // Games Landing Page Script
-const GAMES_BASE_URL = "https://nova-labs.pages.dev";
+const GAMES_BASE_URL = window.location.origin;
 let gamelist = [];
 
 // Load games data and redirect to random game
