@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+    <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no' />
+    <meta charset='utf-8'>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <style></style>
+    <title>Om Nom Run | Hypackel</title>
+
+    <script>
+        window.famobi_gameID = "om-nom-run"; // the actual GAMEID is added to the final version by Famobi
+        window.famobi_gameJS = [
+            "preloader.js",
+            "playcanvas-stable.min.js",
+            "__settings__.js",
+            "__modules__.js",
+            "__start__.js",
+            "__loading__.js",
+            function(){
+            }
+        ];
+        (function (document, url, fgJS, firstJS) {
+            fgJS = document.createElement('script');
+            firstJS = document.getElementsByTagName('script')[0];
+            fgJS.src = url + encodeURIComponent(document.location.href);
+            firstJS.parentNode.insertBefore(fgJS, firstJS);
+        })(document, 'html5games/gameapi/v1.js?e=');
+    </script>
+
+
+</head>
+<body>  
+
+    <div id="application-splash-wrapper">
+        <div id="application-splash">
+            <div id="loaderBar"></div>
+            <span id="loadingText">0%</span>
+        </div>
+        <img id="logo" src="img/logo.png">
+    </div>
+
+</body>
+</html>

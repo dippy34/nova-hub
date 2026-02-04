@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>CTR: Time Travel | Hypackel</title>
+    <link rel="shortcut icon" href="../../cut-the-rope/game/time-travel/time.png" type="image/x-icon">
+    <style>
+      /* iframe no border fullscreen */
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+      }
+      iframe {
+        border: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe
+      src="../../cut-the-rope/game/time-travel/"
+    ></iframe>
+  </body>
+</html>

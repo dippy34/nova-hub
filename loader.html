@@ -283,7 +283,7 @@
 			let gameUrl;
 			if (game[4] && game[4].gameUrl) {
 				gameUrl = game[4].gameUrl;
-			} else if (source === "non-semag") {
+			} else if (source === "non-semag" || source === "Hypackel") {
 				gameUrl = "/" + source + "/" + game[0] + "/index.html";
 			} else {
 				gameUrl = GAMES_BASE_URL + "/" + source + "/" + game[0] + "/index.html";
@@ -294,7 +294,7 @@
 			if (game[4] && game[4].imagePath) {
 				gameImageUrl = game[4].imagePath;
 			} else {
-				gameImageUrl = source === "non-semag"
+				gameImageUrl = (source === "non-semag" || source === "Hypackel")
 					? "/" + source + "/" + game[0] + "/" + decodeURIComponent(game[1])
 					: GAMES_BASE_URL + "/" + source + "/" + game[0] + "/" + decodeURIComponent(game[1]);
 			}
@@ -329,7 +329,7 @@
 				// Check for custom imagePath first
 				let gameUrl = game.imagePath;
 				if (!gameUrl) {
-					gameUrl = source === "non-semag"
+					gameUrl = (source === "non-semag" || source === "Hypackel")
 						? "/" + source + "/" + game.directory + "/" + game.image
 						: GAMES_BASE_URL + "/" + source + "/" + game.directory + "/" + game.image;
 				}

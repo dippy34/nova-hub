@@ -5,7 +5,7 @@
 		"directory": "tekpro"
 	},
 	{
-		"name": "The Gummibär Game",
+		"name": "The Gummib\u00e4r Game",
 		"image": "cover.png",
 		"directory": "gum"
 	},
@@ -1318,7 +1318,7 @@
 	{
 		"name": "Thirty Dollar Website",
 		"directory": "thirtydollarwebsite",
-		"image": "assets/🗿.png"
+		"image": "assets/\ud83d\uddff.png"
 	},
 	{
 		"name": "n-gon",
@@ -7112,5 +7112,941 @@
 		"url": "non-semag/slice-master-play-on-crazygames/index.html",
 		"is_local": true,
 		"description": "Slice Master is a casual one-person game whose goal is to slice everything in sight, well, almost everything."
+	},
+	{
+		"name": "Roblox (WebGL)",
+		"directory": "Roblox-Offline",
+		"image": "splash.svg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Game inside a Game",
+		"directory": "giag",
+		"image": "Xdhfjt.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Tanuki Sunset",
+		"directory": "tanuki-sunset",
+		"image": "cover.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Bottle Flip 3D",
+		"directory": "bf3d",
+		"image": "sMpJpTPMtTMr9tfusBtbWIz_h2UdX3iwx8Ea4w6vJ-0vyFILvpIMj_JvwVSeS6Xq0bg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Tiny Fishing",
+		"directory": "tiny-fishing",
+		"image": "splash.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "World's Hardest Game",
+		"directory": "whg",
+		"image": "game/whg.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "World's Hardest Game 2",
+		"directory": "whg2",
+		"image": "game/whg2.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "World's Hardest Game 3",
+		"directory": "whg3",
+		"image": "game/whg3.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Slope",
+		"directory": "slope",
+		"image": "game/splash.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Slope 2",
+		"directory": "slope-2",
+		"image": "game/splash.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Slope 3",
+		"directory": "slope-3",
+		"image": "game/wmnjoql2.bmp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Tunnel Rush",
+		"directory": "tunnel-rush",
+		"image": "game/splash.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Tunnel Rush 2",
+		"directory": "tunnel-rush2",
+		"image": "splash.webp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "HexGL",
+		"directory": "HexGL",
+		"image": "game/icon_256.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Hextris",
+		"directory": "Hextris",
+		"image": "game/images/icons/transparent-192.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Tetris",
+		"directory": "tetris",
+		"image": "za2Nu_qjMw5GzWfbzet4zeiZT1xvJlTRi4NJzGpJWX9grxFAAko5dGBwe7qeqK01THw",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Paper.io 2",
+		"directory": "paperio2",
+		"image": "game/splash.avif",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Paper.io 3d",
+		"directory": "paperio3d",
+		"image": "game/splash.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Flappy Bird",
+		"directory": "flappybird",
+		"image": "game/splash.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Angry Birds",
+		"directory": "AngryBirds",
+		"image": "game/AngryBirdsFavIcon_512x512.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Angry Birds Radox",
+		"directory": "AngryBirdsRadox",
+		"image": "game/splash.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Angry Birds (WebGL)",
+		"directory": "AngryBirdsWebGL",
+		"image": "AB_Reloaded_Icon.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Crossy Road",
+		"directory": "CrossyRoad",
+		"image": "2yH_JCxn7D9FttXZViPhmvIEDfRhio5qdLdWJLxcIfh8PjIkVeBgt_Gj7q21dIRp97g",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Crossy Road Space",
+		"directory": "CrossyRoad-space",
+		"image": "splash.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Crossy Road (Remake)",
+		"directory": "CrossyRoad-remake",
+		"image": "splash.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Minecraft (WebGL)",
+		"directory": "minecraft-webgl",
+		"image": "game/splash.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Minecraft",
+		"directory": "minecraft",
+		"image": "VSwHQjcAttxsLE47RuS4PqpC4LT7lCoSjE7Hx5AW_yCxtDvcnsHHvm5CTuL5BPN-uRTP",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Precision Client (MC)",
+		"directory": "PrecisionClient",
+		"image": "cover.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Eaglercraft (MC)",
+		"directory": "eaglercraft",
+		"image": "game/favicon.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Minecraft Classic",
+		"directory": "minecraft-classic",
+		"image": "game/splash.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "MC Classic (HACKS)",
+		"directory": "mchacks",
+		"image": "game/bg_main.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Moto X3M",
+		"directory": "motox3m",
+		"image": "splash.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Papa's Hot Doggeria",
+		"directory": "papas-doggeria",
+		"image": "image.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Couch 2048 (Physics)",
+		"directory": "couch2048",
+		"image": "game/splash.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "2048 Multitask",
+		"directory": "2048-multitask",
+		"image": "game/splash.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Lazy Jump 3D",
+		"directory": "lazyjump3d",
+		"image": "g8qyfh6l.bmp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "AdVenture Capitalist",
+		"directory": "adcap",
+		"image": "temp.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Friday Night Funkin'",
+		"directory": "fnf",
+		"image": "cover.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "FNF Mobile \ud83d\udcf2",
+		"directory": "fnfmobile",
+		"image": "cover.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "FNF Neo",
+		"directory": "fnfneo",
+		"image": "cover.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "FNF vs Imposter",
+		"directory": "fnfvsimposter",
+		"image": "unnamed.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "FNF Mid-Fight Masses",
+		"directory": "fnfmidfight",
+		"image": "splash.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "FNAF",
+		"directory": "fnaf",
+		"image": "game/splash.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "FNAF (WebGL)",
+		"directory": "fnaf-webgl",
+		"image": "game/splash.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "FNAF 2",
+		"directory": "fnaf-2",
+		"image": "cover.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "FNAF 2 (HACKS)",
+		"directory": "fnaf-2hacks",
+		"image": "cover.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "FNAF 3",
+		"directory": "fnaf-3",
+		"image": "game/splash.webp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "FNAF 3 (Scratch)",
+		"directory": "fnaf-3scratch",
+		"image": "game/splash.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "FNAF 4",
+		"directory": "fnaf-4",
+		"image": "game/splash.webp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "FNAF 5 Scratch",
+		"directory": "fnaf-5",
+		"image": "splash.jpeg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "FNAF Final Purgatory",
+		"directory": "fnaf-fp",
+		"image": "cover.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "FNAF Web",
+		"directory": "fnafweb",
+		"image": "game/pj0cyls4.bmp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Cookie Clicker",
+		"directory": "cookieclicker",
+		"image": "game/splash.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Particle Clicker",
+		"directory": "particleclicker",
+		"image": "game/splash.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Fruit Ninja",
+		"directory": "fruitninja",
+		"image": "AGIKgqMRFpsditeb0jRlTO0fOflkCfh4q0e2_SHGDLae6Q=s900-c-k-c0x00ffffff-no-rj",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Fruit Ninja (JavaScript)",
+		"directory": "fruitninja-js",
+		"image": "512x512bb.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Circle",
+		"directory": "circle",
+		"image": "game/splash.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Stack",
+		"directory": "stack",
+		"image": "game/stack.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Stickman Hook",
+		"directory": "stickmanhook",
+		"image": "unnamed.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Neon Swing",
+		"directory": "neonswing",
+		"image": "aUUqrS7i6UFtiG7oQdrfRdyCWN2XXV13DVeJTHmYub7Qdz7lQ6XyGJpB7RaeNlyXPw",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Poor Eddie",
+		"directory": "pooreddie",
+		"image": "game/icons/icon-128.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "UNO! Online",
+		"directory": "uno",
+		"image": "splash.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Slither.io",
+		"directory": "slitherio",
+		"image": "oObkhKfUXOY5yzheKe9w1Y1pXZBgdiSksMeNmT0BijoQ8J75maTCIW2TA7-6pA6EMA",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Slither.io (Remake)",
+		"directory": "slither-remake",
+		"image": "game/splash.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Superhot",
+		"directory": "superhot",
+		"image": "game/splash.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Shell Shockers",
+		"directory": "shellshockers",
+		"image": "game/egg.webp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Krunker",
+		"directory": "krunker",
+		"image": "game/img/krunker-io.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Mad Gunz",
+		"directory": "madgunz",
+		"image": "cover.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Valorant",
+		"directory": "valorant",
+		"image": "splash.webp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Doodle Jump",
+		"directory": "doodle-jump",
+		"image": "game/doodle.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Elastic Man",
+		"directory": "elasticman",
+		"image": "game/elastic-face.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Plants vs. Zombies",
+		"directory": "pvz",
+		"image": "IPodTouchicon4.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Plants vs. Zombies [HTML]",
+		"directory": "pvz-html",
+		"image": "Plantsvs.ZombiesFREEicon.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "BTD",
+		"directory": "BloonsTD",
+		"image": "game/splash.webp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "BTD 2",
+		"directory": "BloonsTD2",
+		"image": "game/splash.webp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "BTD 3",
+		"directory": "BloonsTD3",
+		"image": "game/splash.webp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "BTD 4",
+		"directory": "BloonsTD4",
+		"image": "game/splash.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "BTD 5",
+		"directory": "BloonsTD5",
+		"image": "game/splash.webp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Thumb Fighter",
+		"directory": "thumb-fighter",
+		"image": "unnamed.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Stair Race 3D",
+		"directory": "stair-race3d",
+		"image": "ys0ffene.bmp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Drive Mad",
+		"directory": "drive-mad",
+		"image": "game/webapp/logo.avif",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Eggy Car",
+		"directory": "eggycar",
+		"image": "game/eggy-car.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "OvO",
+		"directory": "ovo",
+		"image": "game/icon-256.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "OvO 2",
+		"directory": "ovo2",
+		"image": "game/icons/icon-512.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "OvO 3 - Dimensions",
+		"directory": "ovo3",
+		"image": "game/splash.avif",
+		"source": "Hypackel"
+	},
+	{
+		"name": "New! Super Mario Bros",
+		"directory": "nsmb",
+		"image": "game/tfttnfe4.bmp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Super Mario Bros",
+		"directory": "smb",
+		"image": "game/z7rn5clz.bmp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Super Mario 64 (JavaScript)",
+		"directory": "sm64",
+		"image": "game/splash.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Super Mario 63",
+		"directory": "sm63",
+		"image": "upscale.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Undertale",
+		"directory": "Undertale",
+		"image": "favicon.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Geometry Dash",
+		"directory": "geodash",
+		"image": "game/splash.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Geo Dash (Scratch)",
+		"directory": "geodashscratch",
+		"image": "game/splash.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Geometry Dash Subzero",
+		"directory": "geodashsubzero",
+		"image": "QtW5CVMDs9zzbRW5L2QNMqcapOXCMsUiRxPe-eKwiR04L-DQf3gcW21GOglufcRj8A",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Geometry Dash Meltdown",
+		"directory": "geodashmeltdown",
+		"image": "game/splash.bmp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Geometry Dash World",
+		"directory": "geodashworld",
+		"image": "eu0Lv1QtDbCdVvuphJh84zxKNURIEcXjmZPhAv4NM4Xacfjum9TspfYkzRcBKv4zpDk",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Grey-Box Testing",
+		"directory": "greybox",
+		"image": "game/splash.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Original Pacman",
+		"directory": "pacman",
+		"image": "V-lvUzA5kK0Xw3wdg8Ct3vfIMXUX5vXYcNLPmudaZ-eyQjedYz-luqIuLmJO6KodE0Y",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Pacman Doodle",
+		"directory": "pacman-doodle",
+		"image": "game/ka9wpqax.bmp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Pacman (FLASH)",
+		"directory": "pacman-flash",
+		"image": "cover.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Pacman (NES)",
+		"directory": "Pacman",
+		"image": "pac_man_vs.0.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Baldi's Basics",
+		"directory": "baldisbasics",
+		"image": "EPV1TB4So1lB0DGrdCVExDpNU8ML67nd8OqBeoOIM-s6sDicxmDdPvCXD6n7LKevFl0",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Alien Hominid",
+		"directory": "alienhominid",
+		"image": "game/alienhominid.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Aquapark Slides",
+		"directory": "aquapark-slides",
+		"image": "game/splash.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Helix Jump",
+		"directory": "helixjump",
+		"image": "game/gameIcon.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Neon Tower",
+		"directory": "neontower",
+		"image": "h.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "BACKROOMS",
+		"directory": "backrooms",
+		"image": "game/img/splash.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Om Nom Run",
+		"directory": "omnomrun",
+		"image": "IiAFcylVnJ7Hx8z8t4gbg0gjf8-34jLnHyzAqUnDV0XTPVdNnTJSTL3SfmmgfOiCvlop",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Cut the Rope",
+		"directory": "cut-the-rope",
+		"image": "rope.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Cut the Rope: Holiday Gift",
+		"directory": "ctr-hg",
+		"image": "game/holiday-gift/k9aatx1o.bmp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Cut the Rope: Time Travel",
+		"directory": "ctr-time",
+		"image": "game/time.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "BitLife",
+		"directory": "bitlife",
+		"image": "game/logo.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "N-GON",
+		"directory": "n-gon",
+		"image": "game/splash.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Monkey Mart",
+		"directory": "monkeymart",
+		"image": "cover.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "A Dark Room",
+		"directory": "adarkroom",
+		"image": "cover.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Snowball.io",
+		"directory": "snowball.io",
+		"image": "game/img/unnamed.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Hole.io",
+		"directory": "hole.io",
+		"image": "game/imgupscaler.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Hole.io (Scratch)",
+		"directory": "hole.io-scratch",
+		"image": "game/scratch.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Smash Karts",
+		"directory": "smashkarts",
+		"image": "cover.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Draw the Hill",
+		"directory": "draw-the-hill",
+		"image": "game/icons/icon-512.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Retro Bowl",
+		"directory": "retrobowl",
+		"image": "WRM5Y1xZmzcCP1YtO5zl6G2g7CU5c5ZfjX4UVrgi1bpNgkfy-wuB-bQx3kkeRfaGYQ",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Fall Guys",
+		"directory": "fallguys",
+		"image": "game/splash.webp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Zombs Royale",
+		"directory": "zombs-royale",
+		"image": "game/zomb.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Getting Over it",
+		"directory": "gettingoverit",
+		"image": "game/splash.bmp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Terraria",
+		"directory": "Terraria",
+		"image": "game/8xurp269.bmp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Happy Glass",
+		"directory": "happyglass",
+		"image": "game/64zkudz0.bmp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Candy Crush",
+		"directory": "candycrush",
+		"image": "game/cfqdm2r4.bmp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Tomb of the Mask",
+		"directory": "tombmask",
+		"image": "V3M-ZVyu4NCOR8oxeHEQSrt5LJhu44xlDtIx-d3YnrPCMEvV-lxPJDyWoJkxsS1Soxsx",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Granny",
+		"directory": "granny",
+		"image": "cover.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Gravity Driver",
+		"directory": "gravitydriver",
+		"image": "cover.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Drift Boss",
+		"directory": "driftboss",
+		"image": "cover.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Happy Wheels",
+		"directory": "happywheels",
+		"image": "SV8RsV5udSeeONjatT5SwleP6lzV6PjtNPs2VvyohJXWSG9fFLNOfslDEHbpDN337wQ",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Mr Bullet",
+		"directory": "mr-bullet",
+		"image": "cover.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Burger & Frights",
+		"directory": "burger-frights",
+		"image": "Wda88F.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Make sure it's closed",
+		"directory": "msic",
+		"image": "bwGgYQ.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Run 1",
+		"directory": "run",
+		"image": "space-run-game.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Run 2",
+		"directory": "run2",
+		"image": "cover.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Run 3",
+		"directory": "run3",
+		"image": "favicon.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Basketball Stars",
+		"directory": "basketball-stars",
+		"image": "unnamed.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Getaway Shootout",
+		"directory": "getaway-shootout",
+		"image": "unnamed.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Vex 3",
+		"directory": "vex-3",
+		"image": "512x512bb.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Vex 4",
+		"directory": "vex-4",
+		"image": "unnamed.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Vex 5",
+		"directory": "vex-5",
+		"image": "game/vex.jpeg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Vex 6",
+		"directory": "vex-6",
+		"image": "game/assets/icon.jpeg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Vex 7",
+		"directory": "vex-7",
+		"image": "game/assets/icon.jpeg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Big Tower",
+		"directory": "big-tower",
+		"image": "splash.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Big Tower 2",
+		"directory": "big-tower2",
+		"image": "splash.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Big Flappy Tower",
+		"directory": "big-flappy-tower",
+		"image": "512x512bb.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Big Neon Tower",
+		"directory": "big-neon-tower",
+		"image": "unnamed.jpg",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Duck Life",
+		"directory": "duck-life",
+		"image": "AUGkRrKMtUCLVE9vCvlfMY9Ny9EBqzx17yejVtEEhvpkw-H6lJlvBHgCMqPJm8HV_tM",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Henry Stickmin",
+		"directory": "hs",
+		"image": "splash.bmp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Henry Stickmin 2",
+		"directory": "hs2",
+		"image": "splash.bmp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Henry Stickmin 3",
+		"directory": "hs3",
+		"image": "splash.bmp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Henry Stickmin 4",
+		"directory": "hs4",
+		"image": "splash.bmp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Henry Stickmin 5",
+		"directory": "hs5",
+		"image": "splash.bmp",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Awesome Tanks",
+		"directory": "awesometanks",
+		"image": "game/game.png",
+		"source": "Hypackel"
+	},
+	{
+		"name": "Awesome Tanks 2",
+		"directory": "awesometanks-2",
+		"image": "game/game.png",
+		"source": "Hypackel"
 	}
 ]

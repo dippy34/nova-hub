@@ -40,7 +40,7 @@ function loadGames(data) {
 		// Check for custom imagePath first (for local favicons, etc.)
 		let imagePath = data[i].imagePath;
 		if (!imagePath) {
-			imagePath = source === "non-semag"
+			imagePath = (source === "non-semag" || source === "Hypackel")
 				? "/" + source + "/" + data[i].directory + "/" + data[i].image
 				: GAMES_BASE_URL + "/" + source + "/" + data[i].directory + "/" + data[i].image;
 		}

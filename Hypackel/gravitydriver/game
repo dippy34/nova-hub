@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        .swf-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="swf-container">
+        <embed height="100%" src="https://cdn.jsdelivr.net/gh/990099003/54@main/7676.swf" type="application/x-shockwave-flash" width="100%"></embed>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@ruffle-rs/ruffle"></script>
+</body>
+
+</html>

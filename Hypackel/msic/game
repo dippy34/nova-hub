@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | Make Sure It's Closed</title>
+    <script src="Build/UnityLoader.js"></script>
+    <script>
+      var gameInstance = UnityLoader.instantiate("gameContainer", "Build/MSIC-WEBGL.json");
+      
+      function resizeGameContainer() {
+        var container = document.getElementById("gameContainer");
+        container.style.width = window.innerWidth + "px";
+        container.style.height = window.innerHeight + "px";
+      }
+      
+      window.addEventListener("resize", resizeGameContainer);
+      window.addEventListener("load", resizeGameContainer);
+    </script>
+    <style>
+      body, html {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        height: 100%;
+      }
+      
+      #gameContainer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="gameContainer"></div>
+  </body>
+</html>
