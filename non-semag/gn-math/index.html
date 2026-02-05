@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GN-Math Games</title>
+    <style>
+        body { font-family: system-ui; padding: 2rem; background: #1a1a1a; color: #fff; }
+        h1 { margin-bottom: 1.5rem; }
+        .games { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1rem; }
+        a { display: block; padding: 1rem; background: #333; border-radius: 8px; text-align: center; color: #fff; text-decoration: none; }
+        a:hover { background: #444; }
+        img { width: 100%; height: 100px; object-fit: cover; border-radius: 4px; margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body>
+    <h1>GN-Math Games</h1>
+    <p>Select a game to play (cloned from <a href="https://github.com/gn-math/html" style="color:#8cf">gn-math/html</a>, <a href="https://github.com/gn-math/assets" style="color:#8cf">assets</a>, <a href="https://github.com/gn-math/covers" style="color:#8cf">covers</a>)</p>
+    <div class="games" id="games"></div>
+    <script>
+        const games = [319, 1, 2, 10, 101, 113, 116, 165, 200, 255];
+        const container = document.getElementById('games');
+        games.forEach(id => {
+            const a = document.createElement('a');
+            a.href = id + '.html';
+            a.innerHTML = '<img src="covers/' + id + '.png" onerror="this.style.display=\'none\'" alt=""><span>Game ' + id + '</span>';
+            container.appendChild(a);
+        });
+    </script>
+</body>
+</html>
