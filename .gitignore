@@ -5,13 +5,31 @@ test.sh
 dist/
 ga-service-account.json
 .env
+node_modules
 
-# Git internal files (nested repos, pack objects)
+# Git internal files (nested repos) - never commit these
 **/objects/
+**/objects/**/*
 **/*.pack
 **/*.idx
 **/*.rev
 **/hooks/
+**/hooks/**/*
 **/info/
+**/info/**/*
 **/logs/
+**/logs/**/*
 **/refs/
+**/refs/**/*
+**/packed-refs
+**/shallow
+
+# Bare-repo / nested .git internals (config, description, HEAD, index at repo root)
+non-semag/**/config
+non-semag/**/description
+non-semag/**/HEAD
+non-semag/**/index
+
+# non-semag: extra protection for cloned subrepo artifacts
+non-semag/**/objects/
+non-semag/**/*.pack
