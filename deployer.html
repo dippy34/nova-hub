@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html class="sl-theme-dark" lang="en">
+	<head>
+		<meta property="og:title" content="Nova Hub - Deployer" />
+		<meta property="description" content="Deploy GitHub repos for 30 minutes with a temporary URL." />
+		<meta content="/favicon.png" property="og:image" />
+		<meta content="#00d4ff" data-react-helmet="true" name="theme-color" />
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+
+		<script src="/js/all.min.js"></script>
+		<script src="/js/main.js"></script>
+		<script src="/js/widget.js"></script>
+		<script src="/js/gaming-navbar.js"></script>
+		<script src="/js/deployer.js"></script>
+
+		<link rel="stylesheet" href="/style.css" />
+		<link rel="stylesheet" href="/css/gaming-theme.css" />
+		<link rel="manifest" href="/manifest.json" />
+
+		<title>Nova Hub - Deployer</title>
+		<link rel="icon" href="/nova-favicon.ico" />
+		<style>
+			.deployer-container {
+				max-width: 700px;
+				margin: 0 auto;
+				padding: 20px;
+			}
+
+			.deploy-section {
+				background: #1a1a1a;
+				border: 1px solid #333;
+				border-radius: 8px;
+				padding: 24px;
+				margin-bottom: 20px;
+			}
+
+			.deploy-input-group {
+				display: flex;
+				flex-direction: column;
+				gap: 12px;
+				margin-bottom: 20px;
+			}
+
+			.deploy-input-group input,
+			.deploy-input-group label {
+				font-family: monospace;
+			}
+
+			.deploy-input-group input {
+				width: 100%;
+				padding: 12px;
+				background: #2a2a2a;
+				color: #00ff00;
+				border: 1px solid #444;
+				border-radius: 4px;
+				box-sizing: border-box;
+			}
+
+			.deploy-input-group input::placeholder {
+				color: #666;
+			}
+
+			.deploy-input-group label {
+				color: #aaa;
+				font-size: 14px;
+			}
+
+			.deploy-btn {
+				padding: 12px 24px;
+				background: #00ff00;
+				color: #000;
+				border: none;
+				border-radius: 4px;
+				font-weight: bold;
+				font-size: 16px;
+				cursor: pointer;
+			}
+
+			.deploy-btn:hover {
+				background: #00cc00;
+			}
+
+			.deploy-btn:disabled {
+				background: #555;
+				cursor: not-allowed;
+				color: #888;
+			}
+
+			.deploy-result {
+				margin-top: 24px;
+				padding: 20px;
+				background: #0a2a0a;
+				border: 1px solid #00aa00;
+				border-radius: 8px;
+				display: none;
+			}
+
+			.deploy-result.show {
+				display: block;
+			}
+
+			.deploy-result h3 {
+				color: #00ff00;
+				margin: 0 0 12px 0;
+				font-size: 18px;
+			}
+
+			.temp-url-row {
+				display: flex;
+				gap: 10px;
+				align-items: center;
+				margin: 12px 0;
+				flex-wrap: wrap;
+			}
+
+			.temp-url-row input {
+				flex: 1;
+				min-width: 200px;
+				padding: 10px 12px;
+				background: #0a0a0a;
+				color: #00ff00;
+				border: 1px solid #333;
+				border-radius: 4px;
+				font-family: monospace;
+				font-size: 14px;
+			}
+
+			.copy-btn {
+				padding: 10px 16px;
+				background: #0066cc;
+				color: #fff;
+				border: none;
+				border-radius: 4px;
+				font-weight: bold;
+				cursor: pointer;
+			}
+
+			.copy-btn:hover {
+				background: #0052a3;
+			}
+
+			.open-btn {
+				padding: 10px 16px;
+				background: #00ff00;
+				color: #000;
+				border: none;
+				border-radius: 4px;
+				font-weight: bold;
+				cursor: pointer;
+				text-decoration: none;
+				display: inline-block;
+			}
+
+			.open-btn:hover {
+				background: #00cc00;
+			}
+
+			.expires-in {
+				color: #aaa;
+				font-size: 14px;
+				margin-top: 12px;
+			}
+
+			.expires-in .countdown {
+				color: #ffaa00;
+				font-weight: bold;
+			}
+
+			.status-message {
+				padding: 12px;
+				margin: 12px 0;
+				border-radius: 4px;
+				display: none;
+			}
+
+			.status-message.show {
+				display: block;
+			}
+
+			.status-message.error {
+				background: #2a0000;
+				color: #ff6666;
+				border: 1px solid #aa0000;
+			}
+
+			.status-message.success {
+				background: #002a00;
+				color: #66ff66;
+				border: 1px solid #00aa00;
+			}
+
+			.help-text {
+				color: #777;
+				font-size: 13px;
+				margin-top: 6px;
+			}
+		</style>
+	</head>
+	<body class="gaming-theme">
+		<!-- Login Screen -->
+		<div id="login-screen" class="login-container">
+			<div class="admin-login-wrapper">
+				<div class="terminal-container admin-terminal">
+					<div class="terminal-header">
+						<div class="terminal-dot"></div>
+						<div class="terminal-dot"></div>
+						<div class="terminal-dot"></div>
+					</div>
+					<div class="terminal-line">
+						<span class="prompt">admin@nova:~$</span> <span class="command">deployer</span>
+					</div>
+					<div class="terminal-line">
+						<span class="output">Nova Hub Deployer</span>
+					</div>
+					<div class="terminal-line">
+						<span class="output">Please authenticate to continue</span>
+					</div>
+				</div>
+
+				<form id="login-form" class="admin-form">
+					<input type="password" id="login-password" placeholder="Password" required autocomplete="current-password" />
+					<button type="submit">Login</button>
+					<div id="login-error" class="error-message"></div>
+				</form>
+			</div>
+		</div>
+
+		<!-- Deployer Dashboard (hidden until login) -->
+		<main id="deployer-dashboard" style="display: none;">
+			<div class="terminal-container">
+				<div class="terminal-header">
+					<div class="terminal-dot"></div>
+					<div class="terminal-dot"></div>
+					<div class="terminal-dot"></div>
+				</div>
+				<div class="terminal-line">
+					<span class="prompt">admin@nova:~$</span> <span class="command">deploy</span>
+				</div>
+				<div class="terminal-line">
+					<span class="output">Deployer Active — GitHub repos, 30‑min temp URLs</span>
+				</div>
+			</div>
+
+			<button id="logout-btn" class="logout-button">Logout</button>
+			<a href="/admin.html" class="logout-button" style="margin-left: 10px; text-decoration: none; display: inline-block;">Back to Admin</a>
+
+			<div class="deployer-container">
+				<div class="deploy-section">
+					<h1 class="gaming-page-title">Deploy a GitHub repo</h1>
+					<p style="color: #aaa; margin-bottom: 20px;">Enter a GitHub repo URL or <code>owner/repo</code>. It will be available at a temporary URL for 30 minutes.</p>
+					<p style="color: #f90; margin-bottom: 16px; font-size: 14px;"><strong>Note:</strong> Repos over ~50 MB hit a CDN limit. For large repos, use a subpath (e.g. <code>dist</code>, <code>build</code>, <code>docs</code>) to deploy only that folder.</p>
+					
+					<div class="deploy-input-group">
+						<label for="repo-input">GitHub repo (URL or owner/repo)</label>
+						<input type="text" id="repo-input" placeholder="https://github.com/owner/repo or owner/repo" />
+						<span class="help-text">Examples: github.com/vercel/next.js or vercel/next.js</span>
+					</div>
+					<div class="deploy-input-group">
+						<label for="branch-input">Branch (optional)</label>
+						<input type="text" id="branch-input" placeholder="main" value="main" />
+					</div>
+					<div class="deploy-input-group">
+						<label for="subpath-input">Subpath (optional) — for large repos, deploy only this folder</label>
+						<input type="text" id="subpath-input" placeholder="e.g. dist, build, docs" />
+						<span class="help-text">Use if the whole repo is over ~50 MB. Example: <code>dist</code> serves only the dist/ folder.</span>
+					</div>
+
+					<button id="deploy-btn" class="deploy-btn">Deploy for 30 mins</button>
+					<div id="deploy-status" class="status-message"></div>
+					<div id="deploy-result" class="deploy-result">
+						<h3>Deployed — temporary URL</h3>
+						<div class="temp-url-row">
+							<input type="text" id="temp-url-display" readonly />
+							<button type="button" id="copy-url-btn" class="copy-btn">Copy</button>
+							<a id="open-url-btn" class="open-btn" href="#" target="_blank" rel="noopener">Open</a>
+						</div>
+						<div class="expires-in">Expires in <span id="countdown" class="countdown">30:00</span></div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</body>
+</html>
