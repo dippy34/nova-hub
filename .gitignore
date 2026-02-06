@@ -3,6 +3,8 @@ test.sh
 *.log
 *~
 dist/
+/semag/
+
 ga-service-account.json
 .env
 node_modules
@@ -33,3 +35,4 @@ non-semag/**/index
 # non-semag: extra protection for cloned subrepo artifacts
 non-semag/**/objects/
 non-semag/**/*.pack
+node_modules

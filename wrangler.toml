@@ -25,7 +25,7 @@ preview_id = "your-tokens-kv-preview-id"
 
 # R2 Buckets for file storage
 [[r2_buckets]]
-binding = "R2_SEMAG"
+binding = "semag"
 bucket_name = "nova-hub"  # R2 bucket containing both semag/ and non-semag/ directories
 
 # Environment variables (optional)

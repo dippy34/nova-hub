@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "scripts": {
     "start": "node index.js",
-    "build": "node scripts/pages-build.js"
+    "build": "node scripts/pages-build.js",
+    "dev": "npx serve --yes",
+    "dev:r2": "npm run build && npx wrangler pages dev dist --r2=semag"
   },
   "dependencies": {
     "dotenv": "^17.2.3",

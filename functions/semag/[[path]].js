@@ -1,7 +1,7 @@
 export async function onRequest({ params, env }) {
   const key = params.path.join("/")
 
-  const object = await env.R2_SEMAG.get(`semag/${key}`)
+  const object = await env.semag.get(`semag/${key}`)
 
   if (!object) {
     return new Response("Not found", { status: 404 })
