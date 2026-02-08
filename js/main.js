@@ -3,7 +3,7 @@ var interval;
 // Define setTheme globally before DOMContentLoaded
 function setTheme(theme) {
 	// Save theme to cookie instead of localStorage
-	setCookie("selenite.theme", theme);
+	setCookie("novahub.theme", theme);
 	
 	// Remove all theme classes first
 	document.body.classList.remove("gaming-theme", "cyberpunk-theme", "ocean-theme", "sunset-theme", "purple-theme");
@@ -49,18 +49,18 @@ window.setTheme = setTheme;
 document.addEventListener("DOMContentLoaded", function () {
 	// Migration: Move old localStorage theme to cookie if it exists
 	if (localStorage.getItem("theme")) {
-		setCookie("selenite.theme", localStorage.getItem("theme"));
+		setCookie("novahub.theme", localStorage.getItem("theme"));
 		localStorage.removeItem("theme");
 	}
-	if (localStorage.getItem("selenite.theme")) {
-		setCookie("selenite.theme", localStorage.getItem("selenite.theme"));
-		localStorage.removeItem("selenite.theme");
+	if (localStorage.getItem("novahub.theme")) {
+		setCookie("novahub.theme", localStorage.getItem("novahub.theme"));
+		localStorage.removeItem("novahub.theme");
 	}
 	
 	// Always remove all theme classes first to ensure clean state
 	document.body.classList.remove("gaming-theme", "cyberpunk-theme", "ocean-theme", "sunset-theme", "purple-theme");
 	
-	let savedTheme = getCookie("selenite.theme");
+	let savedTheme = getCookie("novahub.theme");
 	if (savedTheme) {
 		if (savedTheme === "code" || savedTheme === "default") {
 			document.body.classList.add("gaming-theme");
@@ -78,21 +78,21 @@ document.addEventListener("DOMContentLoaded", function () {
 			// Legacy theme support - default to code
 			document.body.classList.add("gaming-theme");
 			document.body.removeAttribute("theme");
-			setCookie("selenite.theme", "code");
+			setCookie("novahub.theme", "code");
 		}
 	} else {
 		// Default to code theme (gaming-theme)
 		document.body.classList.add("gaming-theme");
 		document.body.removeAttribute("theme");
-		setCookie("selenite.theme", "code");
+		setCookie("novahub.theme", "code");
 	}
 	if (document.querySelectorAll("[id=adcontainer]")) {
 		for (let i = 0; i < document.querySelectorAll("[id=adcontainer]").length; i++) {
-			const adblockEnabled = getCookie("selenite.adblock") == "true";
+			const adblockEnabled = getCookie("novahub.adblock") == "true";
 			// Migration: check localStorage too
-			if (localStorage.getItem("selenite.adblock") == "true") {
-				setCookie("selenite.adblock", "true");
-				localStorage.removeItem("selenite.adblock");
+			if (localStorage.getItem("novahub.adblock") == "true") {
+				setCookie("novahub.adblock", "true");
+				localStorage.removeItem("novahub.adblock");
 			}
 			if (Math.random() < 0.5 || adblockEnabled) document.querySelectorAll("[id=adcontainer]")[i].innerHTML = "";
 		}
@@ -102,49 +102,49 @@ document.addEventListener("DOMContentLoaded", function () {
 	const openBlank = document.getElementById("blank");
 	const bgTheme = document.querySelector("input#bgTheme");
 	// if (document.querySelector("widgetbot-crate")) {
-	// 	if (localStorage.getItem("selenite.discordIcon") == "true") {
+	// 	if (localStorage.getItem("novahub.discordIcon") == "true") {
 	// 		const widget = document.querySelector("widgetbot-crate");
 	// 		widget.setAttribute("style", "display:none");
 	// 	}
 	// }
 	if (document.querySelector("input#discordIcon")) {
 		// Migration: check localStorage first
-		if (localStorage.getItem("selenite.discordIcon") == "true") {
-			setCookie("selenite.discordIcon", "true");
-			localStorage.removeItem("selenite.discordIcon");
+		if (localStorage.getItem("novahub.discordIcon") == "true") {
+			setCookie("novahub.discordIcon", "true");
+			localStorage.removeItem("novahub.discordIcon");
 			iconSetting.checked = true;
-		} else if (getCookie("selenite.discordIcon") == "true") {
+		} else if (getCookie("novahub.discordIcon") == "true") {
 			iconSetting.checked = true;
 		}
 		iconSetting.addEventListener("click", () => {
-			setCookie("selenite.discordIcon", iconSetting.checked ? "true" : "false");
+			setCookie("novahub.discordIcon", iconSetting.checked ? "true" : "false");
 		});
 	}
 	if (document.querySelector("input#blockClose")) {
 		// Migration: check localStorage first
-		if (localStorage.getItem("selenite.blockClose") == "true") {
-			setCookie("selenite.blockClose", "true");
-			localStorage.removeItem("selenite.blockClose");
+		if (localStorage.getItem("novahub.blockClose") == "true") {
+			setCookie("novahub.blockClose", "true");
+			localStorage.removeItem("novahub.blockClose");
 			blockClose.checked = true;
-		} else if (getCookie("selenite.blockClose") == "true") {
+		} else if (getCookie("novahub.blockClose") == "true") {
 			blockClose.checked = true;
 		}
 		blockClose.addEventListener("click", () => {
-			setCookie("selenite.blockClose", blockClose.checked ? "true" : "false");
+			setCookie("novahub.blockClose", blockClose.checked ? "true" : "false");
 		});
 	}
 	const tabDisguise = document.querySelector("input#tabDisguise");
 	if (tabDisguise) {
 		// Migration: check localStorage first
-		if (localStorage.getItem("selenite.tabDisguise") == "true") {
-			setCookie("selenite.tabDisguise", "true");
-			localStorage.removeItem("selenite.tabDisguise");
+		if (localStorage.getItem("novahub.tabDisguise") == "true") {
+			setCookie("novahub.tabDisguise", "true");
+			localStorage.removeItem("novahub.tabDisguise");
 			tabDisguise.checked = true;
-		} else if (getCookie("selenite.tabDisguise") == "true") {
+		} else if (getCookie("novahub.tabDisguise") == "true") {
 			tabDisguise.checked = true;
 		}
 		tabDisguise.addEventListener("click", () => {
-			setCookie("selenite.tabDisguise", tabDisguise.checked ? "true" : "false");
+			setCookie("novahub.tabDisguise", tabDisguise.checked ? "true" : "false");
 		});
 	}
 	if (bgTheme) {
@@ -157,9 +157,9 @@ document.addEventListener("DOMContentLoaded", function () {
 			win.document.body.style.height = "100vh";
 			html = `
         <style>*{margin:0;padding:0;border:none}body,iframe{height:100vh;width:100vw}iframe{height:96vh}header{display:flex;height:4vh;justify-content:center;}button{margin-right:100px;height:100%;aspect-ratio: 1 / 1}#reload{background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'%3E%3Cpath d='M480-160q-134 0-227-93t-93-227q0-134 93-227t227-93q69 0 132 28.5T720-690v-110h80v280H520v-80h168q-32-56-87.5-88T480-720q-100 0-170 70t-70 170q0 100 70 170t170 70q77 0 139-44t87-116h84q-28 106-114 173t-196 67Z'/%3E%3C/svg%3E");background-size:cover;}#goBack{background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'%3E%3Cpath d='M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z'/%3E%3C/svg%3E");background-size:cover;}</style><script>
-        </script><header><button id=goBack></button><button id=reload></button></header><iframe id=selenite></iframe>`;
+        </script><header><button id=goBack></button><button id=reload></button></header><iframe id=novahub></iframe>`;
 		win.document.querySelector("html").innerHTML = html;
-		win.eval(`let selenite = document.getElementById("selenite");console.log(selenite);selenite.setAttribute("src", "${location.origin}");console.log(selenite);document.getElementById("goBack").addEventListener("click", function () {selenite.contentDocument.location.href = selenite.contentDocument.location.origin;});document.getElementById("reload").addEventListener("click", function () {selenite.contentDocument.location.href = selenite.contentDocument.location.href;})`);
+		win.eval(`let nh = document.getElementById("novahub");nh.setAttribute("src", "${location.origin}");document.getElementById("goBack").addEventListener("click", function () {nh.contentDocument.location.href = nh.contentDocument.location.origin;});document.getElementById("reload").addEventListener("click", function () {nh.contentDocument.location.href = nh.contentDocument.location.href;})`);
 		location.href = "https://google.com";
 		close();
 	});
@@ -167,9 +167,9 @@ document.addEventListener("DOMContentLoaded", function () {
 	if (typeof $ !== 'undefined' && $("#panicmode").length > 0) {
 		$("#panicmode").prop({ href: panicurl });
 	}
-	if (typeof $ !== 'undefined' && $(".seleniteminified").length > 0) {
-		$.get("https://raw.githubusercontent.com/skysthelimitt/selenite-optimized/main/build/bookmark.txt", function (data) {
-			$(".seleniteminified").prop({ href: data });
+	if (typeof $ !== 'undefined' && $(".novahubminified").length > 0) {
+		$.get("https://raw.githubusercontent.com/skysthelimitt/nova-hub-optimized/main/build/bookmark.txt", function (data) {
+			$(".novahubminified").prop({ href: data });
 		});
 		$.get("https://raw.githubusercontent.com/car-axle-client/car-axle-client/v10/dist/build.js", function (data) {
 			$(".caraxle").prop({ href: `javascript:${encodeURI(data)}` });
@@ -213,12 +213,12 @@ function setCloakCookie() {
 	document.cookie = "panicurl=" + $("#panic").val();
 }
 function setPassword() {
-	setCookie("selenite.password", enc.encode(document.getElementById("pass").value));
+	setCookie("novahub.password", enc.encode(document.getElementById("pass").value));
 }
 function delPassword() {
 	location.hash = "";
-	removeCookie("selenite.passwordAtt");
-	removeCookie("selenite.password");
+	removeCookie("novahub.passwordAtt");
+	removeCookie("novahub.password");
 }
 
 if (typeof $ !== 'undefined') {

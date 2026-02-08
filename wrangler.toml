@@ -1,4 +1,4 @@
-name = "selenite-api"
+name = "nova-hub-api"
 main = "functions/api/[[path]].js"
 compatibility_date = "2024-01-01"
 

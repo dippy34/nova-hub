@@ -1,5 +1,5 @@
 function customTheme() {
-	setCookie("selenite.theme", "custom");
+	setCookie("novahub.theme", "custom");
 	document.body.classList.remove("gaming-theme");
 	document.body.setAttribute("theme", "custom");
 	if (document.getElementById("customMenu")) {
@@ -11,11 +11,11 @@ function customTheme() {
 document.addEventListener("DOMContentLoaded", () => {
 	loadTheme();
 	// Migration: check localStorage first
-	if (localStorage.getItem("selenite.theme") == "custom") {
-		setCookie("selenite.theme", "custom");
-		localStorage.removeItem("selenite.theme");
+	if (localStorage.getItem("novahub.theme") == "custom") {
+		setCookie("novahub.theme", "custom");
+		localStorage.removeItem("novahub.theme");
 	}
-    if(getCookie("selenite.theme") == "custom"){
+    if(getCookie("novahub.theme") == "custom"){
         const customMenu = document.getElementById("customMenu");
         if (customMenu) {
             customMenu.style.display = "block";
@@ -80,13 +80,13 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 function loadTheme() {
 	// Migration: check localStorage first
-	if (localStorage.getItem("selenite.theme") == "custom" || getCookie("selenite.theme") == "custom") {
-		let theme = getCookie("selenite.customTheme");
+	if (localStorage.getItem("novahub.theme") == "custom" || getCookie("novahub.theme") == "custom") {
+		let theme = getCookie("novahub.customTheme");
 		// Migration: check localStorage
-		if (!theme && localStorage.getItem("selenite.customTheme")) {
-			theme = localStorage.getItem("selenite.customTheme");
-			setCookie("selenite.customTheme", theme);
-			localStorage.removeItem("selenite.customTheme");
+		if (!theme && localStorage.getItem("novahub.customTheme")) {
+			theme = localStorage.getItem("novahub.customTheme");
+			setCookie("novahub.customTheme", theme);
+			localStorage.removeItem("novahub.customTheme");
 		}
 		if (theme) {
 			try {
@@ -111,11 +111,11 @@ function changeTheme(name, value) {
         value = `url(${value})`;
     }
 	// Migration: check localStorage first
-	ogStyle = getCookie("selenite.customTheme");
-	if (!ogStyle && localStorage.getItem("selenite.customTheme")) {
-		ogStyle = localStorage.getItem("selenite.customTheme");
-		setCookie("selenite.customTheme", ogStyle);
-		localStorage.removeItem("selenite.customTheme");
+	ogStyle = getCookie("novahub.customTheme");
+	if (!ogStyle && localStorage.getItem("novahub.customTheme")) {
+		ogStyle = localStorage.getItem("novahub.customTheme");
+		setCookie("novahub.customTheme", ogStyle);
+		localStorage.removeItem("novahub.customTheme");
 	}
 	if (ogStyle) {
 		try {
@@ -128,12 +128,12 @@ function changeTheme(name, value) {
 			}
 		}
 		ogStyle[name] = value;
-		setCookie("selenite.customTheme", encodeURIComponent(JSON.stringify(ogStyle)));
+		setCookie("novahub.customTheme", encodeURIComponent(JSON.stringify(ogStyle)));
 		loadTheme();
 	} else {
 		ogStyle = {};
 		ogStyle[name] = value;
-		setCookie("selenite.customTheme", encodeURIComponent(JSON.stringify(ogStyle)));
+		setCookie("novahub.customTheme", encodeURIComponent(JSON.stringify(ogStyle)));
 		loadTheme();
 	}
 }

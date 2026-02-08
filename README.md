@@ -1,4 +1,4 @@
-# Nova Hub (Selenite)
+# Nova Hub
 
 **The better unblocked games website.** A web-based game hub with 900+ games, deployable to Cloudflare Pages, Railway, Render, and more.
 
@@ -19,7 +19,7 @@
 
 ## What is this?
 
-Nova Hub (internal name: **Selenite**) is a game portal that:
+Nova Hub is a game portal that:
 
 1. **Lists games** from `data/games.json` (name, cover, URL, source)
 2. **Shows a catalog** at `/projects.html` and `/games-list.html`
@@ -88,7 +88,7 @@ They work locally but are **not** deployed to Pages; they would need R2 or anoth
 ## Repo layout
 
 ```
-selenite/
+nova-hub/
 ├── index.html              # Homepage
 ├── projects.html           # Game catalog hub
 ├── games-list.html         # Full game grid

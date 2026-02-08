@@ -157,6 +157,43 @@ function removeCookie(cname) {
 window.getCookie = getCookie;
 window.setCookie = setCookie;
 window.removeCookie = removeCookie;
+
+// One-time migration: selenite.* -> novahub.* (cookies + localStorage)
+(function migrateSeleniteToNovahub() {
+	const map = {
+		"selenite.theme": "novahub.theme",
+		"selenite.customTheme": "novahub.customTheme",
+		"selenite.lastGame": "novahub.lastGame",
+		"selenite.blockClose": "novahub.blockClose",
+		"selenite.tabDisguise": "novahub.tabDisguise",
+		"selenite.discordIcon": "novahub.discordIcon",
+		"selenite.adblock": "novahub.adblock",
+		"selenite.password": "novahub.password",
+		"selenite.passwordAtt": "novahub.passwordAtt"
+	};
+	// Migrate cookies
+	const cookies = document.cookie.split("; ");
+	for (const c of cookies) {
+		const parts = c.trim().split("=");
+		if (parts.length >= 2 && map[parts[0]]) {
+			const newKey = map[parts[0]];
+			const val = parts.slice(1).join("=").trim();
+			if (!getCookie(newKey) && val) {
+				setCookie(newKey, val);
+			}
+			removeCookie(parts[0]);
+		}
+	}
+	// Migrate localStorage
+	for (const [oldKey, newKey] of Object.entries(map)) {
+		const val = localStorage.getItem(oldKey);
+		if (val !== null && !localStorage.getItem(newKey)) {
+			localStorage.setItem(newKey, val);
+		}
+		localStorage.removeItem(oldKey);
+	}
+})();
+
 let listofchars = "";
 document.addEventListener("keydown", (e) => {
 	listofchars = listofchars + e.key;
@@ -200,16 +237,16 @@ document.addEventListener(
 		plausible.setAttribute("event-domain", location.host)
 		plausible.setAttribute("defer", "");
 		plausible.setAttribute("src", "/js/analytics.js");
-		plausible.setAttribute("data-domain", "selenite.cc");
+		plausible.setAttribute("data-domain", "nova-hub.pages.dev");
 		document.head.appendChild(plausible);
 	},
 	false
 );
 // Migration: check both cookie and localStorage for blockClose
-let blockCloseEnabled = getCookie("selenite.blockClose") == "true";
-if (localStorage.getItem("selenite.blockClose") == "true") {
-	setCookie("selenite.blockClose", "true");
-	localStorage.removeItem("selenite.blockClose");
+let blockCloseEnabled = getCookie("novahub.blockClose") == "true";
+if (localStorage.getItem("novahub.blockClose") == "true") {
+	setCookie("novahub.blockClose", "true");
+	localStorage.removeItem("novahub.blockClose");
 	blockCloseEnabled = true;
 }
 if (location.pathname.substring(1).includes("semag") && blockCloseEnabled) {
@@ -220,10 +257,10 @@ if (location.pathname.substring(1).includes("semag") && blockCloseEnabled) {
 let visibilityTimeout = null;
 addEventListener("visibilitychange", (e) => {
 	// Migration: check both cookie and localStorage for tabDisguise
-	let tabDisguiseEnabled = getCookie("selenite.tabDisguise") == "true";
-	if (localStorage.getItem("selenite.tabDisguise") == "true") {
-		setCookie("selenite.tabDisguise", "true");
-		localStorage.removeItem("selenite.tabDisguise");
+	let tabDisguiseEnabled = getCookie("novahub.tabDisguise") == "true";
+	if (localStorage.getItem("novahub.tabDisguise") == "true") {
+		setCookie("novahub.tabDisguise", "true");
+		localStorage.removeItem("novahub.tabDisguise");
 		tabDisguiseEnabled = true;
 	}
 	if (tabDisguiseEnabled) {

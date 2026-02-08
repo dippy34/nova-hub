@@ -1,4 +1,4 @@
-# Simple HTTP Server for Selenite
+# Simple HTTP Server for Nova Hub
 param([int]$Port = 8000)
 
 $ErrorActionPreference = "Continue"

@@ -80,7 +80,7 @@
 				const adContainers = document.querySelectorAll("[id=adcontainer]");
 				if (adContainers.length > 0) {
 					for (let i = 0; i < adContainers.length; i++) {
-						if (Math.random() < 0.5 && localStorage.getItem("selenite.adblock") != "true") {
+						if (Math.random() < 0.5 && localStorage.getItem("novahub.adblock") != "true") {
 							adContainers[i].innerHTML = "";
 						}
 					}

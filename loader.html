@@ -93,7 +93,7 @@
 				try {
 					gameData = JSON.parse(decodeURIComponent(atob(document.location.hash.substring(1))));
 					// Save to cookie instead of localStorage
-					setCookie("selenite.lastGame", document.location.hash.substring(1));
+					setCookie("novahub.lastGame", document.location.hash.substring(1));
 					// Don't clear hash immediately - let it stay for navigation
 					return gameData;
 				} catch (e) {
@@ -102,14 +102,14 @@
 				}
 			} else {
 				// Try cookie first, then fallback to localStorage for migration
-				let lastGameHash = getCookie("selenite.lastGame");
+				let lastGameHash = getCookie("novahub.lastGame");
 				if (!lastGameHash) {
 					// Migration: check localStorage and move to cookie
-					const localStorageGame = localStorage.getItem("selenite.lastGame");
+					const localStorageGame = localStorage.getItem("novahub.lastGame");
 					if (localStorageGame) {
 						lastGameHash = localStorageGame;
-						setCookie("selenite.lastGame", lastGameHash);
-						localStorage.removeItem("selenite.lastGame"); // Remove after migration
+						setCookie("novahub.lastGame", lastGameHash);
+						localStorage.removeItem("novahub.lastGame"); // Remove after migration
 					}
 				}
 				if (lastGameHash) {
@@ -217,7 +217,7 @@
 			// If no game data found, try to keep the last game from cookie one more time
 			// This prevents redirect loop when cookie exists but parse failed
 			if (!gameData) {
-				const lastGameHash = getCookie("selenite.lastGame");
+				const lastGameHash = getCookie("novahub.lastGame");
 				if (lastGameHash) {
 					try {
 						gameData = JSON.parse(decodeURIComponent(atob(lastGameHash)));
@@ -225,7 +225,7 @@
 					} catch (e) {
 						console.error("Error loading last game from cookie:", e);
 						// Cookie might be corrupted, clear it
-						removeCookie("selenite.lastGame");
+						removeCookie("novahub.lastGame");
 					}
 				}
 			}
@@ -245,7 +245,7 @@
 			
 			// Ensure cookie is set even if we loaded from hash (for next time)
 			if (document.location.hash) {
-				setCookie("selenite.lastGame", document.location.hash.substring(1));
+				setCookie("novahub.lastGame", document.location.hash.substring(1));
 			}
 			
 			// Clear hash without firing hashchange (avoids double init / kick)

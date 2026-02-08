@@ -1,7 +1,7 @@
 // --- Config --- //
 var purecookieTitle = "Cookies."; // Title
 var purecookieDesc = "By using this website, you automatically accept that we use cookies."; // Description
-var purecookieLink = 'Selenite uses cookies to store settings and game progress. Selenite is also powered by Google Adsense and a self hosted instance of Plausible Analytics.'; // Cookiepolicy link
+var purecookieLink = 'Nova Hub uses cookies to store settings and game progress. Nova Hub is also powered by Google Adsense and a self hosted instance of Plausible Analytics.'; // Cookiepolicy link
 var purecookieButton = "Understood"; // Button text
 // ---        --- //
 

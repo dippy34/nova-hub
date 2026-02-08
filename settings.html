@@ -379,7 +379,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const themeSelect = document.getElementById('themeSelect');
     if (themeSelect) {
         // Load saved theme on page load
-        const savedTheme = localStorage.getItem('selenite.theme') || 'code';
+        const savedTheme = localStorage.getItem('novahub.theme') || 'code';
         themeSelect.value = savedTheme;
         
         // Apply theme when selection changes
@@ -391,7 +391,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.setTheme(selectedTheme);
             } else {
                 // Fallback if setTheme is not available
-                localStorage.setItem('selenite.theme', selectedTheme);
+                localStorage.setItem('novahub.theme', selectedTheme);
                 location.reload();
             }
         });

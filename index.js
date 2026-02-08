@@ -1335,7 +1335,7 @@ app.get('*', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Selenite is running on port ${port}`);
+  console.log(`Nova Hub is running on port ${port}`);
   console.log('\n--- Environment Variables Status ---');
   console.log(`GITHUB_TOKEN: ${process.env.GITHUB_TOKEN ? '✓ Set' : '✗ Not set'}`);
   console.log(`GITLAB_TOKEN: ${process.env.GITLAB_TOKEN ? '✓ Set' : '✗ Not set'}`);
