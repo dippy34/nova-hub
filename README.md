@@ -135,6 +135,11 @@ selenite/
 ├── sitemap.xml             # SEO sitemap (static; build overwrites in dist/)
 ├── robots.txt              # Crawler directives
 ├── _headers                # Security + cache headers
+├── _redirects               # URL redirects ( moved paths )
+├── hacks/                  # Hack source/docs (Big Ideas Math Bot, etc.)
+├── admin/                  # Admin tools (git-scanner, deployer, git-fetcher)
+├── tools/                  # Dev tools (dev-tools, backgrounds)
+├── legal/                  # Legal (dmca)
 └── docs/                   # Documentation
     ├── README.md           # Docs index
     └── tutorials/         # Setup guides

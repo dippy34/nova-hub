@@ -68,7 +68,9 @@ const PAGES = [
   '', 'index.html', 'projects.html', 'games-list.html', 'starred-games.html',
   'loader.html', 'about.html', 'apps.html', 'settings.html', 'suggest.html',
   'support.html', 'contact.html', 'privacy-policy.html', 'terms-of-service.html',
-  'cookie-policy.html', 'ad.html', 'blank.html', 'other.html'
+  'cookie-policy.html', 'ad.html', 'blank.html', 'other.html',
+  'admin/git-scanner.html', 'admin/deployer.html', 'admin/git-fetcher.html',
+  'tools/backgrounds.html', 'tools/dev-tools.html'
 ];
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

@@ -168,7 +168,16 @@ app.get('/blank', (req, res) => {
   res.sendFile(path.join(__dirname, 'blank.html'));
 });
 app.get('/backgrounds', (req, res) => {
-  res.sendFile(path.join(__dirname, 'backgrounds.html'));
+  res.redirect(301, '/tools/backgrounds.html');
+});
+app.get('/backgrounds.html', (req, res) => {
+  res.redirect(301, '/tools/backgrounds.html');
+});
+app.get('/tools/backgrounds', (req, res) => {
+  res.sendFile(path.join(__dirname, 'tools', 'backgrounds.html'));
+});
+app.get('/tools/dev-tools', (req, res) => {
+  res.sendFile(path.join(__dirname, 'tools', 'dev-tools.html'));
 });
 
 app.get('/admin', (req, res) => {
@@ -176,11 +185,22 @@ app.get('/admin', (req, res) => {
 });
 
 app.get('/admin-git-scanner', (req, res) => {
-  res.sendFile(path.join(__dirname, 'admin-git-scanner.html'));
+  res.redirect(301, '/admin/git-scanner.html');
 });
-
 app.get('/admin-git-scanner.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'admin-git-scanner.html'));
+  res.redirect(301, '/admin/git-scanner.html');
+});
+app.get('/admin/git-scanner', (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin', 'git-scanner.html'));
+});
+app.get('/admin/git-scanner.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin', 'git-scanner.html'));
+});
+app.get('/admin/deployer', (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin', 'deployer.html'));
+});
+app.get('/admin/git-fetcher', (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin', 'git-fetcher.html'));
 });
 
 // Helper functions

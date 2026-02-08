@@ -1,12 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 
+const ROOT = path.join(__dirname, '..');
+
 // Read games.json
-const gamesPath = path.join(__dirname, 'data', 'games.json');
+const gamesPath = path.join(ROOT, 'data', 'games.json');
 const games = JSON.parse(fs.readFileSync(gamesPath, 'utf8'));
 
 // Read zones.json to map game names to IDs
-const zonesPath = path.join(__dirname, 'gn-math-assets', 'zones.json');
+const zonesPath = path.join(ROOT, 'gn-math-assets', 'zones.json');
 const zonesData = JSON.parse(fs.readFileSync(zonesPath, 'utf8'));
 
 // Create map of game name to ID
@@ -21,7 +23,7 @@ zonesData.forEach(zone => {
 });
 
 // Check img directory
-const imgDir = path.join(__dirname, 'img');
+const imgDir = path.join(ROOT, 'img');
 const imgFiles = new Set();
 if (fs.existsSync(imgDir)) {
     fs.readdirSync(imgDir, { recursive: true }).forEach(file => {
@@ -30,7 +32,7 @@ if (fs.existsSync(imgDir)) {
 }
 
 // Check HTML files in gn-math-html
-const htmlDir = path.join(__dirname, 'gn-math-html');
+const htmlDir = path.join(ROOT, 'gn-math-html');
 const htmlFiles = new Set();
 if (fs.existsSync(htmlDir)) {
     fs.readdirSync(htmlDir).forEach(file => {
@@ -45,7 +47,7 @@ if (fs.existsSync(htmlDir)) {
 }
 
 // Check non-semag directory (local games)
-const nonSemagDir = path.join(__dirname, 'non-semag');
+const nonSemagDir = path.join(ROOT, 'non-semag');
 const localGameDirs = new Set();
 if (fs.existsSync(nonSemagDir)) {
     fs.readdirSync(nonSemagDir, { withFileTypes: true }).forEach(dirent => {
@@ -186,7 +188,7 @@ const report = {
 };
 
 fs.writeFileSync(
-    path.join(__dirname, 'game-status-report.json'),
+    path.join(ROOT, 'game-status-report.json'),
     JSON.stringify(report, null, 2)
 );
 

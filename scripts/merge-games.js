@@ -1,12 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 
+const ROOT = path.join(__dirname, '..');
+
 // Read zones.json from gn-math-assets
-const zonesPath = path.join(__dirname, 'gn-math-assets', 'zones.json');
+const zonesPath = path.join(ROOT, 'gn-math-assets', 'zones.json');
 const zonesData = JSON.parse(fs.readFileSync(zonesPath, 'utf8'));
 
 // Read current games.json
-const gamesPath = path.join(__dirname, 'data', 'games.json');
+const gamesPath = path.join(ROOT, 'data', 'games.json');
 const currentGames = JSON.parse(fs.readFileSync(gamesPath, 'utf8'));
 
 // Create a map of existing game names (normalized for comparison)
@@ -103,7 +105,7 @@ newGames.forEach(game => {
     const zone = zonesData.find(z => normalizeName(z.name) === normalizeName(game.name));
     if (zone && zone.id !== undefined && zone.id >= 0) {
         // Try gn-math-covers first (primary source for cover images)
-        const coversImage = path.join(__dirname, 'gn-math-covers', `${zone.id}.png`);
+        const coversImage = path.join(ROOT, 'gn-math-covers', `${zone.id}.png`);
         if (fs.existsSync(coversImage)) {
             imagesToCopy.push({
                 source: coversImage,
@@ -123,7 +125,7 @@ newGames.forEach(game => {
                 });
             } else {
                 // Try root level image with ID
-                const rootImage = path.join(__dirname, 'gn-math-assets', `${zone.id}.png`);
+                const rootImage = path.join(ROOT, 'gn-math-assets', `${zone.id}.png`);
                 if (fs.existsSync(rootImage)) {
                     imagesToCopy.push({
                         source: rootImage,

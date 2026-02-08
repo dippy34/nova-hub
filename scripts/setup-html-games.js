@@ -1,12 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 
+const ROOT = path.join(__dirname, '..');
+
 // Read zones.json to map game names to IDs
-const zonesPath = path.join(__dirname, 'gn-math-assets', 'zones.json');
+const zonesPath = path.join(ROOT, 'gn-math-assets', 'zones.json');
 const zonesData = JSON.parse(fs.readFileSync(zonesPath, 'utf8'));
 
 // Read games.json
-const gamesPath = path.join(__dirname, 'data', 'games.json');
+const gamesPath = path.join(ROOT, 'data', 'games.json');
 const games = JSON.parse(fs.readFileSync(gamesPath, 'utf8'));
 
 // Create map of directory to game ID
@@ -47,7 +49,7 @@ console.log(`Loaded ${htmlFiles.size} HTML files`);
 console.log(`Mapped ${directoryToId.size} game directories to IDs`);
 
 // Create semag directory structure
-const semagDir = path.join(__dirname, 'semag');
+const semagDir = path.join(ROOT, 'semag');
 if (!fs.existsSync(semagDir)) {
     fs.mkdirSync(semagDir, { recursive: true });
 }

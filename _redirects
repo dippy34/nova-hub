@@ -1,0 +1,8 @@
+# Redirects for reorganized paths (backwards compatibility)
+/admin-git-scanner.html /admin/git-scanner.html 301
+/admin-git-scanner /admin/git-scanner.html 301
+/deployer.html /admin/deployer.html 301
+/git-fetcher.html /admin/git-fetcher.html 301
+/dev-tools.html /tools/dev-tools.html 301
+/backgrounds /tools/backgrounds.html 301
+/backgrounds.html /tools/backgrounds.html 301
