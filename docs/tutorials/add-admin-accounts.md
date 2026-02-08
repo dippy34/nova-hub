@@ -1,4 +1,4 @@
-# How to Add Admin Accounts
+# Add Admin Accounts
 
 ## Quick Method (Easiest)
 
@@ -32,4 +32,3 @@ importAdminCredentials([
 - **Credentials stored in**: `data/admin-credentials.json`
 
 Passwords are automatically hashed and duplicate emails are skipped.
-

@@ -1,2 +1,12 @@
+# Nova Hub - Unblocked Games
+# https://nova-labs.pages.dev
+
 User-agent: *
 Allow: /
+
+# Sitemap (generated at build)
+Sitemap: https://nova-labs.pages.dev/sitemap.xml
+
+# Crawl delay not recommended - most crawlers ignore it
+# Disallow admin from indexing (optional - uncomment if desired)
+# Disallow: /admin.html

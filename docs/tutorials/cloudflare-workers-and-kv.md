@@ -1,6 +1,6 @@
-# Cloudflare Workers Setup Guide
+# Cloudflare Workers and KV Setup
 
-This guide will help you migrate your Express.js API to Cloudflare Workers.
+This guide will help you migrate your Express.js API to Cloudflare Workers and set up KV storage.
 
 ## Step 1: Create KV Namespaces
 
@@ -105,4 +105,3 @@ If you need to rollback:
 1. Your original `index.js` Express server is still in the repository
 2. You can deploy it to a Node.js hosting service (Railway, Render, etc.)
 3. Update your frontend API URLs to point to the new server
-

@@ -1,4 +1,4 @@
-# Admin Panel Setup Guide
+# Admin Panel Setup
 
 ## What Has Been Created
 
@@ -224,4 +224,3 @@ admin.html                    # Admin panel page
    - Migrate to database storage
    - Add more admin features (user management, content moderation, etc.)
    - Implement proper token expiration and refresh
-

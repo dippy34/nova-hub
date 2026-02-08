@@ -5,6 +5,11 @@ test.sh
 dist/
 /semag/
 
+# Junk / accidental files
+tatus
+t-Path assets
+git
+
 ga-service-account.json
 .env
 node_modules

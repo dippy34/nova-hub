@@ -1,21 +1,16 @@
 {
-    "name": "Nova Hub",
-    "short_name": "Nova Hub",
-    "start_url": "index.html",
-    "scope": "./",
-    "icons": [
-      {
-        "src": "img/selenite192.png",
-        "sizes": "192x192",
-        "type": "image/png"
-      },
-      {
-        "src": "img/selenite.png",
-        "sizes": "512x512",
-        "type": "image/png"
-      }
-    ],
-    "theme_color": "#ffffff",
-    "background_color": "#10002b",
-    "display": "standalone"
-  }
+  "name": "Nova Hub - Unblocked Games",
+  "short_name": "Nova Hub",
+  "description": "900+ unblocked games. Play free online games at school or home.",
+  "start_url": "/index.html",
+  "scope": "/",
+  "icons": [
+    { "src": "/nova-favicon.ico", "sizes": "48x48", "type": "image/x-icon" },
+    { "src": "/nova-favicon.ico", "sizes": "192x192", "type": "image/x-icon" },
+    { "src": "/nova-favicon.ico", "sizes": "512x512", "type": "image/x-icon" }
+  ],
+  "theme_color": "#c77dff",
+  "background_color": "#10002b",
+  "display": "standalone",
+  "categories": ["games", "entertainment"]
+}

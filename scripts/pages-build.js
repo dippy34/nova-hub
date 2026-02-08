@@ -61,5 +61,23 @@ for (const name of fs.readdirSync(ROOT)) {
   if (shouldExclude(s)) continue;
   copyRecurse(s, d);
 }
+
+// Generate sitemap.xml for SEO
+const SITE_URL = process.env.SITE_URL || 'https://nova-labs.pages.dev';
+const PAGES = [
+  '', 'index.html', 'projects.html', 'games-list.html', 'starred-games.html',
+  'loader.html', 'about.html', 'apps.html', 'settings.html', 'suggest.html',
+  'support.html', 'contact.html', 'privacy-policy.html', 'terms-of-service.html',
+  'cookie-policy.html', 'ad.html', 'blank.html', 'other.html'
+];
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${PAGES.map(p => {
+  const loc = p ? `${SITE_URL}/${p}` : SITE_URL + '/';
+  return `  <url><loc>${loc}</loc><changefreq>weekly</changefreq><priority>${p === '' ? '1.0' : p === 'index.html' ? '1.0' : p === 'projects.html' || p === 'games-list.html' ? '0.9' : '0.7'}</priority></url>`;
+}).join('\n')}
+</urlset>`;
+fs.writeFileSync(path.join(OUT, 'sitemap.xml'), sitemap);
 console.log('Pages build output written to dist/ (EscapeRoad, EscapeRoad2, EscapeRoadCity excluded).');
+console.log('sitemap.xml generated.');
 
